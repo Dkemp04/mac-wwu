@@ -10,22 +10,12 @@ import javax.swing.*;
 public class MainFrame extends JFrame implements ActionListener
 {
 	public static MainFrame obj = new MainFrame();
-	
 	public MainFrame ()
 	{
 		super("Travelling Salesman");
-		JPanel base = new JPanel();
-		base.setLayout(new BorderLayout());
-		base.setBorder(BorderFactory.createEtchedBorder());
-		JPanel controls = new JPanel();
-		JPanel display = new JPanel();
 		
-		Controlbar control = new Controlbar();
-		TabOrganisation tab_org = new TabOrganisation(display);
-		base.add(controls, BorderLayout.NORTH);
-		base.add(display, BorderLayout.CENTER);
-		getContentPane().add(base);
-		
+		Controlbar control = new Controlbar(this);
+		TabOrganisation tab_org = new TabOrganisation(this);
 	}
 	
 	public static void main(String[] args)
@@ -34,11 +24,10 @@ public class MainFrame extends JFrame implements ActionListener
 		obj=test;
 		test.setLocation(100,100);
 		test.setSize(640,480);
-	    test.pack();
+	    //test.pack();
 	    test.setVisible(true);
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{
 		
