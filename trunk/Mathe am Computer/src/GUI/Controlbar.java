@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Controlbar implements ActionListener
 {
-	public Controlbar ()
+	public Controlbar (Container base)
 	{
 		JMenuBar menubar = new JMenuBar();
 		JMenu data = new JMenu("Datei");
@@ -18,7 +18,7 @@ public class Controlbar implements ActionListener
 		advanced.add(options);
 		menubar.add(data);
 		menubar.add(advanced);
-		MainFrame.obj.add(menubar, BorderLayout.NORTH);
+		base.add(menubar, BorderLayout.NORTH);
 	}
 	
 	public void actionPerformed(ActionEvent event)
