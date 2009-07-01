@@ -5,7 +5,7 @@ public class NearestNeighbor extends Methode{
 	/**
 	 * Die Run-Methode des Lösungsverfahrens
 	 */
-	public void start(){
+	public void run(){
 		Point lastPoint = startingPoint;
 		while(this.unused >= 0)
 		{
@@ -21,12 +21,14 @@ public class NearestNeighbor extends Methode{
 				}
 			}
 			//Setzt den letzten Punkt um und fügt ihn ein
-			lastPoint = problemElement[position];
-			AddPoint(position);
+			lastPoint = problemElement[position];		
+			addHistory(lastPoint, "Der Punkt "+lastPoint+" hat die Distanz "+distance+" zum vorherigen Punkt, damit die geringste Distanz. Hiermit wird er als nächstes in die Route aufgenommen.");
+			addPoint(position);
 		}
 	}
 	
 	public NearestNeighbor(Problem problem){
 		super(problem);
-	}
+	}	
+	
 }

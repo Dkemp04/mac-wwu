@@ -1,8 +1,8 @@
 package Logik;
 
-//import junit.framework.TestCase;
+import junit.framework.TestCase;
 
-public class NearestTest /*extends TestCase*/ {
+public class NearestTest extends TestCase {
 	public void testNearest(){
 		Problem problem = new Problem();
 		try{
@@ -17,10 +17,14 @@ public class NearestTest /*extends TestCase*/ {
 			problem.AddPoint(new Point(8.0, 9.0));
 			problem.AddStartingPoint(new Point(11.0, 11.0));
 			NearestNeighbor neighbor = new NearestNeighbor(problem);
+			BranchAndBound branch = new BranchAndBound(problem);
+			branch.start();
 			neighbor.start();
-			while(neighbor.isAlive()){
-				wait(100);
+			while(neighbor.isAlive() || branch.isAlive()){
+				Thread.sleep(100);
 			}
+			System.out.println(neighbor);
+			System.out.println(branch);
 		}
 		catch(Exception e){}
 	}
