@@ -28,4 +28,8 @@ public class Point {
 	public double Distance(Point point){
 		return Math.sqrt((point.x-this.x)*(point.x-this.x)+(point.y-this.y)*(point.y-this.y));
 	}
+	
+	public String toString(){
+		return "("+x+";"+y+")";
+	}
 }
