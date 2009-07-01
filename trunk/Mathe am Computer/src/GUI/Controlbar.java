@@ -9,11 +9,13 @@ public class Controlbar implements ActionListener
 	{
 		JMenuBar menubar = new JMenuBar();
 		JMenu data = new JMenu("Datei");
+		JMenu newProblem = new JMenu("Neu");
 		JMenuItem save = new JMenuItem("Speichern");
 		JMenu advanced = new JMenu("Erweitert");
 		JMenuItem options = new JMenuItem("Optionen");
 		options.addActionListener(this);
 		
+		data.add(newProblem);
 		data.add(save);
 		advanced.add(options);
 		menubar.add(data);
@@ -25,8 +27,8 @@ public class Controlbar implements ActionListener
 	{
 		String cmd = event.getActionCommand();
 		if (cmd.equals("Optionen"))
-		{
-			new Options();
-		}
+		{			new Options();}
+		if (cmd.equals("Neu"))
+		{			new NewProblem();}
 	}
 }
