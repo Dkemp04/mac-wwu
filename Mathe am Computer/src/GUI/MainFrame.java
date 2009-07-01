@@ -14,8 +14,8 @@ public class MainFrame extends JFrame implements ActionListener
 	{
 		super("Travelling Salesman");
 		
-		Controlbar control = new Controlbar(this);
-		TabOrganisation tab_org = new TabOrganisation(this);
+		new Controlbar(this);
+		new TabOrganisation(this);
 	}
 	
 	public static void main(String[] args)
