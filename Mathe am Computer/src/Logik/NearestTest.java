@@ -1,8 +1,8 @@
 package Logik;
 
-import junit.framework.TestCase;
+//import junit.framework.TestCase;
 
-public class NearestTest extends TestCase {
+public class NearestTest /*extends TestCase*/ {
 	public void testNearest(){
 		Problem problem = new Problem();
 		try{
