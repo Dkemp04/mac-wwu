@@ -1,16 +1,21 @@
 package GUI;
 import java.awt.*;
+import java.util.*;
+
 import javax.swing.*;
 
 public class TabOrganisation
 {
-	public TabOrganisation(Container base)
+	JTabbedPane tabs;
+	LinkedList<JPanel> tabList = new LinkedList<JPanel>();
+	
+	public TabOrganisation(JFrame parent)
 	{
-		JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
-		tabs.addTab("Hinweise", new Tab("Hinweis"));
-		tabs.addTab("Warnungen", new Tab("Warnung"));		
-		tabs.addTab("Fehler", new Tab("Fehler"));
+		tabs = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
+		tabs.addTab("Hinweise", new JLabel("Hinweis"));
+		tabs.addTab("Warnungen", new JLabel("Warnung"));		
+		tabs.addTab("Fehler", new JLabel("Fehler"));
 		tabs.setSize(320, 240);
-		base.add(tabs, BorderLayout.SOUTH);
+		parent.add(tabs, BorderLayout.SOUTH);
 	}
 }
