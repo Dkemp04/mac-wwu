@@ -41,26 +41,11 @@ class Graph extends JPanel
 		}
 	}
 	
-	class MyMouseListener implements MouseListener
+	class MyMouseListener extends MouseAdapter
 	{
 		public void mouseClicked(MouseEvent m)
 		{
-			
-		}
-		
-		public void mouseEntered(MouseEvent m)
-		{
-			
-		}
-		
-		public void mouseExited(MouseEvent m)
-		{
-			
-		}
-		
-		public void mouseReleased(MouseEvent m)
-		{
-			
+			new Ellipse2D.Double(m.getX(), m.getY(), 1, 1);
 		}
 		
 		public void mousePressed(MouseEvent m)
@@ -72,5 +57,10 @@ class Graph extends JPanel
 				ellipse = new Ellipse2D.Double(x, y, ellipse.getWidth(), ellipse.getHeight());
 			}
 		}
+	}
+		
+	class MyMouseMotionListener extends MouseMotionAdapter
+	{
+			
 	}
 }
