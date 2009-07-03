@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class Options extends JFrame  implements ActionListener
+public class Options extends JDialog  implements ActionListener
 {
 	public Options ()
 	{
@@ -50,6 +50,7 @@ public class Options extends JFrame  implements ActionListener
 		        plaf = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";}
 		    
 			UIManager.setLookAndFeel(plaf);
+			SwingUtilities.updateComponentTreeUI(this);
 		    for (int i=0; i < JFrame.getFrames().length; i++)
 		    {
 		    	SwingUtilities.updateComponentTreeUI(JFrame.getFrames()[i]);
