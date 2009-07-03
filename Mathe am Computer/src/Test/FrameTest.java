@@ -6,7 +6,8 @@ import javax.swing.*;
 
 public class FrameTest extends JFrame implements ActionListener
 {
-  private static final String[] MONTHS = {
+	private static final long serialVersionUID = -2378851118179445922L;
+	private static final String[] MONTHS = {
     "Januar",    "Februar", "März",     "April",
     "Mai",       "Juni",    "Juli",     "August",
     "September", "Oktober", "November", "Dezember"
