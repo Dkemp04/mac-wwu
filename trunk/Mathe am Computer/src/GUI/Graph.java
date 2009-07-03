@@ -40,7 +40,7 @@ public class Graph extends JPanel
 	
 	private class DrawingCanvas extends Canvas
     {
-    	//Deklarierung der serialVersionUID für die serialisierbare Klasse Graph
+    	//Deklarierung der serialVersionUID für die serialisierbare Klasse DrawingCanvas
 		private static final long serialVersionUID = -7972492610172541422L;
 		
     	int x1, y1, x2, y2;
