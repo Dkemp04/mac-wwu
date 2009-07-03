@@ -1,5 +1,4 @@
-package GUI;
-import java.awt.event.*;
+package Test;
 import java.awt.geom.*;
 import java.awt.*;
 import javax.swing.*;
@@ -39,28 +38,5 @@ class Graph extends JPanel
 		    g2.drawOval(200, 200, 20, 20);
 		    g2.drawLine(117, 117, 203, 203);
 		}
-	}
-	
-	class MyMouseListener extends MouseAdapter
-	{
-		public void mouseClicked(MouseEvent m)
-		{
-			new Ellipse2D.Double(m.getX(), m.getY(), 1, 1);
-		}
-		
-		public void mousePressed(MouseEvent m)
-		{
-			if(ellipse.contains(m.getX(), m.getY(), ellipse.getWidth(), ellipse.getWidth()))
-			{
-				int x = m.getX();
-				int y = m.getY();
-				ellipse = new Ellipse2D.Double(x, y, ellipse.getWidth(), ellipse.getHeight());
-			}
-		}
-	}
-		
-	class MyMouseMotionListener extends MouseMotionAdapter
-	{
-			
 	}
 }
