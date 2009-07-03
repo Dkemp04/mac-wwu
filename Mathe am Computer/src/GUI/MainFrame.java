@@ -11,6 +11,9 @@ public class MainFrame extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 995601029595640937L;
 	
+	JDesktopPane desk = new JDesktopPane();
+	static MainFrame obj;
+	
 	public MainFrame ()
 	{
 		super("Travelling Salesman");
@@ -31,21 +34,11 @@ public class MainFrame extends JFrame implements ActionListener
 		
 		new Controlbar(this);
 		new TabOrganisation(this);
-		JDesktopPane desk = new JDesktopPane();
+		
 		desk.setBackground(Color.WHITE);
 		desk.setBorder(BorderFactory.createEtchedBorder());
-		ChildFrame child1 = new ChildFrame("Child 1");
-		child1.setLocation(30,30);
-		child1.setSize(200,150);
-		child1.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		child1.setVisible(true);
-		desk.add(child1);
-		ChildFrame child2 = new ChildFrame("Child 2");
-		child2.setLocation(230,30);
-		child2.setSize(200,150);
-		child2.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		child2.setVisible(true);
-		desk.add(child2);
+		addChildFrame("Child 1", 30, 30, 200, 150);
+		addChildFrame("Child 2", 230, 30, 200, 150);
 		getContentPane().add(desk, BorderLayout.CENTER);
 		addWindowListener(new WindowAdapter() {
 		      public void windowClosing(WindowEvent e) {
@@ -54,9 +47,20 @@ public class MainFrame extends JFrame implements ActionListener
 		    });
 	}
 	
+	public void addChildFrame (String title, int x, int y, int h, int w)
+	{
+		ChildFrame child = new ChildFrame(title);
+		child.setLocation(x,y);
+		child.setSize(h,w);
+		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		child.setVisible(true);
+		desk.add(child);
+	}
+	
 	public static void main(String[] args)
 	{
 		MainFrame test = new MainFrame();
+		obj = test;
 		test.setLocation(100,100);
 		test.setSize(640,480);
 	    //test.pack();

@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Controlbar implements ActionListener
 {
-	private JFrame parent;
+	public JFrame parent;
 	public Controlbar (JFrame base)
 	{
 		parent = base;

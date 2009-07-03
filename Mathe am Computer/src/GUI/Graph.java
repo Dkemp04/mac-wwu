@@ -14,26 +14,28 @@ public class Graph extends JPanel
 	private DrawingCanvas canvas;
 	private JLabel location;
 	private Cursor curCursor;
-
+	
 	public Graph(JFrame parent)
 	{
+		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläche
 		super();
 	    canvas = new DrawingCanvas();
 	    
-	    this.setLayout(new GridLayout(1, 2));
-	    location = new JLabel("");
-	    this.add(new Label("x,y: "+location.getText(), JLabel.LEFT), BorderLayout.SOUTH);
+	    //Einstellung des Frames und dessen Komponenten (Zeichenfläche und Koordinaten-Anzeige)
+	    this.setLayout(new BorderLayout());
+	    location = new JLabel("x,y: ");
+	    this.add(location, BorderLayout.SOUTH);
 	    this.add(canvas, BorderLayout.CENTER);
-	    setSize(600,300);
-	    setVisible(true);
+	    setSize(500,500);
 	}
 	
-	private void displayParameters()
+	//Anzeige der Koordinaten
+	private void displayCoordinates()
     {
 	    double x = canvas.selectedShape.getX();
 	    double y = canvas.selectedShape.getY();
-	    String locString = "(" + Double.toString(x) + ","+ Double.toString(y) + ")";
-	    location.setText(locString);
+	    String coords = "x,y: (" + Double.toString(x) + ","+ Double.toString(y) + ")";
+	    location.setText(coords);
     }
 	
 	private class DrawingCanvas extends Canvas
@@ -49,6 +51,7 @@ public class Graph extends JPanel
     	{
     		private Ellipse2D ellipse;
     		private double x, y, w, h;
+    		
 	    	public void draw(Graphics2D g2D)
 	    	{
 	    		g2D.draw(ellipse);
@@ -86,8 +89,6 @@ public class Graph extends JPanel
 	    
 	    public DrawingCanvas()
 	    {
-	    	ellipse.add(new SingleEllipse(20, 20, 100, 75));
-	    	ellipse.add(new SingleEllipse(80, 60, 100, 75));
 	    	setBackground(Color.LIGHT_GRAY);
 	    	addMouseListener(new MyMouseListener());
 	    	addMouseMotionListener(new MyMouseMotionListener());
@@ -96,6 +97,7 @@ public class Graph extends JPanel
 	    public void paint(Graphics g)
 	    {
 	    	Graphics2D g2D = (Graphics2D) g;
+	    	g2D.drawImage(getToolkit().getImage("Karte_Deutschland.jpg"),100,100,this);
 	    	for(SingleEllipse singleEllipse : ellipse)
 	    		singleEllipse.draw(g2D);
 	    	if (curCursor != null)
@@ -111,34 +113,28 @@ public class Graph extends JPanel
 	    		Iterator<SingleEllipse> itr = ellipse.iterator();  
 		      	SingleEllipse singleEllipse = null;
 		      	while(itr.hasNext() && singleEllipse == null)
-		      	{
 		    	  	singleEllipse = itr.next().select(e);
-		      	}
 		    	if (singleEllipse != null)
 		    	{
 			        selectedShape = singleEllipse;
-			        displayParameters();
+			        displayCoordinates();
 			      	curCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 		    	}
 		    	else
-		    	{ 
-		          location.setText("");
-		        }
+		          location.setText("x,y: ");
 		        x1 = e.getX();
 		        y1 = e.getY();
 		        timer = System.currentTimeMillis();
+		        canvas.repaint();
 		    }
 	    	
 		    public void mouseReleased(MouseEvent e)
 		    {
-		
 		    	if(selectedShape == null && System.currentTimeMillis()-timer <= 500)
-		      	{
-		        	ellipse.add(new SingleEllipse(e.getX(), e.getY(), 20, 20));
-		        }
+		        	ellipse.add(new SingleEllipse(e.getX(), e.getY(), 10, 10));
 		        curCursor = Cursor.getDefaultCursor();
 		    	selectedShape = null;
-		        location.setText("");
+		        location.setText("x,y: ");
 		        canvas.repaint();
 		    }
 	    }
@@ -157,7 +153,7 @@ public class Graph extends JPanel
 			        canvas.repaint();
 		        }
 		        if (selectedShape != null)
-		          displayParameters();
+		        	displayCoordinates();
 	    	}
 	    }
     } 
