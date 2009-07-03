@@ -5,8 +5,11 @@ import javax.swing.*;
 
 public class Options extends JDialog  implements ActionListener
 {
-	public Options ()
+	private static final long serialVersionUID = 473842935713197692L;
+
+	public Options (JFrame parent)
 	{
+		super(parent, "Optionen", true);
 		JPanel base = new JPanel();
 		base.setBorder(BorderFactory.createEtchedBorder()); 
 		JLabel header = new JLabel("Look-and-Feel");
@@ -28,8 +31,7 @@ public class Options extends JDialog  implements ActionListener
 		base.add(windows, BorderLayout.CENTER);
 		getContentPane().add(base);
 		
-		this.setTitle("Optionen");
-		this.setLocation((int) MainFrame.obj.getLocation().getX()+100,(int) MainFrame.obj.getLocation().getY()+100);
+		this.setLocation((int) parent.getLocation().getX()+100,(int) parent.getLocation().getY()+100);
 		this.setResizable(false);
 		this.setSize(500,65);
 		this.pack();

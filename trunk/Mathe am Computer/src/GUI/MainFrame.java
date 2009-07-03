@@ -10,7 +10,7 @@ import javax.swing.*;
 public class MainFrame extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 995601029595640937L;
-	public static MainFrame obj;
+	
 	public MainFrame ()
 	{
 		super("Travelling Salesman");
@@ -57,10 +57,8 @@ public class MainFrame extends JFrame implements ActionListener
 	public static void main(String[] args)
 	{
 		MainFrame test = new MainFrame();
-		obj = test;
 		test.setLocation(100,100);
 		test.setSize(640,480);
-		test.setResizable(false);
 	    //test.pack();
 	    test.setVisible(true);
 	}

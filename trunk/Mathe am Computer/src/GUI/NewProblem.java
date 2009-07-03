@@ -3,12 +3,13 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class NewProblem extends JFrame implements ActionListener
+public class NewProblem extends JDialog implements ActionListener
 {
 	private static final long serialVersionUID = 1691310154690553788L;
 
-	public NewProblem ()
+	public NewProblem (JFrame parent)
 	{
+		super(parent, "Neues Problem", true);
 		getContentPane().setLayout(new BorderLayout());
 		JPanel head = new JPanel();	
 		head.setLayout(new GridLayout(4,4));
@@ -66,7 +67,6 @@ public class NewProblem extends JFrame implements ActionListener
 		buttons.add(cancel);
 		buttons.add(accept);
 		
-		
 		getContentPane().add(new Label(""), BorderLayout.WEST);
 		getContentPane().add(new Label(""), BorderLayout.NORTH);
 		
@@ -78,18 +78,12 @@ public class NewProblem extends JFrame implements ActionListener
 		
 		getContentPane().add(new Label(""), BorderLayout.EAST);
 		getContentPane().add(new Label(""), BorderLayout.SOUTH);
-		
-		this.setTitle("Neues Problem");
+
 		this.setLocation(100,100);
 		this.setSize(500,65);
 		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
-	}
-	public static void main (String[] args)
-	{
-		NewProblem test = new NewProblem();
-		test.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent a)

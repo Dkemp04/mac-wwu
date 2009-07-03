@@ -5,14 +5,17 @@ import javax.swing.*;
 
 public class Controlbar implements ActionListener
 {
-	public Controlbar (Container base)
+	private JFrame parent;
+	public Controlbar (JFrame base)
 	{
+		parent = base;
 		JMenuBar menubar = new JMenuBar();
 		JMenu data = new JMenu("Datei");
 		JMenuItem newProblem = new JMenuItem("Neu");
 		JMenuItem save = new JMenuItem("Speichern");
 		JMenu advanced = new JMenu("Erweitert");
 		JMenuItem options = new JMenuItem("Optionen");
+		newProblem.addActionListener(this);
 		options.addActionListener(this);
 		
 		data.add(newProblem);
@@ -26,9 +29,11 @@ public class Controlbar implements ActionListener
 	public void actionPerformed(ActionEvent event)
 	{
 		String cmd = event.getActionCommand();
-		if (cmd.equals("Optionen"))
-		{			new Options();}
 		if (cmd.equals("Neu"))
-		{			new NewProblem();}
+		{			NewProblem problem = new NewProblem(parent);
+					problem.setAlwaysOnTop(true);
+					problem.setModal(true);}
+		if (cmd.equals("Optionen"))
+		{			new Options(parent);}
 	}
 }
