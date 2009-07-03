@@ -9,7 +9,7 @@ public class Controlbar implements ActionListener
 	{
 		JMenuBar menubar = new JMenuBar();
 		JMenu data = new JMenu("Datei");
-		JMenu newProblem = new JMenu("Neu");
+		JMenuItem newProblem = new JMenuItem("Neu");
 		JMenuItem save = new JMenuItem("Speichern");
 		JMenu advanced = new JMenu("Erweitert");
 		JMenuItem options = new JMenuItem("Optionen");

@@ -3,65 +3,103 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class NewProblem extends JFrame  implements ActionListener
+public class NewProblem extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1691310154690553788L;
+
 	public NewProblem ()
 	{
-		JPanel base = new JPanel();
-		base.setBorder(BorderFactory.createEtchedBorder()); 
-		JLabel header = new JLabel("Look-and-Feel");
-		header.setHorizontalAlignment(JButton.LEFT);
+		getContentPane().setLayout(new BorderLayout());
+		JPanel head = new JPanel();	
+		head.setLayout(new GridLayout(4,4));
+		JPanel base_center = new JPanel();
+		base_center.setLayout(new BorderLayout());
+		JTextField name = new JTextField();
+		JTextField anzahl_knoten = new JTextField();
+		Graph paint = new Graph();
 		
-		JButton metal = new JButton("Metal");
-		metal.addActionListener(this);
-		metal.setHorizontalAlignment(JButton.LEFT);
-		JButton motif = new JButton("Motif");
-		motif.addActionListener(this);
-		motif.setHorizontalAlignment(JButton.LEFT);
-		JButton windows = new JButton("Windows");
-		windows.addActionListener(this);
-		windows.setHorizontalAlignment(JButton.LEFT);
+		JPanel buttons = new JPanel();
 		
-		base.add(header, BorderLayout.WEST);
-		base.add(metal, BorderLayout.CENTER);
-		base.add(motif, BorderLayout.CENTER);
-		base.add(windows, BorderLayout.CENTER);
-		getContentPane().add(base);
+		JButton ok = new JButton("Ok");
+		ok.addActionListener(this);
+		JButton cancel = new JButton("Abbrechen");
+		cancel.addActionListener(this);
+		JButton accept = new JButton("Übernehmen");
+		accept.addActionListener(this);
 		
-		this.setTitle("Optionen");
-		this.setLocation((int) MainFrame.obj.getLocation().getX()+100,(int) MainFrame.obj.getLocation().getY()+100);
-		this.setResizable(false);
+		
+		JPanel center = new JPanel();
+		center.setLayout(new GridLayout(1,2));
+		JPanel heuristics = new JPanel();
+		heuristics.setLayout(new BoxLayout(heuristics, BoxLayout.Y_AXIS));
+		heuristics.setBorder(BorderFactory.createTitledBorder("Verfahren"));
+		JTextArea description = new JTextArea();
+		description.setEnabled(false);
+		description.setBorder(BorderFactory.createTitledBorder("Beschreibung"));
+		
+		JCheckBox bab = new JCheckBox("Branch-and-Bound");
+		heuristics.add(bab);
+		JCheckBox mst = new JCheckBox("Minimal Spanning Tree");
+		heuristics.add(mst);
+		JCheckBox sa = new JCheckBox("Simulated Annealing");
+		heuristics.add(sa);
+		JCheckBox sam = new JCheckBox("Selbst­organisierende Karte");
+		heuristics.add(sam);
+		JCheckBox ch = new JCheckBox("Christofides-Heuristik");
+		heuristics.add(ch);
+		JCheckBox koh = new JCheckBox("K-Opt-Heuristik");
+		heuristics.add(koh);
+		
+		
+		head.add(new JLabel("Name"));
+		head.add(name);
+		head.add(new JLabel(""));
+		head.add(new JLabel(""));
+		head.add(new JLabel("Anzahl Knoten"));
+		head.add(anzahl_knoten);
+		head.add(new JLabel(""));
+		
+		center.add(heuristics);
+		center.add(description);
+		
+		buttons.add(ok);
+		buttons.add(cancel);
+		buttons.add(accept);
+		
+		
+		getContentPane().add(new Label(""), BorderLayout.WEST);
+		getContentPane().add(new Label(""), BorderLayout.NORTH);
+		
+		base_center.add(head, BorderLayout.NORTH);
+		base_center.add(center, BorderLayout.CENTER);
+		base_center.add(buttons, BorderLayout.SOUTH);
+		getContentPane().add(base_center, BorderLayout.CENTER);
+		getContentPane().add(paint, BorderLayout.CENTER);
+		
+		getContentPane().add(new Label(""), BorderLayout.EAST);
+		getContentPane().add(new Label(""), BorderLayout.SOUTH);
+		
+		this.setTitle("Neues Problem");
+		this.setLocation(100,100);
 		this.setSize(500,65);
+		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
+	}
+	public static void main (String[] args)
+	{
+		NewProblem test = new NewProblem();
+		test.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent a)
 	{
 		String cmd = a.getActionCommand();
-		try
-		{
-			String plaf = "unknown";
-		    if (cmd.equals("Metal")) {
-		    	plaf = "javax.swing.plaf.metal.MetalLookAndFeel";}
-		    else if (cmd.equals("Motif")) {
-		    	plaf = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";}
-		    else if (cmd.equals("Windows")) {
-		        plaf = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";}
-		    
-			UIManager.setLookAndFeel(plaf);
-		    for (int i=0; i < JFrame.getFrames().length; i++)
-		    {
-		    	SwingUtilities.updateComponentTreeUI(JFrame.getFrames()[i]);
-		    }
-		}
-		catch (UnsupportedLookAndFeelException e) {
-			System.err.println(e.toString());}
-		catch (ClassNotFoundException e) {
-		    System.err.println(e.toString());}
-		catch (InstantiationException e) {
-		      System.err.println(e.toString());}
-		catch (IllegalAccessException e) {
-		      System.err.println(e.toString());}
+		if (cmd.equals("Ok")) {
+			this.setVisible(false);System.exit(0);}
+		else if (cmd.equals("Abbrechen")) {
+		    this.setVisible(false);System.exit(0);}
+		else if (cmd.equals("Übernehmen")) {
+			this.setVisible(false);System.exit(0);}
 	}
 }
