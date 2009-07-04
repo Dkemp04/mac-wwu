@@ -22,6 +22,7 @@ public class Controlbar implements ActionListener
 		JMenu advanced = new JMenu("Erweitert");
 		JMenuItem options = new JMenuItem("Optionen");
 		newProblem.addActionListener(this);
+		open.addActionListener(this);
 		exit.addActionListener(this);
 		options.addActionListener(this);
 		
@@ -45,8 +46,8 @@ public class Controlbar implements ActionListener
 					problem.setModal(true);}
 		if (cmd.equals("Öffnen"))
 		{
-			OpenDialog open = new OpenDialog();
-			Problem  openProblem = (Problem) open.open ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/", "Test2.tsp");
+			OpenDialog open_dialog = new OpenDialog();
+			Problem  openProblem = (Problem) open_dialog.open ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
 		}
 		if (cmd.equals("Speichern"))
 		{					}
