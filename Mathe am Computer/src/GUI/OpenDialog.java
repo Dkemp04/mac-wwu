@@ -1,47 +1,31 @@
 package GUI;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import javax.swing.*;
 import Persistenz.ObjectDeserialization;
 
 public class OpenDialog {
 
-    public static void main(String[] args)
+	public static void main(String[] args)
     {
     	OpenDialog op =  new OpenDialog();
-    	op.open("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/", "Test2.tsp");
+    	op.open("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
     }
     
-    public Object open(String path, String file)
+    public Object open(String home)
     {
-        JFileChooser chooser = new JFileChooser(path + file);
+        JFileChooser chooser = new JFileChooser(home);
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        File home = new File("/home");
-
-        chooser.setCurrentDirectory(home);
-
-        chooser.addPropertyChangeListener(new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent e) {
-                if (e.getPropertyName().equals(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY) || e.getPropertyName().equals(JFileChooser.DIRECTORY_CHANGED_PROPERTY)) {
-                    File f = (File) e.getNewValue();
-                }
-            }
-        });
+        chooser.setCurrentDirectory(new File (home));
 
         chooser.setVisible(true);
         int result = chooser.showOpenDialog(null);
         
-        return new ObjectDeserialization(file);
-        
-        /*if (result == JFileChooser.APPROVE_OPTION) {
-            File inputVerzFile = chooser.getSelectedFile();
-            String inputVerzStr = inputVerzFile.getPath();
-            System.out.println("Eingabepfad:" + inputVerzStr);
-        }
-        System.out.println("Abbruch");
-        chooser.setVisible(false);*/
+        Object obj = new Object();
+        if (result == JFileChooser.APPROVE_OPTION) {
+            obj = new ObjectDeserialization().open(chooser.getSelectedFile().toString());}
+        chooser.setVisible(false);
+        return obj;
     }
 }
