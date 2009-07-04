@@ -32,39 +32,50 @@ public class Graph extends JPanel
 	//Anzeige der Koordinaten
 	private void displayCoordinates()
     {
-	    double x = canvas.selectedShape.getX();
-	    double y = canvas.selectedShape.getY();
+	    double x = canvas.selectedEllipse.getX();
+	    double y = canvas.selectedEllipse.getY();
 	    String coords = "x,y: (" + Double.toString(x) + ","+ Double.toString(y) + ")";
 	    location.setText(coords);
     }
 	
-	private class DrawingCanvas extends Canvas
+	public int getEllipseCount ()
+	{
+		return canvas.ellipses.size();
+	}
+	
+	public LinkedList<Graph.DrawingCanvas.Ellipse> getEllipses ()
+	{
+		return canvas.ellipses;
+	}
+	
+	public class DrawingCanvas extends Canvas
     {
     	//Deklarierung der serialVersionUID für die serialisierbare Klasse DrawingCanvas
 		private static final long serialVersionUID = -7972492610172541422L;
 		
     	int x1, y1, x2, y2;
-    	LinkedList<SingleEllipse> ellipse = new LinkedList<SingleEllipse>();
-    	SingleEllipse selectedShape;
+    	LinkedList<Ellipse> ellipses = new LinkedList<Ellipse>();
+    	Ellipse selectedEllipse;
     
-    	private class SingleEllipse
+    	public class Ellipse
     	{
     		private Ellipse2D ellipse;
     		private double x, y, w, h;
     		
+	    	public Ellipse(double x, double y)
+	    	{
+	    		this.x = x;
+	    		this.y = y;
+	    		this.w = 10;
+	    		this.h = 10;
+	    		ellipse = new Ellipse2D.Double(x,y,w,h);
+	        }
+	    	
 	    	public void draw(Graphics2D g2D)
 	    	{
 	    		g2D.draw(ellipse);
 	    	}
 	    	
-	    	public SingleEllipse(double x, double y, double w, double h)
-	    	{
-	    		this.x = x;
-	    		this.y = y;
-	    		this.w = w;
-	    		this.h = h;
-	    		ellipse = new Ellipse2D.Double(x,y,w,h);
-	        }
 	    	public void updateData(double x, double y)
 	    	{
 	    		this.x = x;
@@ -72,7 +83,7 @@ public class Graph extends JPanel
 	    		ellipse = new Ellipse2D.Double(x,y,w,h);
 	        }
 	    	
-	    	public SingleEllipse select(MouseEvent e)
+	    	public Ellipse select(MouseEvent e)
 	    	{
 	    		if (ellipse.contains(e.getX(), e.getY()))
 	    			return this;
@@ -98,8 +109,8 @@ public class Graph extends JPanel
 	    {
 	    	Graphics2D g2D = (Graphics2D) g;
 	    	g2D.drawImage(getToolkit().getImage("Karte_Deutschland.jpg"),100,100,this);
-	    	for(SingleEllipse singleEllipse : ellipse)
-	    		singleEllipse.draw(g2D);
+	    	for(Ellipse ellipse : ellipses)
+	    		ellipse.draw(g2D);
 	    	if (curCursor != null)
 	    		setCursor(curCursor);
 	    }
@@ -110,13 +121,13 @@ public class Graph extends JPanel
 	    	
 	    	public void mousePressed(MouseEvent e)
 	    	{
-	    		Iterator<SingleEllipse> itr = ellipse.iterator();  
-		      	SingleEllipse singleEllipse = null;
-		      	while(itr.hasNext() && singleEllipse == null)
-		    	  	singleEllipse = itr.next().select(e);
-		    	if (singleEllipse != null)
+	    		Iterator<Ellipse> itr = ellipses.iterator();  
+	    		Ellipse ellipse = null;
+		      	while(itr.hasNext() && ellipse == null)
+		      		ellipse = itr.next().select(e);
+		    	if (ellipse != null)
 		    	{
-			        selectedShape = singleEllipse;
+		    		selectedEllipse = ellipse;
 			        displayCoordinates();
 			      	curCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 		    	}
@@ -130,10 +141,10 @@ public class Graph extends JPanel
 	    	
 		    public void mouseReleased(MouseEvent e)
 		    {
-		    	if(selectedShape == null && System.currentTimeMillis()-timer <= 500)
-		        	ellipse.add(new SingleEllipse(e.getX(), e.getY(), 10, 10));
+		    	if(selectedEllipse == null && System.currentTimeMillis()-timer <= 500)
+		    		ellipses.add(new Ellipse(e.getX(), e.getY()));
 		        curCursor = Cursor.getDefaultCursor();
-		    	selectedShape = null;
+		        selectedEllipse = null;
 		        location.setText("x,y: ");
 		        canvas.repaint();
 		    }
@@ -143,18 +154,18 @@ public class Graph extends JPanel
 	    {
 	    	public void mouseDragged(MouseEvent e)
 	    	{
-		        if (selectedShape != null)
+		        if (selectedEllipse != null)
 		        {
 			        x2 = e.getX();
 			        y2 = e.getY();
-			        selectedShape.updateData(selectedShape.getX() + x2 - x1,selectedShape.getY() + y2 - y1);
+			        selectedEllipse.updateData(selectedEllipse.getX() + x2 - x1,selectedEllipse.getY() + y2 - y1);
 			        x1 = x2;
 			        y1 = y2;
 			        canvas.repaint();
 		        }
-		        if (selectedShape != null)
+		        if (selectedEllipse != null)
 		        	displayCoordinates();
 	    	}
 	    }
-    } 
+    }
 }

@@ -37,19 +37,18 @@ public class MainFrame extends JFrame implements ActionListener
 		
 		desk.setBackground(Color.WHITE);
 		desk.setBorder(BorderFactory.createEtchedBorder());
-		addChildFrame("Child 1", 30, 30, 200, 150);
-		addChildFrame("Child 2", 230, 30, 200, 150);
+		addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
+		addChildFrame(new JPanel(), "Child 2", 230, 30, 200, 150);
 		getContentPane().add(desk, BorderLayout.CENTER);
 		addWindowListener(new WindowAdapter() {
-		      public void windowClosing(WindowEvent e) {
-		        System.exit(0);
-		      }
-		    });
+		      public void windowClosing(WindowEvent e)
+		      {		System.exit(0);}});
 	}
 	
-	public void addChildFrame (String title, int x, int y, int h, int w)
+	public void addChildFrame (JPanel content, String title, int x, int y, int h, int w)
 	{
 		ChildFrame child = new ChildFrame(title);
+		child.setContentPane(content);
 		child.setLocation(x,y);
 		child.setSize(h,w);
 		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);

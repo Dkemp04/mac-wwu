@@ -1,11 +1,14 @@
 package Logik;
+import java.io.*;
 import java.util.*;
 
 /**
  * @author s_pich02
  *
  */
-public class Problem {
+public class Problem implements Serializable {
+	private static final long serialVersionUID = 3162051159131130553L;
+	
 	private Point startingPoint = null;
 	private LinkedList<Point> points = new LinkedList<Point>();
 	

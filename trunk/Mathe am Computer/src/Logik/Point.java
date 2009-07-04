@@ -1,11 +1,16 @@
 package Logik;
 
+import java.io.Serializable;
+
 /**
  * Eine Datenhaltungsklasse für einen Punkt
  * @author s_pich02
  *
  */
-public class Point {
+public class Point implements Serializable {
+
+	private static final long serialVersionUID = -708337457805310089L;
+	
 	private double x;
 	private double y;
 	
