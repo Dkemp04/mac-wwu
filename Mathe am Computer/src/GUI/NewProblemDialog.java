@@ -2,8 +2,11 @@ package GUI;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+import Logik.Problem;
+import Logik.Point;
+import Persistenz.ObjectSerialization;
 
-public class NewProblem extends JDialog implements ActionListener
+public class NewProblemDialog extends JDialog implements ActionListener
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse NewProblem
 	private static final long serialVersionUID = 1691310154690553788L;
@@ -43,7 +46,7 @@ public class NewProblem extends JDialog implements ActionListener
 	JPanel step2;
 	JPanel center1;
 
-	public NewProblem (JFrame parent)
+	public NewProblemDialog (JFrame parent)
 	{
 		//Einstellung des Fensters (Vater-Fenster, Titel, Modal-Eigenschaft)
 		super(parent, "Neues Problem", true);
@@ -187,8 +190,9 @@ public class NewProblem extends JDialog implements ActionListener
 		center2.add(map, BorderLayout.CENTER);
 		center2.add(buttons2, BorderLayout.SOUTH);
 		
-		new WhitespaceFrame(step2, center2);
+		//new WhitespaceFrame(step2, center2);
 		
+		step2 = center2;
 		
 		steps.addTab("Heuristik", step1);
 		steps.addTab("Koordinaten", step2);
@@ -234,8 +238,32 @@ public class NewProblem extends JDialog implements ActionListener
 			int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);
 			if (choice == JOptionPane.YES_OPTION)
 			{
-				//((MainFrame) this.getParent().getParent()).addChildFrame("Test", 30, 30, 100, 100);
-				MainFrame.obj.addChildFrame(name.getText(), 30, 30, 100, 100);
+				/*((MainFrame) this.getParent().getParent()).addChildFrame("Test", 30, 30, 100, 100);
+				MouseAdapter[] mls = (MouseAdapter[])(map.getListeners(MouseAdapter.class));
+				MouseMotionAdapter[] mmls = (MouseMotionAdapter[])(map.getListeners(MouseMotionAdapter.class));
+				MyMouseListener[] mls = (MyMouseListener[]) map.getListeners(Graph.DrawingCanvas.MyMouseListener.class);
+				map.removeMouseListener(mls[0]);
+				MyMouseMotionListener[] mmls = (MyMouseMotionListener[]) map.getListeners(Graph.DrawingCanvas.MyMouseMotionListener.class);
+				map.removeMouseMotionListener(mmls[0]);
+				
+				map.removeMouseListener(map.getMouseListeners()[0]);
+				map.removeMouseMotionListener(map.getMouseMotionListeners()[0]);
+				
+				for (int i=0; i<map.getMouseMotionListeners().length; i++)
+				{
+					System.out.println(map.getMouseMotionListeners()[i]);
+				}*/
+				Problem newProblem = new Problem();
+				for (int i = 0; i < map.getEllipseCount(); i++)
+				{
+					try {
+						newProblem.AddPoint(new Point(map.getEllipses().get(i).getX(),0.0));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				new ObjectSerialization(name.getText(), newProblem);
+				MainFrame.obj.addChildFrame(map, name.getText(), map.getX(), map.getY(), 300, 300);
 				this.dispose();
 			}
 		}
