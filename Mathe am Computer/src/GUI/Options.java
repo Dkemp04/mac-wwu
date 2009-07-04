@@ -33,8 +33,7 @@ public class Options extends JDialog  implements ActionListener
 		
 		this.setLocation((int) parent.getLocation().getX()+100,(int) parent.getLocation().getY()+100);
 		this.setResizable(false);
-		this.setSize(500,65);
-		this.pack();
+		this.setSize(350,65);
 		this.setVisible(true);
 	}
 	

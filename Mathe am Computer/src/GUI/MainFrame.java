@@ -45,15 +45,16 @@ public class MainFrame extends JFrame implements ActionListener
 		      {		System.exit(0);}});
 	}
 	
-	public void addChildFrame (JPanel content, String title, int x, int y, int h, int w)
+	public ChildFrame addChildFrame (JPanel content, String title, double x, double y, double h, double w)
 	{
 		ChildFrame child = new ChildFrame(title);
 		child.setContentPane(content);
-		child.setLocation(x,y);
-		child.setSize(h,w);
+		child.setLocation((int) x, (int) y);
+		child.setSize((int) h, (int) w);
 		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		child.setVisible(true);
 		desk.add(child);
+		return child;
 	}
 	
 	public static void main(String[] args)

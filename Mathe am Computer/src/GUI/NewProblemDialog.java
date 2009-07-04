@@ -14,7 +14,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Erzeugung der Zeichenfläche
 	Graph map;
 	JTabbedPane steps;
-
+	JFrame parent;
 	JTextField name;
 	
 	//Deklarierung der Buttons und des zugehörigen Panel im ersten Schritt der Problemerstellung
@@ -50,7 +50,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	{
 		//Einstellung des Fensters (Vater-Fenster, Titel, Modal-Eigenschaft)
 		super(parent, "Neues Problem", true);
-		
+		this.parent = parent;
 		map = new Graph(parent);
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
@@ -179,9 +179,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center1.add(heuristics, BorderLayout.CENTER);
 		center1.add(buttons1, BorderLayout.SOUTH);
 		
-		new WhitespaceFrame(step1, center1);
-		
-		
 		step2 = new JPanel();
 		JPanel center2 = new JPanel();
 		map.setBorder(BorderFactory.createEtchedBorder());
@@ -190,12 +187,9 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center2.add(map, BorderLayout.CENTER);
 		center2.add(buttons2, BorderLayout.SOUTH);
 		
-		//new WhitespaceFrame(step2, center2);
-		
-		step2 = center2;
-		
-		steps.addTab("Heuristik", step1);
-		steps.addTab("Koordinaten", step2);
+		steps.addTab("Heuristik", new WhitespaceFrame().decorate(step1, center1));
+		steps.addTab("Koordinaten", new WhitespaceFrame().decorate(step2, center2));
+		steps.setEnabledAt(1, false);
 		setContentPane(steps);
 		
 		
@@ -229,7 +223,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			{
 				steps.setSelectedIndex(steps.getSelectedIndex() + 1);
 				if (steps.getTitleAt(steps.getSelectedIndex()) == "Koordinaten")
+				{
+					steps.setEnabledAt(1, true);
 					this.setSize(map.getHeight() + 100, map.getWidth());
+				}
 				this.repaint();
 			}
 		}
@@ -257,13 +254,13 @@ public class NewProblemDialog extends JDialog implements ActionListener
 				for (int i = 0; i < map.getEllipseCount(); i++)
 				{
 					try {
-						newProblem.AddPoint(new Point(map.getEllipses().get(i).getX(),0.0));
+						newProblem.AddPoint(new Point(map.getEllipses().get(i).getX(),map.getEllipses().get(i).getY()));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 				new ObjectSerialization(name.getText(), newProblem);
-				MainFrame.obj.addChildFrame(map, name.getText(), map.getX(), map.getY(), 300, 300);
+				((MainFrame) parent).addChildFrame(map, "Test", map.getX() + 10, map.getY() + 10, 300, 300);
 				this.dispose();
 			}
 		}

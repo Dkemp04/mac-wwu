@@ -5,16 +5,15 @@ import javax.swing.*;
 public class WhitespaceFrame extends JPanel
 {
 	private static final long serialVersionUID = -1436071032096961816L;
-
-	public WhitespaceFrame (JPanel parent, JPanel child)
+	
+	public JPanel decorate (JPanel parent, JPanel center_child)
 	{
-		JPanel comp = new JPanel();
-		comp.setLayout(new BorderLayout());
-		comp.add(new Label(""), BorderLayout.WEST);
-		comp.add(new Label(""), BorderLayout.NORTH);
-		comp.add(new Label(""), BorderLayout.EAST);
-		comp.add(new Label(""), BorderLayout.SOUTH);
-		comp.add(child, BorderLayout.CENTER);
-		parent.add(comp);
+		parent.setLayout(new BorderLayout());
+		parent.add(new Label(""), BorderLayout.WEST);
+		parent.add(new Label(""), BorderLayout.NORTH);
+		parent.add(new Label(""), BorderLayout.EAST);
+		parent.add(new Label(""), BorderLayout.SOUTH);
+		parent.add(center_child, BorderLayout.CENTER);
+		return parent;
 	}
 }

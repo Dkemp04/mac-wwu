@@ -37,4 +37,9 @@ public class Point implements Serializable {
 	public String toString(){
 		return "("+x+";"+y+")";
 	}
+	
+	public double getX()
+	{	return this.x;	}
+	public double getY()
+	{	return this.y;	}
 }
