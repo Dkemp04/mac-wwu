@@ -2,9 +2,7 @@ package GUI;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-
 import Logik.Problem;
-import Persistenz.ObjectDeserialization;
 
 public class Controlbar implements ActionListener
 {
@@ -48,6 +46,19 @@ public class Controlbar implements ActionListener
 		{
 			OpenDialog open_dialog = new OpenDialog();
 			Problem  openProblem = (Problem) open_dialog.open ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
+			Graph map = new Graph(parent);
+			double maxX = 0, maxY = 0;
+			for (int i = 0; i < openProblem.getPoints().size(); i++)
+			{
+				double curX = openProblem.getPoints().get(i).getX();
+				double curY = openProblem.getPoints().get(i).getY();
+				map.addEllipse(curX, curY);
+				if (curX > maxX)
+				{	maxX = curX;}
+				if (curY > maxY)
+				{	maxY = curY;}
+			}
+			((MainFrame) parent).addChildFrame(map, "Test", 10, 10, maxX*2, maxY*2);
 		}
 		if (cmd.equals("Speichern"))
 		{					}

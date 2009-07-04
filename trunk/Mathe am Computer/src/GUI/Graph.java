@@ -1,9 +1,14 @@
 package GUI;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Graph extends JPanel
@@ -23,10 +28,12 @@ public class Graph extends JPanel
 	    
 	    //Einstellung des Frames und dessen Komponenten (Zeichenfläche und Koordinaten-Anzeige)
 	    this.setLayout(new BorderLayout());
+	    canvas.setFocusable(false);
 	    location = new JLabel("x,y: ");
 	    this.add(location, BorderLayout.SOUTH);
 	    this.add(canvas, BorderLayout.CENTER);
 	    setSize(500,500);
+	    this.setVisible(true);
 	}
 	
 	//Anzeige der Koordinaten
@@ -43,64 +50,32 @@ public class Graph extends JPanel
 		return canvas.ellipses.size();
 	}
 	
-	public LinkedList<Graph.DrawingCanvas.Ellipse> getEllipses ()
+	public LinkedList<SingleEllipse> getEllipses ()
 	{
 		return canvas.ellipses;
 	}
+	
+	public void addEllipse (double x, double y)
+	{
+		this.canvas.ellipses.add(new SingleEllipse(x,y));
+	}
+	
+	
 	
 	public class DrawingCanvas extends Canvas
     {
     	//Deklarierung der serialVersionUID für die serialisierbare Klasse DrawingCanvas
 		private static final long serialVersionUID = -7972492610172541422L;
 		
-    	int x1, y1, x2, y2;
-    	LinkedList<Ellipse> ellipses = new LinkedList<Ellipse>();
-    	Ellipse selectedEllipse;
+    	double x1, y1, x2, y2;
+    	LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
+    	SingleEllipse selectedEllipse;
+    	BufferedImage background;
+    	Graphics2D g2;
     
-    	public class Ellipse
-    	{
-    		private Ellipse2D ellipse;
-    		private double x, y, w, h;
-    		
-	    	public Ellipse(double x, double y)
-	    	{
-	    		this.x = x;
-	    		this.y = y;
-	    		this.w = 10;
-	    		this.h = 10;
-	    		ellipse = new Ellipse2D.Double(x,y,w,h);
-	        }
-	    	
-	    	public void draw(Graphics2D g2D)
-	    	{
-	    		g2D.draw(ellipse);
-	    	}
-	    	
-	    	public void updateData(double x, double y)
-	    	{
-	    		this.x = x;
-	    		this.y = y;
-	    		ellipse = new Ellipse2D.Double(x,y,w,h);
-	        }
-	    	
-	    	public Ellipse select(MouseEvent e)
-	    	{
-	    		if (ellipse.contains(e.getX(), e.getY()))
-	    			return this;
-	    		return null;
-	    	}
-	    	
-	    	public Ellipse2D getEllipse(){return ellipse;}
-	    	public double getX(){return x;}
-	    	public double getY(){return y;}
-	    	public double getHeight(){return h;}
-	    	public double getWidth(){return w;}
-    	}
-    
-	    
 	    public DrawingCanvas()
 	    {
-	    	setBackground(Color.LIGHT_GRAY);
+	    	addComponentListener(new MyComponentAdapter());
 	    	addMouseListener(new MyMouseListener());
 	    	addMouseMotionListener(new MyMouseMotionListener());
 	    }
@@ -108,12 +83,22 @@ public class Graph extends JPanel
 	    public void paint(Graphics g)
 	    {
 	    	Graphics2D g2D = (Graphics2D) g;
-	    	g2D.drawImage(getToolkit().getImage("Karte_Deutschland.jpg"),100,100,this);
-	    	for(Ellipse ellipse : ellipses)
-	    		ellipse.draw(g2D);
+	    	for(SingleEllipse singleEllipse : ellipses)
+	    		singleEllipse.draw(g2D);
 	    	if (curCursor != null)
 	    		setCursor(curCursor);
+	    	if ( background != null )
+		    	g.drawImage(background, 0, 0, this);
+	    	g2 = background.createGraphics();
 	    }
+	    
+	    public void setImage(BufferedImage image) 
+		{ 
+		    this.background = image; 
+		    setPreferredSize(new Dimension(image.getWidth(), image.getHeight())); 
+		    repaint(); 
+		    invalidate();
+		}
 
 	    private class MyMouseListener extends MouseAdapter
 	    {
@@ -121,8 +106,8 @@ public class Graph extends JPanel
 	    	
 	    	public void mousePressed(MouseEvent e)
 	    	{
-	    		Iterator<Ellipse> itr = ellipses.iterator();  
-	    		Ellipse ellipse = null;
+	    		Iterator<SingleEllipse> itr = ellipses.iterator();  
+	    		SingleEllipse ellipse = null;
 		      	while(itr.hasNext() && ellipse == null)
 		      		ellipse = itr.next().select(e);
 		    	if (ellipse != null)
@@ -142,7 +127,10 @@ public class Graph extends JPanel
 		    public void mouseReleased(MouseEvent e)
 		    {
 		    	if(selectedEllipse == null && System.currentTimeMillis()-timer <= 500)
-		    		ellipses.add(new Ellipse(e.getX(), e.getY()));
+		    	{
+		    		SingleEllipse newEllipse = new SingleEllipse(e.getX(), e.getY());
+		    		ellipses.add(newEllipse);
+		    	}
 		        curCursor = Cursor.getDefaultCursor();
 		        selectedEllipse = null;
 		        location.setText("x,y: ");
@@ -167,5 +155,86 @@ public class Graph extends JPanel
 		        	displayCoordinates();
 	    	}
 	    }
+	    
+	    public class MyComponentAdapter extends ComponentAdapter
+		{
+			public void componentResized(ComponentEvent e)
+			{
+				final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Karte_Deutschland.jpg");
+				if (f != null)
+				{
+					new SwingWorker<BufferedImage, Void>()
+					{
+						protected BufferedImage doInBackground() throws IOException
+						{
+							return ImageIO.read(f);
+						}
+						protected void done()
+						{
+							try
+							{
+								canvas.setImage(get());
+							}
+							catch (Exception e)
+							{
+								System.err.println();
+							}
+						}
+					}.execute();
+				}
+			}
+		}
     }
+	public class SingleEllipse
+	{
+		private Ellipse2D singleEllipse;
+		private double x, y, w, h;
+		
+    	public SingleEllipse(double x, double y)
+    	{
+    		this.x = x;
+    		this.y = y;
+    		this.w = 10;
+    		this.h = 10;
+    		singleEllipse = new Ellipse2D.Double(x,y,w,h);
+        }
+    	
+    	public void draw(Graphics2D g2D)
+    	{
+    		g2D.draw(singleEllipse);
+    	}
+    	
+    	public void updateData(double x, double y)
+    	{
+    		this.x = x;
+    		this.y = y;
+    		singleEllipse = new Ellipse2D.Double(x,y,w,h);
+        }
+    	
+    	public SingleEllipse select(MouseEvent e)
+    	{
+    		if (singleEllipse.contains(e.getX(), e.getY()))
+    			return this;
+    		return null;
+    	}
+    	
+    	public Ellipse2D getEllipse(){return singleEllipse;}
+    	public double getX(){return x;}
+    	public double getY(){return y;}
+    	public double getHeight(){return h;}
+    	public double getWidth(){return w;}
+	}	
+}
+
+class Fenster extends JFrame
+{
+	public Fenster ()
+	{
+		this.setContentPane(new Graph(this));
+	}
+	
+	public static void main (String[] args)
+	{
+		new Fenster();
+	}
 }
