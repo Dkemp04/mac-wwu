@@ -32,7 +32,8 @@ public class Graph extends JPanel
 	    location = new JLabel("x,y: ");
 	    this.add(location, BorderLayout.SOUTH);
 	    this.add(canvas, BorderLayout.CENTER);
-	    setSize(500,500);
+	    setSize(canvas.getWidth(),canvas.getHeight());
+	    parent.add(this);
 	    this.setVisible(true);
 	}
 	
@@ -74,6 +75,7 @@ public class Graph extends JPanel
 	    public DrawingCanvas()
 	    {
 	    	addComponentListener(new MyComponentAdapter());
+	    	this.setVisible(true);
 	    	addMouseListener(new MyMouseListener());
 	    	addMouseMotionListener(new MyMouseMotionListener());
 	    }
@@ -88,6 +90,7 @@ public class Graph extends JPanel
 	    		setCursor(curCursor);
 	    	if (this != null)
 				((Graphics) this.getGraphics()).drawImage(background, 0, 0, this);
+	    	this.setSize(background.getWidth(), background.getHeight());
 	    }
 	    
 	    public void setImage(BufferedImage image) 
@@ -101,7 +104,7 @@ public class Graph extends JPanel
 	    private class MyMouseListener extends MouseAdapter
 	    {
 	    	long timer = 0;
-	    	int delPos = 0;
+	    	int delPos = -1;
 			SingleEllipse delEllipse = null;
 			
 	    	public void mousePressed(MouseEvent e)
@@ -111,7 +114,7 @@ public class Graph extends JPanel
 	    			for (int i = 0; i < ellipses.size(); i++)
 	    			{
 	    				delEllipse = ellipses.get(i);
-	    				if (delEllipse.singleEllipse.contains(e.getX(), e.getY()))
+	    				if (delEllipse.select(e) != null)
 	    				{
 	    					delPos = i;
 	    					break;
@@ -122,6 +125,8 @@ public class Graph extends JPanel
 	    				canvas.ellipses.remove(delPos);
 						canvas.setSize(canvas.getWidth() + 1, canvas.getHeight() + 1);
 						canvas.repaint();
+						delPos = -1;
+						delEllipse = null;
 	    			}
 	    		}
 	    		else if (e.getButton() == 1)
@@ -154,7 +159,8 @@ public class Graph extends JPanel
 	    			{
 						canvas.setSize(canvas.getWidth() - 1, canvas.getHeight() - 1);
 						canvas.repaint();
-						delPos=0;
+						delPos = -1;
+						delEllipse = null;
 	    			}
 	    		}
 	    		else if(e.getButton() == 1 && selectedEllipse == null && System.currentTimeMillis()-timer <= 500)
@@ -188,35 +194,37 @@ public class Graph extends JPanel
 	    	}
 	    }
 	    
-	    public class MyComponentAdapter extends ComponentAdapter
+	    
+    }
+	
+	public class MyComponentAdapter extends ComponentAdapter
+	{
+		public void componentResized(ComponentEvent e)
 		{
-			public void componentResized(ComponentEvent e)
+			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Karte_Deutschland.jpg");
+			if (f != null)
 			{
-				final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Karte_Deutschland.jpg");
-				if (f != null)
+				new SwingWorker<BufferedImage, Void>()
 				{
-					new SwingWorker<BufferedImage, Void>()
+					protected BufferedImage doInBackground() throws IOException
 					{
-						protected BufferedImage doInBackground() throws IOException
+						return ImageIO.read(f);
+					}
+					protected void done()
+					{
+						try
 						{
-							return ImageIO.read(f);
+							canvas.setImage(get());
 						}
-						protected void done()
+						catch (Exception e)
 						{
-							try
-							{
-								canvas.setImage(get());
-							}
-							catch (Exception e)
-							{
-								System.err.println();
-							}
+							System.err.println();
 						}
-					}.execute();
-				}
+					}
+				}.execute();
 			}
 		}
-    }
+	}
 	public class SingleEllipse
 	{
 		private Ellipse2D singleEllipse;

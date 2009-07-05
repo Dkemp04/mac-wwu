@@ -219,6 +219,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Weiter"))
 		{
+			this.setSize(map.getHeight() + 100, map.getWidth());
 			if (steps.getSelectedIndex() < steps.getTabCount() - 1)
 			{
 				steps.setSelectedIndex(steps.getSelectedIndex() + 1);
@@ -260,6 +261,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					}
 				}
 				new ObjectSerialization(name.getText(), newProblem);
+				new ObjectSerialization(name.getText()+"GUI", map);
 				((MainFrame) parent).addChildFrame(map, "Test", map.getX() + 10, map.getY() + 10, 300, 300);
 				this.dispose();
 			}
