@@ -1,23 +1,24 @@
 package Persistenz;
 
 import java.io.*;
+import Logik.Problem;
 
 public class ObjectDeserialization
 {	
-	public Object open (String name)
+	public Problem open (String name)
 	{
-		Object obj = null;
+		Problem prob = null;
 		try
 		{
 			FileInputStream fs = new FileInputStream (name);
 			ObjectInputStream is = new ObjectInputStream (fs);
-			obj = is.readObject();
+			prob = (Problem) is.readObject();
 			is.close();
-			if (obj == null)
+			if (prob == null)
 			{	throw new FileNotFoundException("Datei wurde nicht gefunden");}
 		}
 		catch (Exception e)
-		{	e.printStackTrace();}
-		return obj;
+		{}
+		return prob;
 	}
 }

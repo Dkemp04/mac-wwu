@@ -15,18 +15,23 @@ public class Controlbar implements ActionListener
 		JMenuItem newProblem = new JMenuItem("Neu");
 		JMenuItem open = new JMenuItem("Öffnen");
 		JMenuItem save = new JMenuItem("Speichern");
+		JMenuItem save_path = new JMenuItem("Speichern unter...");
 		JMenuItem k_import = new JMenuItem("Import...");
 		JMenuItem exit = new JMenuItem("Beenden");
 		JMenu advanced = new JMenu("Erweitert");
 		JMenuItem options = new JMenuItem("Optionen");
 		newProblem.addActionListener(this);
 		open.addActionListener(this);
+		save.addActionListener(this);
+		save_path.addActionListener(this);
+		k_import.addActionListener(this);
 		exit.addActionListener(this);
 		options.addActionListener(this);
 		
 		data.add(newProblem);
 		data.add(open);
 		data.add(save);
+		data.add(save_path);
 		data.add(k_import);
 		data.add(exit);
 		advanced.add(options);
@@ -61,6 +66,8 @@ public class Controlbar implements ActionListener
 			((MainFrame) parent).addChildFrame(map, "Test", 10, 10, maxX*2, maxY*2);
 		}
 		if (cmd.equals("Speichern"))
+		{					}
+		if (cmd.equals("Speichern unter..."))
 		{					}
 		if (cmd.equals("Import..."))
 		{					}
