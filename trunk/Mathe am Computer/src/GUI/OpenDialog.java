@@ -2,6 +2,8 @@ package GUI;
 
 import java.io.File;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import Persistenz.ObjectDeserialization;
 
 public class OpenDialog {
@@ -17,6 +19,7 @@ public class OpenDialog {
         JFileChooser chooser = new JFileChooser(home);
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chooser.setFileFilter( new FileNameExtensionFilter("*.tsp;*.dat", "tsp", "dat") ); 
         chooser.setCurrentDirectory(new File (home));
 
         chooser.setVisible(true);

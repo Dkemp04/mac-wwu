@@ -92,8 +92,7 @@ public class Graph extends JPanel
 	    
 	    public void setImage(BufferedImage image) 
 		{ 
-		    this.background = image; 
-			
+		    this.background = image;
 		    setPreferredSize(new Dimension(background.getWidth(), background.getHeight())); 
 		    repaint(); 
 		    invalidate();
@@ -102,26 +101,32 @@ public class Graph extends JPanel
 	    private class MyMouseListener extends MouseAdapter
 	    {
 	    	long timer = 0;
-	    	
+	    	int delPos = 0;
+			SingleEllipse delEllipse = null;
+			
 	    	public void mousePressed(MouseEvent e)
 	    	{
 	    		if(e.getButton() == 3)
 	    		{
 	    			for (int i = 0; i < ellipses.size(); i++)
 	    			{
-	    				SingleEllipse ellipse = ellipses.get(i);
-	    				if (ellipse.singleEllipse.contains(e.getX(), e.getY()));
+	    				delEllipse = ellipses.get(i);
+	    				if (delEllipse.singleEllipse.contains(e.getX(), e.getY()))
 	    				{
-	    					System.out.println("wahr");
-	    					ellipse = null;
-	    					canvas.repaint();
-	    					canvas.getGraphics().clearRect(e.getX(), e.getY(), 10, 10);
+	    					delPos = i;
+	    					break;
 	    				}
+	    			}
+	    			if (delPos >= 0 && delEllipse != null && delPos <= ellipses.size()-1)
+	    			{
+	    				canvas.ellipses.remove(delPos);
+						canvas.setSize(canvas.getWidth() + 1, canvas.getHeight() + 1);
+						canvas.repaint();
 	    			}
 	    		}
 	    		else if (e.getButton() == 1)
 	    		{
-	    			Iterator<SingleEllipse> itr = ellipses.iterator();  
+	    			Iterator<SingleEllipse> itr = ellipses.iterator();
 		    		SingleEllipse ellipse = null;
 			      	while(itr.hasNext() && ellipse == null)
 			      		ellipse = itr.next().select(e);
@@ -133,6 +138,7 @@ public class Graph extends JPanel
 			    	}
 			    	else
 			          location.setText("x,y: ");
+			    	canvas.setSize(canvas.getWidth() - 1, canvas.getHeight() - 1);
 			        x1 = e.getX();
 			        y1 = e.getY();
 			        timer = System.currentTimeMillis();
@@ -144,15 +150,11 @@ public class Graph extends JPanel
 		    {
 	    		if(e.getButton() == 3)
 	    		{
-	    			for (int i = 0; i < ellipses.size(); i++)
+	    			if (delPos >=0 && delEllipse != null && delPos <= ellipses.size()-1)
 	    			{
-	    				SingleEllipse ellipse = ellipses.get(i);
-	    				if (ellipse.singleEllipse.contains(e.getXOnScreen(), e.getYOnScreen()));
-	    				{
-	    					System.out.println("wahr");
-	    					ellipse = null;
-	    					canvas.repaint();
-	    				}
+						canvas.setSize(canvas.getWidth() - 1, canvas.getHeight() - 1);
+						canvas.repaint();
+						delPos=0;
 	    			}
 	    		}
 	    		else if(e.getButton() == 1 && selectedEllipse == null && System.currentTimeMillis()-timer <= 500)
@@ -182,6 +184,7 @@ public class Graph extends JPanel
 		        }
 		        if (selectedEllipse != null)
 		        	displayCoordinates();
+		        canvas.setSize(canvas.getWidth() + 1, canvas.getHeight() + 1);
 	    	}
 	    }
 	    
@@ -252,18 +255,5 @@ public class Graph extends JPanel
     	public double getY(){return y;}
     	public double getHeight(){return h;}
     	public double getWidth(){return w;}
-	}	
-}
-
-class Fenster extends JFrame
-{
-	public Fenster ()
-	{
-		this.setContentPane(new Graph(this));
-	}
-	
-	public static void main (String[] args)
-	{
-		new Fenster();
 	}
 }
