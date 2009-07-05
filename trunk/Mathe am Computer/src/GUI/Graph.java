@@ -60,8 +60,6 @@ public class Graph extends JPanel
 		this.canvas.ellipses.add(new SingleEllipse(x,y));
 	}
 	
-	
-	
 	public class DrawingCanvas extends Canvas
     {
     	//Deklarierung der serialVersionUID für die serialisierbare Klasse DrawingCanvas
@@ -71,7 +69,7 @@ public class Graph extends JPanel
     	LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
     	SingleEllipse selectedEllipse;
     	BufferedImage background;
-    	Graphics2D g2;
+    	Graphics g2D;
     
 	    public DrawingCanvas()
 	    {
@@ -82,20 +80,21 @@ public class Graph extends JPanel
 	    
 	    public void paint(Graphics g)
 	    {
-	    	Graphics2D g2D = (Graphics2D) g;
+	    	g2D = (Graphics2D) background.createGraphics();
+	    	g2D.setColor(Color.black);
 	    	for(SingleEllipse singleEllipse : ellipses)
-	    		singleEllipse.draw(g2D);
+	    		singleEllipse.draw((Graphics2D) g2D);
 	    	if (curCursor != null)
 	    		setCursor(curCursor);
-	    	if ( background != null )
-		    	g.drawImage(background, 0, 0, this);
-	    	g2 = background.createGraphics();
+	    	if (this != null)
+				((Graphics) this.getGraphics()).drawImage(background, 0, 0, this);
 	    }
 	    
 	    public void setImage(BufferedImage image) 
 		{ 
 		    this.background = image; 
-		    setPreferredSize(new Dimension(image.getWidth(), image.getHeight())); 
+			
+		    setPreferredSize(new Dimension(background.getWidth(), background.getHeight())); 
 		    repaint(); 
 		    invalidate();
 		}
@@ -106,27 +105,57 @@ public class Graph extends JPanel
 	    	
 	    	public void mousePressed(MouseEvent e)
 	    	{
-	    		Iterator<SingleEllipse> itr = ellipses.iterator();  
-	    		SingleEllipse ellipse = null;
-		      	while(itr.hasNext() && ellipse == null)
-		      		ellipse = itr.next().select(e);
-		    	if (ellipse != null)
-		    	{
-		    		selectedEllipse = ellipse;
-			        displayCoordinates();
-			      	curCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
-		    	}
-		    	else
-		          location.setText("x,y: ");
-		        x1 = e.getX();
-		        y1 = e.getY();
-		        timer = System.currentTimeMillis();
-		        canvas.repaint();
+	    		if(e.getButton() == 3)
+	    		{
+	    			for (int i = 0; i < ellipses.size(); i++)
+	    			{
+	    				SingleEllipse ellipse = ellipses.get(i);
+	    				if (ellipse.singleEllipse.contains(e.getX(), e.getY()));
+	    				{
+	    					System.out.println("wahr");
+	    					ellipse = null;
+	    					canvas.repaint();
+	    					canvas.getGraphics().clearRect(e.getX(), e.getY(), 10, 10);
+	    				}
+	    			}
+	    		}
+	    		else if (e.getButton() == 1)
+	    		{
+	    			Iterator<SingleEllipse> itr = ellipses.iterator();  
+		    		SingleEllipse ellipse = null;
+			      	while(itr.hasNext() && ellipse == null)
+			      		ellipse = itr.next().select(e);
+			    	if (ellipse != null)
+			    	{
+			    		selectedEllipse = ellipse;
+				        displayCoordinates();
+				      	curCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+			    	}
+			    	else
+			          location.setText("x,y: ");
+			        x1 = e.getX();
+			        y1 = e.getY();
+			        timer = System.currentTimeMillis();
+			        canvas.repaint();
+	    		}
 		    }
 	    	
-		    public void mouseReleased(MouseEvent e)
+	    	public void mouseReleased(MouseEvent e)
 		    {
-		    	if(selectedEllipse == null && System.currentTimeMillis()-timer <= 500)
+	    		if(e.getButton() == 3)
+	    		{
+	    			for (int i = 0; i < ellipses.size(); i++)
+	    			{
+	    				SingleEllipse ellipse = ellipses.get(i);
+	    				if (ellipse.singleEllipse.contains(e.getXOnScreen(), e.getYOnScreen()));
+	    				{
+	    					System.out.println("wahr");
+	    					ellipse = null;
+	    					canvas.repaint();
+	    				}
+	    			}
+	    		}
+	    		else if(e.getButton() == 1 && selectedEllipse == null && System.currentTimeMillis()-timer <= 500)
 		    	{
 		    		SingleEllipse newEllipse = new SingleEllipse(e.getX(), e.getY());
 		    		ellipses.add(newEllipse);
