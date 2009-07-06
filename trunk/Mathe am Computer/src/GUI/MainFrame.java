@@ -1,13 +1,13 @@
 package GUI;
-import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
 /**
  * @author Daniel Kemper
  *
  */
-public class MainFrame extends JFrame implements ActionListener
+public class MainFrame extends JFrame
 {
 	private static final long serialVersionUID = 995601029595640937L;
 	
@@ -37,12 +37,11 @@ public class MainFrame extends JFrame implements ActionListener
 		
 		desk.setBackground(Color.WHITE);
 		desk.setBorder(BorderFactory.createEtchedBorder());
+		desk.setSize(1024,768);
 		addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
 		addChildFrame(new JPanel(), "Child 2", 230, 30, 200, 150);
 		getContentPane().add(desk, BorderLayout.CENTER);
-		addWindowListener(new WindowAdapter() {
-		      public void windowClosing(WindowEvent e)
-		      {		System.exit(0);}});
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public ChildFrame addChildFrame (JPanel content, String title, double x, double y, double h, double w)
@@ -52,6 +51,7 @@ public class MainFrame extends JFrame implements ActionListener
 		child.setLocation((int) x, (int) y);
 		child.setSize((int) h, (int) w);
 		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		child.addInternalFrameListener(new MyInternalFrameListener());
 		child.setVisible(true);
 		desk.add(child);
 		return child;
@@ -67,9 +67,20 @@ public class MainFrame extends JFrame implements ActionListener
 	    test.setVisible(true);
 	}
 	
-	public void actionPerformed(ActionEvent arg0)
+	private class MyInternalFrameListener extends InternalFrameAdapter
 	{
-		
+		public void internalFrameClosing (InternalFrameEvent e)
+		{
+			int result = JOptionPane.showConfirmDialog(obj, new Label("Möchten Sie das Problem vor dem Beenden speichern ?"), "Speichern", JOptionPane.YES_NO_OPTION, 3);
+			if (result == JOptionPane.YES_OPTION)
+			{
+				new SaveDialog().save();
+			}
+			else
+			{
+				e.getInternalFrame().dispose();
+			}
+		}
 	}
 	
 	class ChildFrame extends JInternalFrame
