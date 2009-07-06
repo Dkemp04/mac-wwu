@@ -23,7 +23,7 @@ public class NearestNeighbor extends Methode{
 			//Setzt den letzten Punkt um und fgt ihn ein
 			lastPoint = problemElement[position];		
 			addHistory(lastPoint, "Der Punkt "+lastPoint+" hat die Distanz "+distance+" zum vorherigen Punkt, damit die geringste Distanz. Hiermit wird er als nchstes in die Route aufgenommen.");
-			addPointFront(problemElement[position]);
+			addPointFront(position);
 		}
 	}
 	

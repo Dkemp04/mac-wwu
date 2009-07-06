@@ -43,9 +43,11 @@ public abstract class Methode extends Thread{
 	 * Fgt den Punkt in die Lsung ein. Dabei werden die Punkte am Anfangsende der Lsung eingefgt 
 	 * @param addedPoint Der einzufgende Punkt
 	 */
-	protected void addPointFront(Point addedPoint){
-		//Die neue Lsung wird eingefgt. 
-		solution[positionFront] = addedPoint;
+	protected void addPointFront(int addedPoint){
+		//Die neue Lsung wird eingefgt. 		
+		solution[positionFront] = problemElement[addedPoint];
+// 		Element in problemElement rechts von unused muss gerettet werden
+		problemElement[addedPoint] = problemElement[unused];
 		if(positionFront == 0)
 			length += startingPoint.Distance(solution[positionFront]);
 		//Fall: Mittlere Punkte
@@ -70,11 +72,13 @@ public abstract class Methode extends Thread{
 
 	/**
 	 * Fgt den Punkt in die Lsung ein. Dabei werden die Punkte am Ende der Lsung eingefgt 
-	 * @param addedPoint Der einzufgende Punkt
+	 * @param addedPoint Index des einzufügenden Punkts in ProblemElements
 	 */
-	protected void addPointEnd(Point addedPoint){
+	protected void addPointEnd(int addedPoint){
 		//Die neue Lsung wird eingefgt.
-		solution[positionEnd] = addedPoint;
+		solution[positionEnd] = problemElement[addedPoint];
+		//Das Problem wird überschrieben
+		problemElement[addedPoint] = problemElement[unused];
 		//Erster Punkt von hinten: Daher Distanzberechnung ber Startpunkt
 		if(positionEnd == solution.length-1)
 			length += startingPoint.Distance(solution[positionEnd]);
