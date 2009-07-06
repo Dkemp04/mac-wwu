@@ -1,9 +1,7 @@
 package GUI;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Logik.Problem;
-import Persistenz.ObjectDeserialization;
 
 public class SaveDialog
 {
