@@ -3,7 +3,7 @@ package Logik;
 public class NearestNeighbor extends Methode{
 	
 	/**
-	 * Die Run-Methode des Lösungsverfahrens
+	 * Die Run-Methode des Lsungsverfahrens
 	 */
 	public void run(){
 		Point lastPoint = startingPoint;
@@ -12,7 +12,7 @@ public class NearestNeighbor extends Methode{
 			//Gibt als minimum-Distanz "unendlich" an
 			double distance = Double.MAX_VALUE;
 			int position = 0;
-			//Sucht zum letzten Punkt den nähsten nächsten Punkt
+			//Sucht zum letzten Punkt den nhsten nchsten Punkt
 			for(int compare=0;compare<=unused;compare++){
 				if(lastPoint.Distance(problemElement[compare]) <= distance)
 				{
@@ -20,10 +20,10 @@ public class NearestNeighbor extends Methode{
 					distance = lastPoint.Distance(problemElement[compare]);
 				}
 			}
-			//Setzt den letzten Punkt um und fügt ihn ein
+			//Setzt den letzten Punkt um und fgt ihn ein
 			lastPoint = problemElement[position];		
-			addHistory(lastPoint, "Der Punkt "+lastPoint+" hat die Distanz "+distance+" zum vorherigen Punkt, damit die geringste Distanz. Hiermit wird er als nächstes in die Route aufgenommen.");
-			addPointFront(problem[position]);
+			addHistory(lastPoint, "Der Punkt "+lastPoint+" hat die Distanz "+distance+" zum vorherigen Punkt, damit die geringste Distanz. Hiermit wird er als nchstes in die Route aufgenommen.");
+			addPointFront(problemElement[position]);
 		}
 	}
 	

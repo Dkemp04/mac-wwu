@@ -1,7 +1,5 @@
 package Logik;
 
-import java.awt.Point;
-
 public abstract class Methode extends Thread{
 	protected double length;
 	protected Point[] problemElement;
@@ -16,10 +14,10 @@ public abstract class Methode extends Thread{
 		unused = problem.getPoints().size()-1;
 		positionEnd = unused;
 		positionFront = 0;
-		//erzeugt einen Lösungsvektor zum speichern der Lösung
+		//erzeugt einen Lsungsvektor zum speichern der Lsung
 		problemElement = new Point[unused+1];
 		
-		//Läd die Punkte in ein Array zur besseren Verarbeitbarkeit
+		//Ld die Punkte in ein Array zur besseren Verarbeitbarkeit
 		int position = 0;
 		for(Point point : problem.getPoints())
 		{
@@ -33,8 +31,8 @@ public abstract class Methode extends Thread{
 	}
 	
 	/**
-	 * Gibt die Länge der Lösung zurück
-	 * @return Gibt die Länge zurück
+	 * Gibt die Lnge der Lsung zurck
+	 * @return Gibt die Lnge zurck
 	 */
 	public double getLength(){
 		return length;
@@ -42,26 +40,27 @@ public abstract class Methode extends Thread{
 	
 	
 	/**
-	 * Fügt den Punkt in die Lösung ein. Dabei werden die Punkte am Anfangsende der Lösung eingefügt 
-	 * @param addedPoint Der einzufügende Punkt
+	 * Fgt den Punkt in die Lsung ein. Dabei werden die Punkte am Anfangsende der Lsung eingefgt 
+	 * @param addedPoint Der einzufgende Punkt
 	 */
 	protected void addPointFront(Point addedPoint){
-		//Die neue Lösung wird eingefügt. 
+		//Die neue Lsung wird eingefgt. 
 		solution[positionFront] = addedPoint;
 		if(positionFront == 0)
-			length += startingPoint.distance(solution[positionFront])
+			length += startingPoint.Distance(solution[positionFront]);
 		//Fall: Mittlere Punkte
 	    else
 	       	length += solution[solution.length-unused-2].Distance(solution[solution.length-unused-1]);
-		//Zusätzliche Distanz Endpunkte
+		//Zustzliche Distanz Endpunkte
         if(unused == 0)
         {
         	if(positionFront != solution.length-1)
         		length += solution[positionFront].Distance(solution[positionFront+1]);
         	else
         		length += solution[solution.length-1].Distance(startingPoint);
-        	addHistory(null, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zusätzlicher Weg von "+(solution[positionFront].Distance(solution[positionFront+1]))?solution[positionFront].Distance(solution[positionFront+1]):solution[solution.length-1].Distance(startingPoint)+" muss zurückgelegt werden.");
-        	addHistory(null, "Die gesamte zurückgelegte Strecke beträgt "+length+".");
+        	double tempDistance = (positionFront == 0)?(startingPoint.Distance(solution[positionFront])):(solution[solution.length-unused-2].Distance(solution[solution.length-unused-1]));
+        	addHistory(null, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
+        	addHistory(null, "Die gesamte zurckgelegte Strecke betrgt "+length+".");
         }
         //Korrigiert die Zeiger
         positionFront++;
@@ -70,18 +69,18 @@ public abstract class Methode extends Thread{
 	
 
 	/**
-	 * Fügt den Punkt in die Lösung ein. Dabei werden die Punkte am Ende der Lösung eingefügt 
-	 * @param addedPoint Der einzufügende Punkt
+	 * Fgt den Punkt in die Lsung ein. Dabei werden die Punkte am Ende der Lsung eingefgt 
+	 * @param addedPoint Der einzufgende Punkt
 	 */
 	protected void addPointEnd(Point addedPoint){
-		//Die neue Lösung wird eingefügt.
+		//Die neue Lsung wird eingefgt.
 		solution[positionEnd] = addedPoint;
-		//Erster Punkt von hinten: Daher Distanzberechnung über Startpunkt
+		//Erster Punkt von hinten: Daher Distanzberechnung ber Startpunkt
 		if(positionEnd == solution.length-1)
-			length += startingPoint.distance(solution[positionEnd])
+			length += startingPoint.Distance(solution[positionEnd]);
 		else
-			length += solution[positionEnd].distance(positionEnd+1);
-		//Zusätzliche Distanz Endpunkte
+			length += solution[positionEnd].Distance(solution[positionEnd+1]);
+		//Zustzliche Distanz Endpunkte
 		if(unused == 0)
         {
 			//Ist der Punkt mittig, wird der letzte Punkt im Array gesucht
@@ -90,8 +89,9 @@ public abstract class Methode extends Thread{
         	//Andernfalls ist es der Startpunkt
         	else
         		length += solution[0].Distance(startingPoint);
-        	addHistory(null, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zusätzlicher Weg von "+(positionEnd != 0)?solution[positionEnd].Distance(solution[positionEnd-1]):solution[0].Distance(startingPoint)+" muss zurückgelegt werden.");
-        	addHistory(null, "Die gesamte zurückgelegte Strecke beträgt "+length+".");
+        	double tempDistance = (positionEnd == solution.length-1)?(startingPoint.Distance(solution[positionEnd])):solution[positionEnd].Distance(solution[positionEnd-1]);
+        	addHistory(null, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
+        	addHistory(null, "Die gesamte zurckgelegte Strecke betrgt "+length+".");
         }
         //Korrigiert die Zeiger
         positionEnd--;
@@ -99,8 +99,8 @@ public abstract class Methode extends Thread{
 	}
 	
 	/**
-	 * Fügt einen neuen History-Eintrag ein
-	 * @param newPoint Der neue Punkt des History-Eintrages. Im Falle dass ein History-Eintrag ohne Punkt erzeugt wird muss der Parameter null übergeben werden
+	 * Fgt einen neuen History-Eintrag ein
+	 * @param newPoint Der neue Punkt des History-Eintrages. Im Falle dass ein History-Eintrag ohne Punkt erzeugt wird muss der Parameter null bergeben werden
 	 * @param newText Der Text des History-Eintrages.
 	 */
 	protected void addHistory(Point newPoint, String newText){
