@@ -1,5 +1,4 @@
 package GUI;
-
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
