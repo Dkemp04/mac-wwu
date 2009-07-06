@@ -3,95 +3,55 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-/**
+/**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
  * @author Daniel Kemper
- *
  */
 public class MainFrame extends JFrame
 {
+	//Deklarierung der serialVersionUID für die serialisierbare Klasse MainFrame
 	private static final long serialVersionUID = 995601029595640937L;
 	
-	JDesktopPane desk = new JDesktopPane();
-	static MainFrame obj;
+	//Deklarierung der GUI-Elemente
+	private DesktopArea desktop;			//Desktop-Bereich, in dem interne Fenster erzeugt werden können. Dieser Bereich dient zur Darstellung der Probleme, der Heuristiken und der Vergleiche der Heuristiken
+	private Controlbar controls;		//Menü-Leiste zum Aufruf der wesentlichen Funktionen des Programmes
+	private TabOrganisation output;		//Verwaltung und Darstellung von Tabs zur Anzeige von Fehler, Warnungen und Hinweisen
 	
+	/**Konstruktor, der die Darstellung ein Einstellung aller GUI-Elemente übernimmt
+	 */
 	public MainFrame ()
 	{
+		//Aufruf des Konstruktors der Superklasse und Einstellung des Titels
 		super("Travelling Salesman");
+		
+		//try -und catch-Block, der zur Einstellung des Windows-Look-and-Feels dient
 		try
 		{
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			SwingUtilities.updateComponentTreeUI(this);
 		}
-		catch (UnsupportedLookAndFeelException e) {
+		//Abfangen von Exceptions, die bei der Umschaltung des Look-and-Feels auftreten können und Ausgabe von Fehlermeldungen
+		catch (Exception e) {
 			System.err.println(e.toString());}
-		catch (ClassNotFoundException e) {
-		    System.err.println(e.toString());}
-		catch (InstantiationException e) {
-		      System.err.println(e.toString());}
-		catch (IllegalAccessException e) {
-		      System.err.println(e.toString());}
 		
+		//Initialisierung aller GUI-Elemente und Übergabe des Hauptfensters als Vater-Container
+		controls = new Controlbar(this);
+		output = new TabOrganisation(this);
+		desktop = new DesktopArea(this);
 		
-		new Controlbar(this);
-		new TabOrganisation(this);
-		
-		desk.setBackground(Color.WHITE);
-		desk.setBorder(BorderFactory.createEtchedBorder());
-		desk.setSize(1024,768);
-		addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
-		addChildFrame(new JPanel(), "Child 2", 230, 30, 200, 150);
-		getContentPane().add(desk, BorderLayout.CENTER);
+		//Allgemeine Einstellung des Hauptfenster
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocation(150,150);
+		this.setSize(1024,768);
+	    this.setVisible(true);
 	}
 	
-	public ChildFrame addChildFrame (JPanel content, String title, double x, double y, double h, double w)
-	{
-		ChildFrame child = new ChildFrame(title);
-		child.setContentPane(content);
-		child.setLocation((int) x, (int) y);
-		child.setSize((int) h, (int) w);
-		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		child.addInternalFrameListener(new MyInternalFrameListener());
-		child.setVisible(true);
-		desk.add(child);
-		return child;
-	}
+	/**Get-Methode, die die DesktopArea des Fensters 
+	 */
+	public DesktopArea getDesktop ()
+	{		return desktop;}
 	
+	/**Main-Mathode zum Start des Programmes zurückgibt
+	 */
 	public static void main(String[] args)
-	{
-		MainFrame test = new MainFrame();
-		obj = test;
-		test.setLocation(100,100);
-		test.setSize(640,480);
-	    //test.pack();
-	    test.setVisible(true);
-	}
-	
-	private class MyInternalFrameListener extends InternalFrameAdapter
-	{
-		public void internalFrameClosing (InternalFrameEvent e)
-		{
-			int result = JOptionPane.showConfirmDialog(obj, new Label("Möchten Sie das Problem vor dem Beenden speichern ?"), "Speichern", JOptionPane.YES_NO_OPTION, 3);
-			if (result == JOptionPane.YES_OPTION)
-			{
-				new SaveDialog().save();
-			}
-			else
-			{
-				e.getInternalFrame().dispose();
-			}
-		}
-	}
-	
-	class ChildFrame extends JInternalFrame
-	{
-		private static final long serialVersionUID = -3194192516658608023L;
-
-		public ChildFrame(String title)
-		{
-			super(title, true, true);
-			setIconifiable(true);
-			setMaximizable(true);
-		}
-	}
+	{		new MainFrame();}
 }

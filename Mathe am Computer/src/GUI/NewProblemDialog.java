@@ -247,8 +247,8 @@ public class NewProblemDialog extends JDialog implements ActionListener
 				}
 				new ObjectSerialization().save(name.getText(), newProblem);
 				new ObjectSerialization().save(name.getText()+"GUI", map);
-				StaticGraph representation = new StaticGraph(parent);
-				((MainFrame) parent).addChildFrame(map, "Test", map.getX() + 10, map.getY() + 10, 300, 300);
+				//StaticGraph representation = new StaticGraph(parent);
+				((MainFrame) parent).getDesktop().addChildFrame(map, "Test", map.getX() + 10, map.getY() + 10, 300, 300);
 				this.dispose();
 			}
 		}

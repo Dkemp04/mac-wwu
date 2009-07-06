@@ -95,11 +95,11 @@ public class Controlbar implements ActionListener
 			Graph map = new Graph(parent);
 			
 			//größte x-und y-Koordinaten aller Punkte im Graphen werden gesucht
-			double maxX = 0, maxY = 0;
+			int maxX = 0, maxY = 0;
 			for (int i = 0; i < openProblem.getPoints().size(); i++)
 			{
-				double curX = openProblem.getPoints().get(i).getX();
-				double curY = openProblem.getPoints().get(i).getY();
+				int curX = (int) openProblem.getPoints().get(i).getX();
+				int curY = (int) openProblem.getPoints().get(i).getY();
 				map.addEllipse(curX, curY);
 				if (curX > maxX)
 				{	maxX = curX;}
@@ -108,7 +108,7 @@ public class Controlbar implements ActionListener
 			}
 			
 			//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
-			((MainFrame) parent).addChildFrame(map, "Test", 10, 10, maxX*2, maxY*2);
+			((MainFrame) parent).getDesktop().addChildFrame(map, "Test", 10, 10, maxX*2, maxY*2);
 		}
 		if (event.getActionCommand().equals("Speichern"))
 		{					}

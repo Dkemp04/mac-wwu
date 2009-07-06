@@ -1,7 +1,6 @@
 package GUI;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import Logik.Problem;
 
 public class SaveDialog
 {
@@ -17,13 +16,10 @@ public class SaveDialog
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         
         //Setzt den Filter des Dialoges auf .tsp -und .dat - Dateien fest. Damit werden Dateien mit anderen Dateiendungen standardmäßig ausgeblendet
-        chooser.setFileFilter( new FileNameExtensionFilter("*.tsp;*.dat", "tsp", "dat") );
+        chooser.setFileFilter(new FileNameExtensionFilter("*.tsp;*.dat", "tsp", "dat") );
         
         //Blendet den Dialog ein und 
         int result = chooser.showSaveDialog(null);
-        
-        //Attribut, welches das zu ladenen Problem speichert
-        Problem openProblem = new Problem();
         
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
