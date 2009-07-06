@@ -1,34 +1,51 @@
 package GUI;
-
 import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import Persistenz.ObjectDeserialization;
+import Logik.Problem;
 
-public class OpenDialog {
-
-	public static void main(String[] args)
+/**
+ * Dialog, der zum Öffnen von vorhandenen Problemen geöffnet wird
+ * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ */
+public class OpenDialog
+{
+	/**
+	 * Methode, die den Dialog zum Öffnen von Dateien erstellt und initalisiert
+	 * Außerdem wird das geöffnete Problem (aus *.tsp-Dateien) geladen und zurückgegeben
+	 * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+	 */
+    public Problem open(String home)
     {
-    	OpenDialog op =  new OpenDialog();
-    	op.open("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
-    }
-    
-    public Object open(String home)
-    {
+    	//Datei-Auswahl-Dialog mit übergebenen Startverzeichnis wird erstellt
         JFileChooser chooser = new JFileChooser(home);
+        
+        //Typ des Datei-Auswahl-Dialoges wird auf "Öffnen-Dialog" festgelegt
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);
+        
+        //Einstellung, die bezweckt, dass sowohl Dateien als auch Verzeichnisse bei diesem Dialog angezeigt werden
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        chooser.setFileFilter( new FileNameExtensionFilter("*.tsp;*.dat", "tsp", "dat") ); 
-        chooser.setCurrentDirectory(new File (home));
-
-        chooser.setVisible(true);
+        
+        //Setzt den Filter des Dialoges auf .tsp -und .dat - Dateien fest. Damit werden Dateien mit anderen Dateiendungen standardmäßig ausgeblendet
+        chooser.setFileFilter( new FileNameExtensionFilter("*.tsp;*.dat", "tsp", "dat") );
+        
+        //Blendet den Dialog ein und 
         int result = chooser.showOpenDialog(null);
         
-        Object obj = new Object();
-        if (result == JFileChooser.APPROVE_OPTION) {
-            obj = new ObjectDeserialization().open(chooser.getSelectedFile().toString());}
+        //Attribut, welches das zu ladenen Problem speichert
+        Problem openProblem = new Problem();
+        
+        //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+        	openProblem = new ObjectDeserialization().open(chooser.getSelectedFile().toString());
+        }
+        
+        //Blendet den Dialog aus
         chooser.setVisible(false);
-        return obj;
+        
+        //Gibt das geöffnete Problem zurück
+        return openProblem;
     }
 }

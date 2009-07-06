@@ -183,7 +183,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		JPanel center2 = new JPanel();
 		map.setBorder(BorderFactory.createEtchedBorder());
 		center2.setLayout(new BorderLayout());
-		center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<html>"), BorderLayout.NORTH);
+		center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<br>Wenn Sie Punkte wieder löschen möchten, müssen Sie auf den zu löschenden Punkt mit der rechten Maustaste klicken.<html>"), BorderLayout.NORTH);
 		center2.add(map, BorderLayout.CENTER);
 		center2.add(buttons2, BorderLayout.SOUTH);
 		
@@ -236,21 +236,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);
 			if (choice == JOptionPane.YES_OPTION)
 			{
-				/*((MainFrame) this.getParent().getParent()).addChildFrame("Test", 30, 30, 100, 100);
-				MouseAdapter[] mls = (MouseAdapter[])(map.getListeners(MouseAdapter.class));
-				MouseMotionAdapter[] mmls = (MouseMotionAdapter[])(map.getListeners(MouseMotionAdapter.class));
-				MyMouseListener[] mls = (MyMouseListener[]) map.getListeners(Graph.DrawingCanvas.MyMouseListener.class);
-				map.removeMouseListener(mls[0]);
-				MyMouseMotionListener[] mmls = (MyMouseMotionListener[]) map.getListeners(Graph.DrawingCanvas.MyMouseMotionListener.class);
-				map.removeMouseMotionListener(mmls[0]);
-				
-				map.removeMouseListener(map.getMouseListeners()[0]);
-				map.removeMouseMotionListener(map.getMouseMotionListeners()[0]);
-				
-				for (int i=0; i<map.getMouseMotionListeners().length; i++)
-				{
-					System.out.println(map.getMouseMotionListeners()[i]);
-				}*/
 				Problem newProblem = new Problem();
 				for (int i = 0; i < map.getEllipseCount(); i++)
 				{
@@ -260,9 +245,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						e.printStackTrace();
 					}
 				}
-				new ObjectSerialization(name.getText(), newProblem);
-				new ObjectSerialization(name.getText()+"GUI", map);
-				((MainFrame) parent).addChildFrame(map, "Test", map.getX() + 10, map.getY() + 10, 300, 300);
+				new ObjectSerialization().save(name.getText(), newProblem);
+				new ObjectSerialization().save(name.getText()+"GUI", map);
+				StaticGraph representation = new StaticGraph(parent);
+				//((MainFrame) parent).addChildFrame(representation, "Test", map.getX() + 10, map.getY() + 10, 300, 300);
 				this.dispose();
 			}
 		}

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.awt.event.*;
-import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -33,7 +32,6 @@ public class Graph extends JPanel
 	    this.add(location, BorderLayout.SOUTH);
 	    this.add(canvas, BorderLayout.CENTER);
 	    setSize(canvas.getWidth(),canvas.getHeight());
-	    parent.add(this);
 	    this.setVisible(true);
 	}
 	
@@ -59,6 +57,11 @@ public class Graph extends JPanel
 	public void addEllipse (double x, double y)
 	{
 		this.canvas.ellipses.add(new SingleEllipse(x,y));
+	}
+	
+	public Canvas getCanvas ()
+	{
+		return this.canvas;
 	}
 	
 	public class DrawingCanvas extends Canvas
@@ -224,44 +227,5 @@ public class Graph extends JPanel
 				}.execute();
 			}
 		}
-	}
-	public class SingleEllipse
-	{
-		private Ellipse2D singleEllipse;
-		private double x, y, w, h;
-		
-    	public SingleEllipse(double x, double y)
-    	{
-    		this.x = x;
-    		this.y = y;
-    		this.w = 10;
-    		this.h = 10;
-    		singleEllipse = new Ellipse2D.Double(x,y,w,h);
-        }
-    	
-    	public void draw(Graphics2D g2D)
-    	{
-    		g2D.draw(singleEllipse);
-    	}
-    	
-    	public void updateData(double x, double y)
-    	{
-    		this.x = x;
-    		this.y = y;
-    		singleEllipse = new Ellipse2D.Double(x,y,w,h);
-        }
-    	
-    	public SingleEllipse select(MouseEvent e)
-    	{
-    		if (singleEllipse.contains(e.getX(), e.getY()))
-    			return this;
-    		return null;
-    	}
-    	
-    	public Ellipse2D getEllipse(){return singleEllipse;}
-    	public double getX(){return x;}
-    	public double getY(){return y;}
-    	public double getHeight(){return h;}
-    	public double getWidth(){return w;}
 	}
 }
