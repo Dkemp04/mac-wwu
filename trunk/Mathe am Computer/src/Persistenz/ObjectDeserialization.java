@@ -1,24 +1,55 @@
 package Persistenz;
-
 import java.io.*;
 import Logik.Problem;
 
+/**
+ * Klasse, die dafür sorgt Probleme von der Festplatte zu lesen
+ * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ */
 public class ObjectDeserialization
 {	
+	/**
+	 * Methode, die Dateien  bei angegebenem Dateipfad von der Festplatte liest
+	 * @param name Dateipfad unter welcher die Datei geladen werden soll
+	 */
 	public Problem open (String name)
 	{
-		Problem prob = null;
+		//Attribut, welches zur Zwischenspeicherung der zu öffnenden Problems dient
+		Problem openProblem = null;
 		try
 		{
+			//Streams, die das Object von der Festplatte lesen
 			FileInputStream fs = new FileInputStream (name);
 			ObjectInputStream is = new ObjectInputStream (fs);
-			prob = (Problem) is.readObject();
+			
+			//Liest das Object von der Festplatte und wandelt es in ein Problem-Objekt um
+			openProblem = (Problem) is.readObject();
+			
+			//Schließt die Streams
 			is.close();
-			if (prob == null)
-			{	throw new FileNotFoundException("Datei wurde nicht gefunden");}
+			
+			//Überprüfung, ob Problem geladen werden konnte
+			if (openProblem == null)
+			{
+				//Es wird eine FileNotFoundException geworden, wenn die Datei nicht gefunden wurde
+				throw new FileNotFoundException();
+			}
 		}
-		catch (Exception e)
-		{}
-		return prob;
+		//Abfangen aller Exception, die bei dem Lade-Vorgang auftreten können und Rückgabe einer Fehlermeldung
+		catch (FileNotFoundException fnfe)
+		{
+			System.err.println("Datei konnte nicht gefunden werden.");
+		}
+		catch (ClassNotFoundException cnfe)
+		{
+			System.err.println("Klasse konnte nicht gefunden werden.");
+		}
+		catch (IOException ioe)
+		{
+			System.err.println(ioe.toString());
+		}
+		
+		//Gibt das geladene Problem zurück
+		return openProblem;
 	}
 }
