@@ -13,7 +13,8 @@ public class OpenDialog
 	/**
 	 * Methode, die den Dialog zum Öffnen von Dateien erstellt und initalisiert
 	 * Außerdem wird das geöffnete Problem (aus *.tsp-Dateien) geladen und zurückgegeben
-	 * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+	 * @param home Startverzeichnis, welches zu Anfang im Datei-Auswahl-Dialog geöffnet ist
+	 * @return Gibt von der Festplatte geladene Problem zurück
 	 */
     public Problem open(String home)
     {
@@ -37,9 +38,7 @@ public class OpenDialog
         
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
-        {
-        	openProblem = new ObjectDeserialization().open(chooser.getSelectedFile().toString());
-        }
+        {        	openProblem = new ObjectDeserialization().open(chooser.getSelectedFile().toString());}
         
         //Blendet den Dialog aus
         chooser.setVisible(false);
