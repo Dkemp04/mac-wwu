@@ -14,16 +14,19 @@ public class Controlbar implements ActionListener
 	private JFrame parent;
 	
 	//Deklarierung der GUI-Elemente
-	private JMenuBar menubar;		//Menüleiste
-	private JMenu data;				//Menü "Datei"
-	private JMenuItem newProblem;	//Menüelement "Neu" zur Erstellung neuer Probleme
-	private JMenuItem open;			//Menüelement "Öffnen" zur Erstellung vorhandener Probleme
-	private JMenuItem save;			//Menüelement "Speichern" zur Speicherung geöffneter Probleme
-	private JMenuItem save_path;	//Menüelement "Speichern" zur Speicherung geöffneter Probleme unter bestimmten Pfad
-	private JMenuItem k_import;		//Menüelement "Speichern" zur Importierung von Karten
-	private JMenuItem exit;			//Menüelement "Speichern" zum Schließen des Programmes
-	private JMenu advanced;			//Menü "Erweitert"
-	private JMenuItem options;		//Menüelement "Optionen" zum Aufruf der Optionen
+	private JMenuBar menubar;			//Menüleiste
+	private JMenu data;					//Menü "Datei"
+	private JMenuItem newProblem;		//Menüelement "Neu" zur Erstellung neuer Probleme
+	private JMenuItem open;				//Menüelement "Öffnen" zur Erstellung vorhandener Probleme
+	private JMenuItem save;				//Menüelement "Speichern" zur Speicherung geöffneter Probleme
+	private JMenuItem save_path;		//Menüelement "Speichern" zur Speicherung geöffneter Probleme unter bestimmten Pfad
+	private JMenuItem k_import;			//Menüelement "Speichern" zur Importierung von Karten
+	private JMenuItem exit;				//Menüelement "Speichern" zum Schließen des Programmes
+	private JMenu advanced;				//Menü "Erweitert"
+	private JMenuItem options;			//Menüelement "Optionen" zum Aufruf der Optionen
+	private JMenu help;					//Menü "Erweitert"
+	private JMenuItem documentation;	//Menüelement "Dokumentation" zum Aufruf der Dokumentation bzw. Ausarbeitung zum Programm
+	private JMenuItem javadoc;			//Menüelement "Java Doc" zum Aufruf der Java Doc mit allen im Programm enthaltenen Klassen
 	
 	/**
 	 * Konstruktor zur Einstelllung und Darstellung der Elemente des Menüs
@@ -45,6 +48,10 @@ public class Controlbar implements ActionListener
 		exit = new JMenuItem("Beenden");
 		advanced = new JMenu("Erweitert");
 		options = new JMenuItem("Optionen");
+		help = new JMenu("Hilfe");
+		documentation = new JMenuItem("Dokumentation");
+		javadoc = new JMenuItem("Java Doc");
+		
 		
 		//Hinzufügen von Listener, welche auf Aktionen auf das Menü reagieren
 		newProblem.addActionListener(this);
@@ -54,6 +61,8 @@ public class Controlbar implements ActionListener
 		k_import.addActionListener(this);
 		exit.addActionListener(this);
 		options.addActionListener(this);
+		documentation.addActionListener(this);
+		javadoc.addActionListener(this);
 		
 		//Hinzufügen der Untermenüs und Menüelemente zu der Menüleiste
 		data.add(newProblem);
@@ -63,8 +72,11 @@ public class Controlbar implements ActionListener
 		data.add(k_import);
 		data.add(exit);
 		advanced.add(options);
+		help.add(documentation);
+		help.add(javadoc);
 		menubar.add(data);
 		menubar.add(advanced);
+		menubar.add(help);
 		base.add(menubar, BorderLayout.NORTH);
 	}
 	
@@ -116,15 +128,25 @@ public class Controlbar implements ActionListener
 		{					}
 		if (event.getActionCommand().equals("Import..."))
 		{					}
+		if (event.getActionCommand().equals("Beenden"))
+		{
+			//Programm und JavaVirtualMachine wird beendet
+			System.exit(0);
+		}
 		if (event.getActionCommand().equals("Optionen"))
 		{
 			//Neues Optionen-Fenster wird erzeugt und auf dem Bildschirm dargestellt
 			new Options(parent);
 		}
-		if (event.getActionCommand().equals("Beenden"))
+		if (event.getActionCommand().equals("Dokumentation"))
 		{
-			//Programm und JavaVirtualMachine wird beendet
-			System.exit(0);
+			//Öffnet die Dokumentation im Browser, welche Installationanweisungen und die Ausarbeitung enthält
+			new OpenURL("www.google.de", OpenURL.LOCAL_FILE);
+		}
+		if (event.getActionCommand().equals("Java Doc"))
+		{
+			//Öffnet die Java Doc des Programmes im Browser mit allen im Programm enthaltenen Klassen
+			new OpenURL("C:/Users/Daniel%20Kemper/Desktop/Mathe%20am%20Computer/Workspace/Mathe%20am%20Computer/doc/index.html", OpenURL.LOCAL_FILE);
 		}
 	}
 }

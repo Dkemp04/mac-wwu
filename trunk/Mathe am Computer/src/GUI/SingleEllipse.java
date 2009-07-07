@@ -20,8 +20,8 @@ public class SingleEllipse
 	{
 		this.x = x;
 		this.y = y;
-		this.w = 10;
-		this.h = 10;
+		this.w = 1;
+		this.h = 1;
 		
 		//Erzeugung der neuen Ellipse
 		singleEllipse = new Ellipse2D.Double(x,y,w,h);
