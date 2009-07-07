@@ -29,8 +29,8 @@ public class DesktopArea
 		desk.setSize(1024,768);
 		
 		//Test-ChildFrames
-		addChildFrame(new JLabel("Child 1"), "Child 1", 30, 30, 200, 150);
-		addChildFrame(new JLabel("Child 2"), "Child 2", 230, 30, 200, 150);
+		addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
+		addChildFrame(new JPanel(), "Child 2", 230, 30, 200, 150);
 		
 		//Hinzufügen des Desktopbereichs zum Vater-Container
 		parent.add(desk);
