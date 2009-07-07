@@ -70,7 +70,7 @@ public class Controlbar implements ActionListener
 	
 	/**
 	 * Methode, die auf Aktionen auf ihr zugeordneter GUI-Elemente reagiert und ausgeführt wird
-	 * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+	 * @param event Ereignis, welches von den Listenern zugeordneten Elementen ausgelöst wurde
 	 */
 	public void actionPerformed(ActionEvent event)
 	{

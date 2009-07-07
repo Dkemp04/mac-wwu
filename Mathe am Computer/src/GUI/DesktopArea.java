@@ -3,6 +3,10 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+/**
+ * Klasse, die für die Darstellung des JDesktopPanes sorgt und dessen Kinder
+ * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ */
 public class DesktopArea
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse DesktopArea
@@ -76,6 +80,7 @@ public class DesktopArea
 	}
 	
 	/**Listener-Klasse, welcher auf Aktionen auf die ChildFrames reagiert
+	 * @author d_kemp04, chrvogel, u_aksa01, s_pich02
 	 */
 	private class MyInternalFrameListener extends InternalFrameAdapter
 	{
