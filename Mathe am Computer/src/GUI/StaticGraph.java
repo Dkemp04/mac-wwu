@@ -12,7 +12,7 @@ public class StaticGraph extends JPanel
 	private JLabel location;
 	private Cursor curCursor;
 	
-	public StaticGraph(JFrame parent)
+	public StaticGraph(Container parent)
 	{
 		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläche
 		super();

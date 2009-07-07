@@ -18,7 +18,7 @@ public class Graph extends JPanel
 	private JLabel location;
 	private Cursor curCursor;
 	
-	public Graph(JFrame parent)
+	public Graph(Container parent)
 	{
 		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläche
 		super();
