@@ -48,36 +48,15 @@ public class DesktopArea
 	public JInternalFrame addChildFrame (Container content, String title, int x, int y, int height, int width)
 	{	
 		//Erzeugung des neuen ChildFrames und Einstellung des Titels
-		JInternalFrame child = new JInternalFrame(title);
-		
-		//Generelle Einstellung des Fensterverhaltens des ChildFrames
-		child.setResizable(true);
-		child.setClosable(true);
-		child.setMaximizable(true);
-		child.setIconifiable(true);
-		
-		//Setzen des contentPanes auf den übergebenen Container
-		child.setContentPane(content);
-		
-		//Einstellung der Position des ChildFrames innerhalb des Desktopbereichs
-		child.setLocation(x, y);
-		
-		//Einstellung der Grösse des ChildFrames
-		child.setSize(height, width);
-		
-		//Einstellung der Schließoperation
-		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		
-		//Hinzufügen des passenden Listeners
-		child.addInternalFrameListener(new MyInternalFrameListener());
-		
-		//Einblenden des ChildFrames
-		child.setVisible(true);
+		ChildFrame child = new ChildFrame(content, title, x, y, height, width);
 		
 		//Hinzufügen und Zurückgeben des ChildFrames
 		desk.add(child);
 		return child;
 	}
+	
+	public void addTabToChildFrame (ChildFrame child, String tab_title, Container content)
+	{		child.addTab(tab_title, content);}
 	
 	/**Listener-Klasse, welcher auf Aktionen auf die ChildFrames reagiert
 	 * @author d_kemp04, chrvogel, u_aksa01, s_pich02
@@ -104,5 +83,49 @@ public class DesktopArea
 				e.getInternalFrame().dispose();
 			}
 		}
+	}
+	
+	public class ChildFrame extends JInternalFrame
+	{
+		private static final long serialVersionUID = -8268041752214054122L;
+		
+		private TabOrganisation tabs = new TabOrganisation(this);
+		
+		/**Konstruktor, die dafür sorgt, dass ChildFrames innerhalb des Desktop-Bereichs erzeugt und eingestellt werden
+		 * @param content	Container, welcher im ChildFrames dargestellt werden soll
+		 * @param title		Titel des ChildFrames
+		 * @param x			x-Position des ChildFrames
+		 * @param y			y-Position des ChildFrames
+		 * @param height	Höhe des ChildFrames
+		 * @param width		Breite des ChildFrames
+		 */
+		public ChildFrame (Container content, String title, int x, int y, int height, int width)
+		{
+			//Allgemeine Einstellung des neuen ChildFrames
+			super(title, true, true);
+			this.setMaximizable(true);
+			this.setIconifiable(true);
+			
+			//
+			this.add(tabs);
+			
+			//Einstellung der Schließoperation
+			this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+			
+			//Hinzufügen des passenden Listeners
+			this.addInternalFrameListener(new MyInternalFrameListener());
+			
+			//Einstellung der Position des ChildFrames innerhalb des Desktopbereichs
+			this.setLocation(x, y);
+			
+			//Einstellung der Grösse des ChildFrames
+			this.setSize(height, width);
+			
+			//Einblenden des ChildFrames
+			this.setVisible(true);
+		}
+		
+		private void addTab(String title, Container content)
+		{			tabs.addTab(title, content);}
 	}
 }

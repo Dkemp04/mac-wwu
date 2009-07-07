@@ -6,10 +6,9 @@ import javax.swing.*;
 /**
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
  */
-public class TabOrganisation
+public class TabOrganisation extends JTabbedPane
 {
-	//Auf dieses Pane kann man Container adden, die dann als Tabs nacheinander dargestellt werden
-	private JTabbedPane tabs;
+	private static final long serialVersionUID = -2568355763034745400L;
 	
 	/**Konstruktor, der für dafür sorgt, dass das JTabbedPane erzeugt und eingestellt wird
 	 * @param parent Vater-Container des JTabbedPanes
@@ -17,16 +16,16 @@ public class TabOrganisation
 	public TabOrganisation(Container parent)
 	{
 		//Erzeugung und Einstellung eines neuen JTabbedPanes
-		tabs = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
-		tabs.setSize(320, 240);
+		super(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
+		this.setSize(320, 240);
 		
 		//Test-Tabs
-		tabs.addTab("Hinweise", new JLabel("Hinweis"));
-		tabs.addTab("Warnungen", new JLabel("Warnung"));		
-		tabs.addTab("Fehler", new JLabel("Fehler"));
+		this.addTab("Hinweise", new JLabel("Hinweis"));
+		this.addTab("Warnungen", new JLabel("Warnung"));		
+		this.addTab("Fehler", new JLabel("Fehler"));
 		
 		//Hinzufügen des JTabbedPanes auf den übergebenen Vater-Container
-		parent.add(tabs, BorderLayout.SOUTH);
+		parent.add(this, BorderLayout.SOUTH);
 	}
 	
 	/**Methode, die zu dem TabbedPane ein Tab hinzufügt mit übergebenen Titel und content
@@ -35,7 +34,7 @@ public class TabOrganisation
 	 */
 	public void addTab (String title, Container content)
 	{
-		tabs.addTab(title, content);
+		this.addTab(title, content);
 	}
 	
 	/**Methode, die ein Tab anhand des übergebenen Titels sucht und deaktiviert
@@ -45,13 +44,13 @@ public class TabOrganisation
 	public void setTabEnableStatus (String title, boolean status)
 	{
 		//Suche nach ersten Tabs, der dem angegebenen Titel entspricht
-		for (int i = 0; i < tabs.getTabCount(); i++)
+		for (int i = 0; i < this.getTabCount(); i++)
 		{
 			//Titel entspricht übergebenen Titel
-			if (tabs.getTitleAt(i) == title)
+			if (this.getTitleAt(i) == title)
 			{
 				//Setze den Status des ausgewählten Tabs
-				tabs.setEnabledAt(i, status);
+				this.setEnabledAt(i, status);
 				
 				//Ignoriere folgende Tabs mit gleichem Titel
 				break;
