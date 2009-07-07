@@ -1,4 +1,5 @@
 package GUI;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -21,11 +22,11 @@ public class Options extends JDialog  implements ActionListener
 	 * Konstruktor zur Einstellung und Darstellung der GUI-Elemente
 	 * @param base Vater-Container der Options
 	 */
-	public Options (JFrame parent)
+	public Options (Container parent)
 	{
 		//Konstruktor der Oberklasse wird augerufen, dem der Vater-Container und der Titel übergeben wird.
 		//Zusätzlich wird eingestellt, dass das Fenster modal ist, d.h. dass es bis zur Beendung fokussiert bleibt
-		super(parent, "Optionen", true);
+		super((JFrame) parent, "Optionen", true);
 		
 		//Die GUI-Elemente werden initialisiert, es werden ihnen ActionListener zugeordnet und die horizontale Ausrichtung gesetzt
 		header = new JLabel(" Look-and-Feel ");

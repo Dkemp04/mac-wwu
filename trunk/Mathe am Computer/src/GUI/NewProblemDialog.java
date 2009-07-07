@@ -17,7 +17,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Erzeugung der Zeichenfläche
 	Graph map;
 	JTabbedPane steps;
-	JFrame parent;
+	Container parent;
 	JTextField name;
 	
 	//Deklarierung der Buttons und des zugehörigen Panel im ersten Schritt der Problemerstellung
@@ -49,10 +49,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	JPanel step2;
 	JPanel center1;
 
-	public NewProblemDialog (JFrame parent)
+	public NewProblemDialog (Container parent)
 	{
 		//Einstellung des Fensters (Vater-Fenster, Titel, Modal-Eigenschaft)
-		super(parent, "Neues Problem", true);
+		super((JFrame) parent, "Neues Problem", true);
 		this.parent = parent;
 		map = new Graph(parent);
 		

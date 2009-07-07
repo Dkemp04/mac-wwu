@@ -18,7 +18,7 @@ public class DesktopArea
 	/**Konstruktor, welcher den Desktopbereich erzeugt und einstellt
 	 * @param parent Vater-Container, in welchem der Desktopbereich hinzugefügt werden soll
 	 */
-	public DesktopArea (JFrame parent)
+	public DesktopArea (Container parent)
 	{
 		//Erzeugung des Desktopbereichs
 		desk = new JDesktopPane();

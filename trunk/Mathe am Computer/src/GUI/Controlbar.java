@@ -11,7 +11,7 @@ import Logik.Problem;
 public class Controlbar implements ActionListener
 {
 	//Vater-Container, in welchen diese Klasse angezeigt wird
-	private JFrame parent;
+	private Container parent;
 	
 	//Deklarierung der GUI-Elemente
 	private JMenuBar menubar;			//Menüleiste
@@ -32,10 +32,10 @@ public class Controlbar implements ActionListener
 	 * Konstruktor zur Einstelllung und Darstellung der Elemente des Menüs
 	 * @param base Vater-Container der ControlBar
 	 */
-	public Controlbar (JFrame base)
+	public Controlbar (Container parent)
 	{
 		//Vater-Container wird hier in der Klasse für weitere Zwecke zwischengespeichert
-		parent = base;
+		parent = parent;
 		
 		//Erzeugung des Menüs, dessen Untermenüs und Menüelementen
 		menubar = new JMenuBar();
@@ -77,7 +77,7 @@ public class Controlbar implements ActionListener
 		menubar.add(data);
 		menubar.add(advanced);
 		menubar.add(help);
-		base.add(menubar, BorderLayout.NORTH);
+		parent.add(menubar, BorderLayout.NORTH);
 	}
 	
 	/**

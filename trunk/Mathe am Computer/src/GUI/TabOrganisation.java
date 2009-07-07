@@ -8,15 +8,24 @@ import javax.swing.*;
  */
 public class TabOrganisation
 {
+	//Auf dieses Pane kann man Container adden, die dann als Tabs nacheinander dargestellt werden
 	private JTabbedPane tabs;
 	
-	public TabOrganisation(JFrame parent)
+	/**Konstruktor, der für dafür sorgt, dass das JTabbedPane erzeugt und eingestellt wird
+	 * @param parent Vater-Container des JTabbedPanes
+	 */
+	public TabOrganisation(Container parent)
 	{
+		//Erzeugung und Einstellung eines neuen JTabbedPanes
 		tabs = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
+		tabs.setSize(320, 240);
+		
+		//Test-Tabs
 		tabs.addTab("Hinweise", new JLabel("Hinweis"));
 		tabs.addTab("Warnungen", new JLabel("Warnung"));		
 		tabs.addTab("Fehler", new JLabel("Fehler"));
-		tabs.setSize(320, 240);
+		
+		//Hinzufügen des JTabbedPanes auf den übergebenen Vater-Container
 		parent.add(tabs, BorderLayout.SOUTH);
 	}
 	
