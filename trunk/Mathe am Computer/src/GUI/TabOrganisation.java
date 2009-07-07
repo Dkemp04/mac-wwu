@@ -1,13 +1,14 @@
 package GUI;
 import java.awt.*;
-import java.util.*;
 
 import javax.swing.*;
 
+/**
+ * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ */
 public class TabOrganisation
 {
 	JTabbedPane tabs;
-	LinkedList<JPanel> tabList = new LinkedList<JPanel>();
 	
 	public TabOrganisation(JFrame parent)
 	{
@@ -17,5 +18,20 @@ public class TabOrganisation
 		tabs.addTab("Fehler", new JLabel("Fehler"));
 		tabs.setSize(320, 240);
 		parent.add(tabs, BorderLayout.SOUTH);
+	}
+	
+	public void addTab (String title, Container content)
+	{
+		tabs.addTab(title, content);
+	}
+	
+	public void setTabEnableStatus (String title, boolean status)
+	{
+		for (int i = 0; i < tabs.getTabCount(); i++)
+		{
+			if (tabs.getTitleAt(i) == title)
+				tabs.setEnabledAt(i, status);
+			
+		}
 	}
 }
