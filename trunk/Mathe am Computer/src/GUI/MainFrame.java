@@ -1,10 +1,8 @@
 package GUI;
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
- * @author Daniel Kemper
+ * @author d_kemp04, chrvogel, u_aksa01, s_pich02
  */
 public class MainFrame extends JFrame
 {
@@ -46,6 +44,7 @@ public class MainFrame extends JFrame
 	}
 	
 	/**Get-Methode, die die DesktopArea des Fensters 
+	 * @return Gibt den Desktopbereich des Hauptfensters zurück
 	 */
 	public DesktopArea getDesktop ()
 	{		return desktop;}
