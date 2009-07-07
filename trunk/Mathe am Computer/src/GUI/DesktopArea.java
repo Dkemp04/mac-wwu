@@ -84,7 +84,7 @@ public class DesktopArea
 		 */
 		public void internalFrameClosing (InternalFrameEvent e)
 		{
-			//Öffnet einen Dialog, ob das aktuelles Problem gespeichert werden soll und zwischenspeichert das Ergebnis
+			//Öffnet einen Dialog, ob das aktuelles Problem gespeichert werden soll und zwischenspeichert das Ergebnis des Dialogs
 			int result = JOptionPane.showConfirmDialog(null, new Label("Möchten Sie das Problem vor dem Beenden speichern ?"), "Speichern", JOptionPane.YES_NO_OPTION, 3);
 			
 			//Überprüfung, ob bei dem Dialog "Ja" ausgewählt wurde
