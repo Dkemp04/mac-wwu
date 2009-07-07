@@ -35,7 +35,7 @@ public class Controlbar implements ActionListener
 	public Controlbar (Container parent)
 	{
 		//Vater-Container wird hier in der Klasse für weitere Zwecke zwischengespeichert
-		parent = parent;
+		this.parent = parent;
 		
 		//Erzeugung des Menüs, dessen Untermenüs und Menüelementen
 		menubar = new JMenuBar();
