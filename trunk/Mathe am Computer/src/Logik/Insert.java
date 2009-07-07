@@ -15,7 +15,7 @@ public class Insert extends Methode{
 	public void run(){
 		ArrayList<Point> tempSolution = new ArrayList<Point>();
 		double currentLength = 0;
-		Point lastPoint, part1 = startingPoint;
+		Point lastPoint = startingPoint, part1 = startingPoint;
 		tempSolution.add(startingPoint);
 		while(this.unused >= 0)
 		{
@@ -37,9 +37,9 @@ public class Insert extends Methode{
 				}
 			}
 			currentLength += distance;
+			addHistory(lastPoint, problemElement[position], "Anfügen des Punkt "+problemElement[position]+" ergibt den geringsten L�ngenzuwachs der Rundreise ("+currentLength+").");
 			//Setzt den letzten Punkt um und fgt ihn ein
 			lastPoint = problemElement[position];		
-			addHistory(lastPoint, "Anfügen des Punkt "+lastPoint+" ergibt den geringsten Längenzuwachs der Rundreise ("+currentLength+").");
 			tempSolution.add(position, problemElement[position]);
 			unused--;
 		}

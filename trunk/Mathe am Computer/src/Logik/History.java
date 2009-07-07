@@ -2,7 +2,7 @@ package Logik;
 
 public class History {
 	History nextItem;
-	Point historyPoint;
+	Point historyPoint, historyPrevPoint;
 	String historyText;
 	/**
 	 * Erzeugt ein neues Element und fügt dieses in eine bestehende History ein
@@ -10,16 +10,17 @@ public class History {
 	 * @param historyPoint Der neue Punkt der History
 	 * @param historyText Der Text der History
 	 */
-	public void add(Point historyPoint, String historyText){
-		setLastItem(new History(historyPoint, historyText));
+	public void add(Point historyPoint, Point historyPoint2, String historyText){
+		setLastItem(new History(historyPoint, historyPoint2, historyText));
 	}
 	/**
 	 * Erzeugt ein neues Element als Ausgang einer History
 	 * @param historyPoint Der Startpunkt der History
 	 * @param historyText Der Text der History
 	 */
-	public History(Point historyPoint, String historyText){
+	public History(Point historyPoint, Point historyPoint2, String historyText){
 		nextItem = null;
+		this.historyPrevPoint = historyPoint2;
 		this.historyPoint = historyPoint;
 		this.historyText = historyText;
 	}

@@ -28,9 +28,9 @@ public class NNgR extends Methode{
 			}
 			currentLength += distance;
 			//Setzt den letzten Punkt um und fgt ihn ein
+			addHistory(lastPoint, problemElement[position], "Anfügen des Punkt "+problemElement[position]+" ergibt den geringsten Längenzuwachs der Rundreise ("+currentLength+").");
 			lastPoint = problemElement[position];		
-			addHistory(lastPoint, "AnfÃ¼gen des Punkt "+lastPoint+" ergibt den geringsten LÃ¤ngenzuwachs der Rundreise ("+currentLength+").");
-			addPointFront(problemElement[position]);
+			addPointFront(position);
 		}
 	}
 	

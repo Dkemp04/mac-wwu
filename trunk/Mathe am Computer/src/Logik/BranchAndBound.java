@@ -13,8 +13,11 @@ public class BranchAndBound extends Methode{
 		//Überträgt die Lösung in das Array
 		for(int i=0; i< protoSolution.length;i++)
 		{
-			addHistory(protoSolution[i], "Der Punkt "+protoSolution[i]+" wird nach dem Branch-And-Bound Algorithmus aufgenommen. Er ist garantiert Teil der kürzesten Route.");
-			addPointFront(protoSolution[i]);
+			if(i==0)
+				addHistory(startingPoint, protoSolution[i], "Der Punkt "+protoSolution[i]+" wird nach dem Branch-And-Bound Algorithmus aufgenommen. Er ist garantiert Teil der kürzesten Route.");
+			else
+				addHistory(protoSolution[i-1], protoSolution[i], "Der Punkt "+protoSolution[i]+" wird nach dem Branch-And-Bound Algorithmus aufgenommen. Er ist garantiert Teil der kürzesten Route.");
+			addPoint(protoSolution[i]);
 		}
 	}
 	
