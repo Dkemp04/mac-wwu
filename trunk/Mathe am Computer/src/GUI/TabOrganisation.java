@@ -8,7 +8,7 @@ import javax.swing.*;
  */
 public class TabOrganisation
 {
-	JTabbedPane tabs;
+	private JTabbedPane tabs;
 	
 	public TabOrganisation(JFrame parent)
 	{
@@ -31,7 +31,6 @@ public class TabOrganisation
 		{
 			if (tabs.getTitleAt(i) == title)
 				tabs.setEnabledAt(i, status);
-			
 		}
 	}
 }
