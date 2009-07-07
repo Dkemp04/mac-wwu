@@ -6,7 +6,7 @@ import Logik.Problem;
 import Logik.Point;
 import Persistenz.ObjectSerialization;
 
-/**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
+/**
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
  */
 public class NewProblemDialog extends JDialog implements ActionListener
