@@ -32,10 +32,10 @@ public class TabOrganisation extends JTabbedPane
 	 * @param title Titel der hinzuzufügenden Tabs
 	 * @param content Inhalt-Container des hinzuzufügenden Tabs
 	 */
-	public void addTab (String title, Container content)
+	/*public void addTab (String title, Container content)
 	{
 		this.addTab(title, content);
-	}
+	}*/
 	
 	/**Methode, die ein Tab anhand des übergebenen Titels sucht und deaktiviert
 	 * @param title Titel des zu deaktivierenden Tabs

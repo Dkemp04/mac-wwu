@@ -30,7 +30,7 @@ public class Graph extends JPanel
 	    location = new JLabel("x,y: ");
 	    this.add(location, BorderLayout.SOUTH);
 	    this.add(canvas, BorderLayout.CENTER);
-	    setSize(canvas.getWidth(),canvas.getHeight());
+	    this.setSize(canvas.getWidth(),canvas.getHeight());
 	    this.setVisible(true);
 	}
 	
@@ -58,7 +58,7 @@ public class Graph extends JPanel
 		this.canvas.ellipses.add(new SingleEllipse(x,y));
 	}
 	
-	public Canvas getCanvas ()
+	public DrawingCanvas getCanvas ()
 	{
 		return this.canvas;
 	}
@@ -102,6 +102,11 @@ public class Graph extends JPanel
 		    repaint(); 
 		    invalidate();
 		}
+	    
+	    public BufferedImage getBackgroundImage ()
+	    {
+	    	return this.background;
+	    }
 
 	    private class MyMouseListener extends MouseAdapter
 	    {
@@ -203,7 +208,7 @@ public class Graph extends JPanel
 	{
 		public void componentResized(ComponentEvent e)
 		{
-			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Karte_Deutschland.jpg");
+			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Deutschland.jpg");
 			if (f != null)
 			{
 				new SwingWorker<BufferedImage, Void>()
