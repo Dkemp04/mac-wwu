@@ -14,6 +14,9 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse NewProblem
 	private static final long serialVersionUID = 1691310154690553788L;
 	
+	private static final int BORDER_WIDTH = 44;
+	private static final int BORDER_HEIGHT = 210;
+	
 	//Erzeugung der Zeichenfläche
 	Graph map;
 	JTabbedPane steps;
@@ -58,7 +61,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
 		buttons1 = new JPanel();
-		buttons1.setSize(this.getHeight(), 50);
 		cancel1 = new JButton("Abbrechen");
 		cancel1.addActionListener(this);
 		forward1 = new JButton("Weiter");
@@ -70,7 +72,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 2
 		buttons2 = new JPanel();
-		buttons2.setSize(this.getHeight(), 50);
 		back2 = new JButton("Zurück");
 		back2.addActionListener(this);
 		cancel2 = new JButton("Abbrechen");
@@ -106,6 +107,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					description.setText("Branch-and-Bound");}}
 			public void mouseExited (MouseEvent e){
 				description.setText("");}});
+		bab.addActionListener(this);
 		
 		mst = new JCheckBox("Minimal Spanning Tree");
 		heuristics_selection.add(mst);
@@ -115,6 +117,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					description.setText("Minimal Spanning Tree");}}
 			public void mouseExited (MouseEvent e){
 				description.setText("");}});
+		mst.addActionListener(this);
 		
 		sa = new JCheckBox("Simulated Annealing");
 		heuristics_selection.add(sa);
@@ -124,6 +127,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					description.setText("Simulated Annealing");}}
 			public void mouseExited (MouseEvent e){
 				description.setText("");}});
+		sa.addActionListener(this);
 		
 		sam = new JCheckBox("Selbst­organisierende Karte");
 		heuristics_selection.add(sam);
@@ -133,6 +137,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					description.setText("Selbst­organisierende Karte");}}
 			public void mouseExited (MouseEvent e){
 				description.setText("");}});
+		sam.addActionListener(this);
 		
 		ch = new JCheckBox("Christofides-Heuristik");
 		heuristics_selection.add(ch);
@@ -142,6 +147,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					description.setText("Christofides-Heuristik");}}
 			public void mouseExited (MouseEvent e){
 				description.setText("");}});
+		ch.addActionListener(this);
 		
 		koh = new JCheckBox("K-Opt-Heuristik");
 		heuristics_selection.add(koh);
@@ -151,6 +157,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					description.setText("K-Opt-Heuristik");}}
 			public void mouseExited (MouseEvent e){
 				description.setText("");}});
+		koh.addActionListener(this);
 		
 		heuristics.add(heuristics_selection);
 		heuristics.add(description);
@@ -197,9 +204,9 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		
 		//Allgemeine Einstellung des Frames
-		this.setLocation(parent.getX() + 100, parent.getY() + 100);
+		this.setLocation(parent.getX(), parent.getY());
 		this.setSize(400,400);
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -208,13 +215,37 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	{
 		//Auswertung des Objektes, von welchem der Befehl ausgegangen ist
 		String cmd = a.getActionCommand();
-		if (cmd.equals("Zurück"))
+		if (cmd.equals("Branch-and-Bound"))
+		{
+			if (bab.isSelected())
+				System.out.println("bab");
+		}
+		else if (cmd.equals("Minimal Spanning Tree"))
+		{
+			System.out.println("mst");
+		}
+		else if (cmd.equals("Simulated Annealing"))
+		{
+			System.out.println("sa");
+		}
+		else if (cmd.equals("Selbst-organisierende Karte"))
+		{
+			System.out.println("som");
+		}
+		else if (cmd.equals("Christofides-Heuristik"))
+		{
+			System.out.println("ch");
+		}
+		else if (cmd.equals("K-Opt-Heuristik"))
+		{
+			System.out.println("koh");
+		}
+		else if (cmd.equals("Zurück"))
 		{
 			if (steps.getSelectedIndex() > 0)
 				steps.setSelectedIndex(steps.getSelectedIndex() - 1);
 			if (steps.getTitleAt(steps.getSelectedIndex()) != "Koordinaten")
 				this.setSize(400,400);
-			
 		}
 		else if (cmd.equals("Abbrechen"))
 		{
@@ -229,7 +260,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 				if (steps.getTitleAt(steps.getSelectedIndex()) == "Koordinaten")
 				{
 					steps.setEnabledAt(1, true);
-					this.setSize(map.getHeight() + 100, map.getWidth());
+					this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
 				}
 				this.repaint();
 			}
