@@ -18,7 +18,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	private static final int BORDER_HEIGHT = 210;
 	
 	//Erzeugung der Zeichenfläche
-	Graph map;
+	Problem newProblem;
 	JTabbedPane steps;
 	Container parent;
 	JTextField name;
@@ -57,7 +57,8 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		//Einstellung des Fensters (Vater-Fenster, Titel, Modal-Eigenschaft)
 		super((JFrame) parent, "Neues Problem", true);
 		this.parent = parent;
-		map = new Graph(parent);
+		newProblem = new Problem();
+		this.add(newProblem.getGraph());
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
 		buttons1 = new JPanel();
@@ -191,10 +192,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		step2 = new JPanel();
 		JPanel center2 = new JPanel();
-		map.setBorder(BorderFactory.createEtchedBorder());
+		newProblem.getGraph().setBorder(BorderFactory.createEtchedBorder());
 		center2.setLayout(new BorderLayout());
 		center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<br>Wenn Sie Punkte wieder löschen möchten, müssen Sie auf den zu löschenden Punkt mit der rechten Maustaste klicken.<html>"), BorderLayout.NORTH);
-		center2.add(map, BorderLayout.CENTER);
+		center2.add(newProblem.getGraph(), BorderLayout.CENTER);
 		center2.add(buttons2, BorderLayout.SOUTH);
 		
 		steps.addTab("Heuristik", new WhitespaceFrame().decorate(step1, center1));
@@ -253,14 +254,14 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Weiter"))
 		{
-			this.setSize(map.getHeight() + 100, map.getWidth());
+			this.setSize(newProblem.getGraph().getHeight() + 100, newProblem.getGraph().getWidth());
 			if (steps.getSelectedIndex() < steps.getTabCount() - 1)
 			{
 				steps.setSelectedIndex(steps.getSelectedIndex() + 1);
 				if (steps.getTitleAt(steps.getSelectedIndex()) == "Koordinaten")
 				{
 					steps.setEnabledAt(1, true);
-					this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
+					this.setSize(newProblem.getGraph().getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, newProblem.getGraph().getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
 				}
 				this.repaint();
 			}
@@ -270,21 +271,30 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);
 			if (choice == JOptionPane.YES_OPTION)
 			{
-				Problem newProblem = new Problem();
-				for (int i = 0; i < map.getEllipseCount(); i++)
+				try
 				{
-					try {
-						newProblem.AddPoint(new Point(map.getEllipses().get(i).getX(),map.getEllipses().get(i).getY()));
-					} catch (Exception e) {
-						e.printStackTrace();
+					for (int i = 0; i < newProblem.getGraph().getEllipseCount(); i++)
+					{
+						if (i == 0)
+						{
+							newProblem.AddStartingPoint(new Point(newProblem.getGraph().getEllipses().get(i).getX(),newProblem.getGraph().getEllipses().get(i).getY()));
+						}
+						else
+						{
+							newProblem.AddPoint(new Point(newProblem.getGraph().getEllipses().get(i).getX(),newProblem.getGraph().getEllipses().get(i).getY()));
+						}
 					}
 				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 				new ObjectSerialization().save(name.getText(), newProblem);
-				new ObjectSerialization().save(name.getText()+"GUI", map);
-				//StaticGraph representation = new StaticGraph(parent);
-				((MainFrame) parent).getDesktop().addChildFrame(map, "Test", map.getX() + 10, map.getY() + 10, 300, 300);
+				new ObjectSerialization().save(name.getText()+"GUI", newProblem.getGraph());
+				StaticGraph representation = new StaticGraph(parent, newProblem.getGraph());
+				((MainFrame) parent).getDesktop().addChildFrame(representation, "Test", representation.getX() + 10, representation.getY() + 10, 300, 300);
 				this.dispose();
 			}
 		}
-	}
+	}	
 }

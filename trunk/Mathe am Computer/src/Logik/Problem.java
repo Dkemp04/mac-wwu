@@ -39,7 +39,6 @@ public class Problem implements Serializable {
 		if(point.equals(startingPoint))
 			throw new Exception("Punkt bereits vorhanden.");
 		points.add(point);
-		representation.addEllipse(point.getX(), point.getY());
 	}
 	
 	/**
@@ -55,4 +54,7 @@ public class Problem implements Serializable {
 		return points;
 	}
 	
+	public Graph getGraph ()
+	{
+		return this.representation;}
 }

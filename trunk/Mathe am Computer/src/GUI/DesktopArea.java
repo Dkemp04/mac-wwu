@@ -26,7 +26,7 @@ public class DesktopArea
 		//Einstellung des Desktop-Bereichs
 		desk.setBackground(Color.WHITE);
 		desk.setBorder(BorderFactory.createEtchedBorder());
-		desk.setSize(1024,768);
+		desk.setSize(1280,1024);
 		
 		//Test-ChildFrames
 		addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
@@ -45,14 +45,13 @@ public class DesktopArea
 	 * @param width		Breite des ChildFrames
 	 * @return			Gibt das neu erzeugte ChildFrames zurück
 	 */
-	public JInternalFrame addChildFrame (Container content, String title, int x, int y, int height, int width)
+	public void addChildFrame (Container content, String title, int x, int y, int height, int width)
 	{	
 		//Erzeugung des neuen ChildFrames und Einstellung des Titels
 		ChildFrame child = new ChildFrame(content, title, x, y, height, width);
 		
 		//Hinzufügen und Zurückgeben des ChildFrames
 		desk.add(child);
-		return child;
 	}
 	
 	public void addTabToChildFrame (ChildFrame child, String tab_title, Container content)
@@ -106,6 +105,7 @@ public class DesktopArea
 			this.setMaximizable(true);
 			this.setIconifiable(true);
 			
+			tabs.addTab(title, content);
 			//
 			this.add(tabs);
 			
