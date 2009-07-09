@@ -20,9 +20,9 @@ public class TabOrganisation extends JTabbedPane
 		this.setSize(320, 240);
 		
 		//Test-Tabs
-		this.addTab("Hinweise", new JLabel("Hinweis"));
-		this.addTab("Warnungen", new JLabel("Warnung"));		
-		this.addTab("Fehler", new JLabel("Fehler"));
+		//this.addTab("Hinweise", new JLabel("Hinweis"));
+		//this.addTab("Warnungen", new JLabel("Warnung"));		
+		//this.addTab("Fehler", new JLabel("Fehler"));
 		
 		//Hinzufügen des JTabbedPanes auf den übergebenen Vater-Container
 		parent.add(this, BorderLayout.SOUTH);
