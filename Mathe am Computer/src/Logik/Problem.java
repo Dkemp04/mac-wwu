@@ -1,6 +1,7 @@
 package Logik;
 import java.io.*;
 import java.util.*;
+import GUI.Graph;
 
 /**
  * @author s_pich02
@@ -11,7 +12,12 @@ public class Problem implements Serializable {
 	
 	private Point startingPoint = null;
 	private LinkedList<Point> points = new LinkedList<Point>();
+	private Graph representation;
 	
+	public Problem ()
+	{
+		representation = new Graph();
+	}
 	
 	/**
 	 * Fügt den Startpunkt hinzu. Der Startpunkt darf nicht in der Punktliste sein
@@ -32,6 +38,7 @@ public class Problem implements Serializable {
 		if(point.equals(startingPoint))
 			throw new Exception("Punkt bereits vorhanden.");
 		points.add(point);
+		representation.addEllipse(point.getX(), point.getY());
 	}
 	
 	/**
