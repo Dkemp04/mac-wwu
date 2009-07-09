@@ -28,15 +28,6 @@ public class TabOrganisation extends JTabbedPane
 		parent.add(this, BorderLayout.SOUTH);
 	}
 	
-	/**Methode, die zu dem TabbedPane ein Tab hinzufügt mit übergebenen Titel und content
-	 * @param title Titel der hinzuzufügenden Tabs
-	 * @param content Inhalt-Container des hinzuzufügenden Tabs
-	 */
-	/*public void addTab (String title, Container content)
-	{
-		this.addTab(title, content);
-	}*/
-	
 	/**Methode, die ein Tab anhand des übergebenen Titels sucht und deaktiviert
 	 * @param title Titel des zu deaktivierenden Tabs
 	 * @param status Status (aktiviert oder deaktiviert) auf welchen der Tab gesetzt werden soll
