@@ -39,6 +39,8 @@ public class StaticGraph extends JPanel
 	
 	public class StaticCanvas extends Canvas
 	{
+		private static final long serialVersionUID = -6614648723556742214L;
+		
 		private BufferedImage background;
 		
 		public void paint(Graphics g)
