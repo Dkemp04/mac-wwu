@@ -14,10 +14,11 @@ public class Problem implements Serializable {
 	private LinkedList<Point> points = new LinkedList<Point>();
 	private Graph representation;
 	
+	/**
+	 * Konstruktor, der die graphische Repräsentation des Problems initialisiert
+	 */
 	public Problem ()
-	{
-		representation = new Graph();
-	}
+	{		representation = new Graph();}
 	
 	/**
 	 * Fügt den Startpunkt hinzu. Der Startpunkt darf nicht in der Punktliste sein
