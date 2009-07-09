@@ -18,7 +18,7 @@ public class Graph extends JPanel
 	private JLabel location;
 	private Cursor curCursor;
 	
-	public Graph(Container parent)
+	public Graph()
 	{
 		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläche
 		super();
@@ -26,7 +26,6 @@ public class Graph extends JPanel
 	    
 	    //Einstellung des Frames und dessen Komponenten (Zeichenfläche und Koordinaten-Anzeige)
 	    this.setLayout(new BorderLayout());
-	    canvas.setFocusable(false);
 	    location = new JLabel("x,y: ");
 	    this.add(location, BorderLayout.SOUTH);
 	    this.add(canvas, BorderLayout.CENTER);

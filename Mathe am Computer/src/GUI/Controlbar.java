@@ -104,7 +104,7 @@ public class Controlbar implements ActionListener
 			Problem  openProblem = open_dialog.open ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
 			
 			//Graph zur Darstellung des Problems wird erzeugt
-			Graph map = new Graph(parent);
+			Graph map = new Graph();
 			
 			//größte x-und y-Koordinaten aller Punkte im Graphen werden gesucht
 			int maxX = 0, maxY = 0;
