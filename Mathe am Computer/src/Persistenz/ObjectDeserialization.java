@@ -1,6 +1,8 @@
 package Persistenz;
 import java.awt.*;
 import java.io.*;
+
+import Logik.Logic;
 import Logik.Problem;
 
 /**
@@ -13,10 +15,10 @@ public class ObjectDeserialization
 	 * Methode, die Dateien  bei angegebenem Dateipfad von der Festplatte liest
 	 * @param name Dateipfad unter welcher die Datei geladen werden soll
 	 */
-	public Problem openProblem (String name)
+	public Logic openLogic (String name)
 	{
 		//Attribut, welches zur Zwischenspeicherung der zu öffnenden Problems dient
-		Problem openProblem = null;
+		Logic openLogic = null;
 		try
 		{
 			//Streams, die das Object von der Festplatte lesen
@@ -24,13 +26,13 @@ public class ObjectDeserialization
 			ObjectInputStream is = new ObjectInputStream (fs);
 			
 			//Liest das Object von der Festplatte und wandelt es in ein Problem-Objekt um
-			openProblem = (Problem) is.readObject();
+			openLogic = (Logic) is.readObject();
 			
 			//Schließt die Streams
 			is.close();
 			
 			//Überprüfung, ob Problem geladen werden konnte
-			if (openProblem == null)
+			if (openLogic == null)
 			{
 				//Es wird eine FileNotFoundException geworden, wenn die Datei nicht gefunden wurde
 				throw new FileNotFoundException();
@@ -51,7 +53,7 @@ public class ObjectDeserialization
 		}
 		
 		//Gibt das geladene Problem zurück
-		return openProblem;
+		return openLogic;
 	}
 	
 	public Image openImage (String name)

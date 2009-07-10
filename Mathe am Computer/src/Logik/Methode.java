@@ -39,6 +39,13 @@ public abstract class Methode extends Thread{
 		return length;
 	}
 	
+	/**
+	 * Gibt die History des Objekts zurück
+	 * @return History der Methode
+	 */
+	public History getHistory(){
+		return history;
+	}
 	
 	/**
 	 * Fügt den Punkt in die Lösung ein. Dabei werden die Punkte am Anfangsende der Lösung eingefügt 
@@ -63,7 +70,10 @@ public abstract class Methode extends Thread{
         	else
         		length += solution[solution.length-1].Distance(startingPoint);
         	double tempDistance = (positionFront == 0)?(startingPoint.Distance(solution[positionFront])):(solution[solution.length-unused-2].Distance(solution[solution.length-unused-1]));
-        	addHistory(null, null, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
+        	if(positionFront == solution.length-1)
+            	addHistory(solution[positionFront], startingPoint, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
+        	else
+            	addHistory(solution[positionFront], solution[positionFront+1], "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
         	addHistory(null, null, "Die gesamte zurckgelegte Strecke betrgt "+length+".");
         }
         //Korrigiert die Zeiger
@@ -96,8 +106,11 @@ public abstract class Methode extends Thread{
         	else
         		length += solution[0].Distance(startingPoint);
         	double tempDistance = (positionEnd == solution.length-1)?(startingPoint.Distance(solution[positionEnd])):solution[positionEnd].Distance(solution[positionEnd-1]);
-        	addHistory(null, null, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
-        	addHistory(null, null, "Die gesamte zurckgelegte Strecke betrgt "+length+".");
+        	if(positionEnd == 0)
+        		addHistory(solution[positionEnd], startingPoint, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
+        	else
+        		addHistory(solution[positionEnd+1], solution[positionEnd], "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
+            addHistory(null, null, "Die gesamte zurckgelegte Strecke betrgt "+length+".");
         }
         //Korrigiert die Zeiger
         positionEnd--;
@@ -127,7 +140,7 @@ public abstract class Methode extends Thread{
         	else
         		length += solution[solution.length-1].Distance(startingPoint);
         	double tempDistance = (positionFront == 0)?(startingPoint.Distance(solution[positionFront])):(solution[solution.length-unused-2].Distance(solution[solution.length-unused-1]));
-        	addHistory(null, null, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
+        	addHistory(solution[solution.length-1], startingPoint, "Der letzte Punkt ist erreicht, die Route wird geschlossen. Ein zustzlicher Weg von "+tempDistance+" muss zurckgelegt werden.");
         	addHistory(null, null, "Die gesamte zurckgelegte Strecke betrgt "+length+".");
         }
         //Korrigiert die Zeiger

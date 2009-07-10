@@ -2,7 +2,7 @@ package GUI;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-import Logik.Problem;
+import Logik.*;
 import Logik.Point;
 
 /**
@@ -41,6 +41,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	JTextArea description;
 	
 	JCheckBox bab;
+	JCheckBox nn;
 	JCheckBox mst;
 	JCheckBox sa;
 	JCheckBox sam;
@@ -130,6 +131,16 @@ public class NewProblemDialog extends JDialog implements ActionListener
 				description.setText("");}});
 		mst.addActionListener(this);
 		
+		nn = new JCheckBox("Nearest Neighbor");
+		heuristics_selection.add(nn);
+		nn.addMouseListener(new MouseAdapter(){
+			public void mouseEntered (MouseEvent e){
+				if (nn.contains(e.getX(), e.getY())){ 
+					description.setText("Nearest Neighbor");}}
+			public void mouseExited (MouseEvent e){
+				description.setText("");}});
+		nn.addActionListener(this);
+		
 		sa = new JCheckBox("Simulated Annealing");
 		heuristics_selection.add(sa);
 		sa.addMouseListener(new MouseAdapter(){
@@ -183,7 +194,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		head.add(name);
 		head.add(new JLabel(""));
 		head.add(new JLabel(""));
-		head.add(new JLabel("Land"));
+		head.add(new JLabel("Karte"));
 		head.add(map_selection);
 		head.add(new JLabel(""));
 		head.add(new JLabel(""));
@@ -214,7 +225,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		//Allgemeine Einstellung des Frames
 		this.setLocation(parent.getX(), parent.getY());
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -223,32 +234,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	{
 		//Auswertung des Objektes, von welchem der Befehl ausgegangen ist
 		String cmd = a.getActionCommand();
-		if (cmd.equals("Branch-and-Bound"))
-		{
-			if (bab.isSelected())
-				System.out.println("bab");
-		}
-		else if (cmd.equals("Minimal Spanning Tree"))
-		{
-			System.out.println("mst");
-		}
-		else if (cmd.equals("Simulated Annealing"))
-		{
-			System.out.println("sa");
-		}
-		else if (cmd.equals("Selbst-organisierende Karte"))
-		{
-			System.out.println("som");
-		}
-		else if (cmd.equals("Christofides-Heuristik"))
-		{
-			System.out.println("ch");
-		}
-		else if (cmd.equals("K-Opt-Heuristik"))
-		{
-			System.out.println("koh");
-		}
-		else if (cmd.equals("Zurück"))
+		if (cmd.equals("Zurück"))
 		{
 			this.setContentPane(step1);
 				this.setSize(400,400);
@@ -294,7 +280,15 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						e.printStackTrace();
 					}
 					StaticGraph representation = new StaticGraph(parent, map);
-					((MainFrame) parent).getDesktop().addChildFrame(representation, newProblem, "Test", representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
+					Logic logic = new Logic();
+					logic.setProblem(newProblem);
+					if(bab.isSelected())
+						logic.addMethode(new BranchAndBound(newProblem));
+					if(mst.isSelected())						
+						logic.addMethode(new MST(newProblem));
+					if(nn.isSelected())
+						logic.addMethode(new NearestNeighbor(newProblem));
+					((MainFrame) parent).getDesktop().addChildFrame(this.getParent(), representation, map, logic, "Test", representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
 					this.dispose();
 				}
 			

@@ -1,9 +1,11 @@
 package Logik;
 
+import java.awt.geom.Line2D;
+
 public class History {
-	History nextItem;
-	Point historyPoint, historyPrevPoint;
-	String historyText;
+	private History nextItem;
+	private Point historyPoint, historyPrevPoint;
+	private String historyText;
 	/**
 	 * Erzeugt ein neues Element und fügt dieses in eine bestehende History ein
 	 * @param history Die bestehende History
@@ -41,5 +43,29 @@ public class History {
 			return historyText+"\n"+nextItem.toString();
 		else
 			return historyText;
+	}
+
+	/**
+	 * Gibt den Anfang einer Linie zurück
+	 * @return Der Anfang der aktuellen Linie
+	 */
+	public Point getLineStart(){
+		return historyPrevPoint;
+	}
+	
+	/**
+	 * Gibt das Ende einer Linie zurück
+	 * @return Das Ende der aktuellen Linie
+	 */
+	public Point getLineEnd(){
+		return historyPoint;
+	}
+	
+	/**
+	 * Gibt das nächste History-Item zurück
+	 * @return Gibt das nächste History-Item zurück
+	 */
+	public History getNext(){
+		return nextItem;
 	}
 }

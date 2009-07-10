@@ -2,6 +2,8 @@ package GUI;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+
+import Logik.Logic;
 import Logik.Problem;
 
 /**
@@ -106,22 +108,22 @@ public class Controlbar implements ActionListener
 			OpenDialog open_dialog = new OpenDialog();
 			
 			//Neues Problem wird erzeugt aus dem Rückgabewert des Dialogs
-			Problem  openProblem = open_dialog.openProblem("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
+			Logic  openLogic = open_dialog.openLogic("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
 			
 			//Graph zur Darstellung des Problems wird erzeugt
 			Graph map = new Graph();
 			
-			for(Logik.Point add : openProblem.getPoints()){
+			for(Logik.Point add : openLogic.getProblem().getPoints()){
 				map.addEllipse(add.getX(), add.getY());
 			}
 			StaticGraph display = new StaticGraph(parent, map);
 			
 			//größte x-und y-Koordinaten aller Punkte im Graphen werden gesucht
 			int maxX = 0, maxY = 0;
-			for (int i = 0; i < openProblem.getPoints().size(); i++)
+			for (int i = 0; i < openLogic.getProblem().getPoints().size(); i++)
 			{
-				int curX = (int) openProblem.getPoints().get(i).getX();
-				int curY = (int) openProblem.getPoints().get(i).getY();
+				int curX = (int) openLogic.getProblem().getPoints().get(i).getX();
+				int curY = (int) openLogic.getProblem().getPoints().get(i).getY();
 				map.addEllipse(curX, curY);
 				if (curX > maxX)
 				{	maxX = curX;}
@@ -130,7 +132,7 @@ public class Controlbar implements ActionListener
 			}
 			
 			//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
-			((MainFrame) parent).getDesktop().addChildFrame(display, openProblem, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
+			((MainFrame) parent).getDesktop().addChildFrame(parent, display, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
 		}
 		if (event.getActionCommand().equals("Speichern"))
 		{					}
