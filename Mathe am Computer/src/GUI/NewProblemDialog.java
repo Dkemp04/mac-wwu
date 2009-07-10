@@ -19,7 +19,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Erzeugung der Zeichenfläche
 	private Problem newProblem;
 	private Graph map;
-	private Container parent;
+	private MainFrame parent;
 	private JTextField name;
 	private JComboBox map_selection;
 	
@@ -63,7 +63,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		this.add(map);
 		map_selection = new JComboBox();
 		for (int i = 0; i < parent.getMaps().size() ; i++)
-			map_selection.addItem(parent.getMaps().get(i));
+			map_selection.addItem(parent.getMaps().get(i).getName());
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
 		buttons1 = new JPanel();
@@ -183,6 +183,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		head = new JPanel();	
 		head.setLayout(new GridLayout(4,4));
 		name = new JTextField();
+		name.setText("Name");
 		
 		head.add(new JLabel("Name"));
 		head.add(name);
@@ -219,7 +220,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		//Allgemeine Einstellung des Frames
 		this.setLocation(parent.getX(), parent.getY());
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -249,10 +250,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			if (map.getEllipseCount() < 3)
 			{
 				JOptionPane.showMessageDialog(this, "Bitte erstellen Sie mindestens 3 Punkte.", "Zu wenig Punkte", JOptionPane.WARNING_MESSAGE);
-			}
-			else if (name.getText() == "")
-			{
-				JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Namen für das Problem ein.", "Keinen Namen angegeben", JOptionPane.WARNING_MESSAGE);
 			}
 			else
 			{
@@ -286,10 +283,9 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						logic.addMethode(new MST(newProblem));
 					if(nn.isSelected())
 						logic.addMethode(new NearestNeighbor(newProblem));
-					((MainFrame) parent).getDesktop().addChildFrame(this.getParent(), representation, map, logic, name.getText(), representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
+					parent.getDesktop().addChildFrame(parent, representation, map, logic, name.getText(), representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
 					this.dispose();
 				}
-			
 			}
 		}
 	}	

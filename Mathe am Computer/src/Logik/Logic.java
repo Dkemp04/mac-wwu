@@ -1,8 +1,7 @@
 package Logik;
 
 import java.util.*;
-
-import GUI.DesktopArea.ChildFrame;
+import GUI.*;
 
 /**
  * Klasse zur Kapselung der Geschäftslogik

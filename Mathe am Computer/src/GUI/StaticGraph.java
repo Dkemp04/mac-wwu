@@ -1,7 +1,6 @@
 package GUI;
 import java.awt.*;
 import javax.swing.*;
-
 import Logik.History;
 
 public class StaticGraph extends JComponent

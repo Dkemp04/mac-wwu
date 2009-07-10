@@ -1,7 +1,6 @@
 package GUI;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 import javax.swing.*;
 import Logik.*;
@@ -112,29 +111,32 @@ public class Controlbar implements ActionListener
 			//Graph zur Darstellung des Problems wird erzeugt
 			Graph map = new Graph();
 			
-			for(Logik.Point add : openLogic.getProblem().getPoints()){
-				map.addEllipse(add.getX(), add.getY());
-			}
-			StaticGraph display = new StaticGraph(parent, map);
-			
-			//größte x-und y-Koordinaten aller Punkte im Graphen werden gesucht
-			int maxX = 0, maxY = 0;
-			for (int i = 0; i < openLogic.getProblem().getPoints().size(); i++)
+			if (openLogic != null)
 			{
-				int curX = (int) openLogic.getProblem().getPoints().get(i).getX();
-				int curY = (int) openLogic.getProblem().getPoints().get(i).getY();
-				map.addEllipse(curX, curY);
-				if (curX > maxX)
-				{	maxX = curX;}
-				if (curY > maxY)
-				{	maxY = curY;}
+				for(Logik.Point add : openLogic.getProblem().getPoints()){
+					map.addEllipse(add.getX(), add.getY());
+				}
+				StaticGraph display = new StaticGraph(parent, map);
+				
+				//größte x-und y-Koordinaten aller Punkte im Graphen werden gesucht
+				int maxX = 0, maxY = 0;
+				for (int i = 0; i < openLogic.getProblem().getPoints().size(); i++)
+				{
+					int curX = (int) openLogic.getProblem().getPoints().get(i).getX();
+					int curY = (int) openLogic.getProblem().getPoints().get(i).getY();
+					map.addEllipse(curX, curY);
+					if (curX > maxX)
+					{	maxX = curX;}
+					if (curY > maxY)
+					{	maxY = curY;}
+				}
+				
+				//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
+				((MainFrame) parent).getDesktop().addChildFrame(parent, display, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
 			}
-			
-			//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
-			((MainFrame) parent).getDesktop().addChildFrame(parent, display, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
 		}
 		if (event.getActionCommand().equals("Speichern"))
-		{					}
+		{					parent.getDesktop().getDesktopPane().getSelectedFrame();}
 		if (event.getActionCommand().equals("Speichern unter..."))
 		{					}
 		if (event.getActionCommand().equals("Setze Workspace"))
@@ -144,7 +146,7 @@ public class Controlbar implements ActionListener
 		if (event.getActionCommand().equals("Import..."))
 		{					
 			Image newImage = new OpenDialog().openImage(MainFrame.WORKSPACE);
-			((MainFrame) parent).addMap(newImage);
+			((MainFrame) parent).addMap("Test");
 		}
 		if (event.getActionCommand().equals("Beenden"))
 		{
