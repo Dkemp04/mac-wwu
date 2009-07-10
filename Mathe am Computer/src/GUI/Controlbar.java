@@ -1,10 +1,10 @@
 package GUI;
 import java.awt.event.*;
 import java.awt.*;
-import javax.swing.*;
+import java.util.LinkedList;
 
-import Logik.Logic;
-import Logik.Problem;
+import javax.swing.*;
+import Logik.*;
 
 /**
  * Menüleiste, welche im Hauptfenster eingeblendet wird und zur Navigation dient
@@ -13,8 +13,7 @@ import Logik.Problem;
 public class Controlbar implements ActionListener
 {
 	//Vater-Container, in welchen diese Klasse angezeigt wird
-	private Container parent;
-	private static String WORKSPACE = "C:/";
+	private MainFrame parent;
 	
 	//Deklarierung der GUI-Elemente
 	private JMenuBar menubar;			//Menüleiste
@@ -36,7 +35,7 @@ public class Controlbar implements ActionListener
 	 * Konstruktor zur Einstelllung und Darstellung der Elemente des Menüs
 	 * @param base Vater-Container der ControlBar
 	 */
-	public Controlbar (Container parent)
+	public Controlbar (MainFrame parent)
 	{
 		//Vater-Container wird hier in der Klasse für weitere Zwecke zwischengespeichert
 		this.parent = parent;
@@ -108,7 +107,7 @@ public class Controlbar implements ActionListener
 			OpenDialog open_dialog = new OpenDialog();
 			
 			//Neues Problem wird erzeugt aus dem Rückgabewert des Dialogs
-			Logic  openLogic = open_dialog.openLogic("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
+			Logic  openLogic = open_dialog.openLogic(MainFrame.WORKSPACE);
 			
 			//Graph zur Darstellung des Problems wird erzeugt
 			Graph map = new Graph();
@@ -140,11 +139,11 @@ public class Controlbar implements ActionListener
 		{					}
 		if (event.getActionCommand().equals("Setze Workspace"))
 		{				
-			WORKSPACE = new WorkspaceDialog().openDirectory(WORKSPACE);
+			MainFrame.WORKSPACE = new WorkspaceDialog().openDirectory(MainFrame.WORKSPACE);
 		}
 		if (event.getActionCommand().equals("Import..."))
 		{					
-			Image newImage = new OpenDialog().openImage(WORKSPACE);
+			Image newImage = new OpenDialog().openImage(MainFrame.WORKSPACE);
 			((MainFrame) parent).addMap(newImage);
 		}
 		if (event.getActionCommand().equals("Beenden"))
@@ -165,7 +164,7 @@ public class Controlbar implements ActionListener
 		if (event.getActionCommand().equals("Java Doc"))
 		{
 			//Öffnet die Java Doc des Programmes im Browser mit allen im Programm enthaltenen Klassen
-			new OpenURL(WORKSPACE + "/doc/index.html", OpenURL.LOCAL_FILE);
+			new OpenURL(MainFrame.WORKSPACE + "/doc/index.html", OpenURL.LOCAL_FILE);
 		}
 	}
 }

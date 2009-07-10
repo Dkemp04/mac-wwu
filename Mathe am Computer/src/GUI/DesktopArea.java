@@ -2,10 +2,7 @@ package GUI;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
-import Logik.Logic;
-import Logik.Methode;
-import Logik.Problem;
+import Logik.*;
 
 /**
  * Klasse, die für die Darstellung des JDesktopPanes sorgt und dessen Kinder
@@ -22,7 +19,7 @@ public class DesktopArea
 	/**Konstruktor, welcher den Desktopbereich erzeugt und einstellt
 	 * @param parent Vater-Container, in welchem der Desktopbereich hinzugefügt werden soll
 	 */
-	public DesktopArea (Container parent)
+	public DesktopArea (MainFrame parent)
 	{
 		//Erzeugung des Desktopbereichs
 		desk = new JDesktopPane();
@@ -124,10 +121,7 @@ public class DesktopArea
 			logic.start();
 			this.setResizable(false);
 			
-			tabs.addTab("Test 1", content);
-			
-			//tabs.addTab(title, content);
-			//
+			tabs.addTab(title, content);
 			this.add(tabs);
 			
 			//Einstellung der Schließoperation

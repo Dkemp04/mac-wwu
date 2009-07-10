@@ -1,6 +1,5 @@
 package GUI;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.*;
 
 import javax.swing.JPanel;
@@ -14,7 +13,6 @@ public class GraphDisplay extends JPanel
 	History history;
 	History lastHistory;
 	private LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
-	private LinkedList<Line2D> edges = new LinkedList<Line2D>();
 	
 	public GraphDisplay(String picture, Graph original)
 	{
