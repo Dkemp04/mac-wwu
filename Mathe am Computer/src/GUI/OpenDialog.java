@@ -3,8 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Persistenz.ObjectDeserialization;
-import Logik.Logic;
-import Logik.Problem;
+import Logik.*;
 
 /**
  * Dialog, der zum Öffnen von vorhandenen Problemen geöffnet wird

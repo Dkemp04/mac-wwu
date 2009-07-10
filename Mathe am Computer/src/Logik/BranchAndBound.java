@@ -65,4 +65,7 @@ public class BranchAndBound extends Methode{
 		//Gibt die Lösung zurück
 		return solution;
 	}
+	
+	public String getMethodName()
+	{		return "Branch-and-Bound";}
 }

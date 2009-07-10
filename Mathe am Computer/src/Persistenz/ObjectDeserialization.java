@@ -1,9 +1,7 @@
 package Persistenz;
 import java.awt.*;
 import java.io.*;
-
 import Logik.Logic;
-import Logik.Problem;
 
 /**
  * Klasse, die dafür sorgt Probleme von der Festplatte zu lesen

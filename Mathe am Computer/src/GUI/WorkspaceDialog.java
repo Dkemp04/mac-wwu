@@ -1,8 +1,5 @@
 package GUI;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import Persistenz.ObjectDeserialization;
-import Logik.Problem;
 
 /**
  * 

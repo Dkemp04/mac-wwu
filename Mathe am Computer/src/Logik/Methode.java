@@ -31,6 +31,8 @@ public abstract class Methode extends Thread{
 		
 	}
 	
+	public abstract String getMethodName();
+	
 	/**
 	 * Gibt die Länge der Lösung zurck
 	 * @return Gibt die Länge zurck
