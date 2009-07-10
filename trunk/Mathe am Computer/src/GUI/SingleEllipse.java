@@ -13,8 +13,8 @@ public class SingleEllipse implements Serializable
 	
 	//Deklarierung der Attribute
 	private Ellipse2D singleEllipse;		//Graphische Repräsentation der Ellipse
-	private double x, y, w, h;				//X -und Y-Koordinaten und Höhe und Breite der Ellipse
-	
+	private double x, y;				//X -und Y-Koordinaten und Höhe und Breite der Ellipse
+	final private double w=10, h=10;
 	/**Klasse, welche die graphische Repräsentation von Punkten des Problems darstellt
 	 * @param x X-Koordinate des Kreises 
 	 * @param y Y-Koordinate des Kreises
@@ -23,11 +23,9 @@ public class SingleEllipse implements Serializable
 	{
 		this.x = x;
 		this.y = y;
-		this.w = 10;
-		this.h = 10;
 		
 		//Erzeugung der neuen Ellipse
-		singleEllipse = new Ellipse2D.Double(x,y,w,h);
+		singleEllipse = new Ellipse2D.Double(this.x-w/2,this.y-h/2,w,h);
     }
 	
 	/**Methode, die mit Hilfe des anzugebenen Graphics-Objektes die Ellipse zeichnet
@@ -46,7 +44,7 @@ public class SingleEllipse implements Serializable
 	{
 		this.x = x;
 		this.y = y;
-		singleEllipse = new Ellipse2D.Double(x,y,w,h);
+		singleEllipse = new Ellipse2D.Double(x-w/2,y-h/2,w,h);
     }
 	
 	/**Methode, die überprüft, ob die Maus sich innerhalb der Ellipse befindet

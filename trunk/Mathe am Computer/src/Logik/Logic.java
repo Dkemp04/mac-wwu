@@ -2,54 +2,61 @@ package Logik;
 
 import java.util.*;
 
+import GUI.DesktopArea.ChildFrame;
+
 /**
  * Klasse zur Kapselung der Geschäftslogik
  * @author s_pich02
  *
  */
-public class Logic {
+public class Logic extends Thread{
+	private ChildFrame display;
 	private Problem problem;
 	private LinkedList<Methode> methodes;
+	private LinkedList<Methode> solutions;
 	public Logic(){
 		methodes = new LinkedList<Methode>();
+		solutions = new LinkedList<Methode>();
 	}
 	
-	public void SetProblem(Problem problem){
+	public void setProblem(Problem problem){
 		this.problem = problem;
+	}
+	
+	public void setCallback(ChildFrame display){
+		this.display=display;
 	}
 	
 	/**
 	 * Fügt eine Methode zur Bearbeitung hinzu.
 	 * @param methode
 	 */
-	public void AddMethode(Methode methode){
+	public void addMethode(Methode methode){
 		if(!methodes.contains(methode))
 			methodes.add(methode);
-	}
-	
-	/**
-	 * Entfernt eine Bearbeitungsmethode
-	 * @param methode
-	 */
-	public void RemoveMethode(Methode methode){
-		if(methodes.contains(methode))
-			methodes.remove(methode);
-	}
-	
-	/**
-	 * Entfernt die verwendeten Methoden
-	 */
-	public void ClearMethodes(){
-		methodes = new LinkedList<Methode>();
-	}
-	
+	}	
 	
 	/**
 	 * Löst das Problem mit allen eingetragenen Lösungsverfahren
 	 */
-	public void Solve(){
+	public void run(){
 		for(Methode methode : methodes)
 			methode.start();
+		while(!methodes.isEmpty())
+		{
+			if(!methodes.getFirst().isAlive()){
+				solutions.add(methodes.getFirst());
+				if(display != null)
+					display.logicCallback(methodes.getFirst());
+				methodes.remove();
+			}
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public Problem getProblem(){

@@ -3,6 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Persistenz.ObjectDeserialization;
+import Logik.Logic;
 import Logik.Problem;
 
 /**
@@ -17,7 +18,7 @@ public class OpenDialog
 	 * @param home Startverzeichnis, welches zu Anfang im Datei-Auswahl-Dialog geöffnet ist
 	 * @return Gibt von der Festplatte geladene Problem zurück
 	 */
-    public Problem openProblem (String home)
+    public Logic openLogic (String home)
     {
     	//Datei-Auswahl-Dialog mit übergebenen Startverzeichnis wird erstellt
         JFileChooser chooser = new JFileChooser(home);
@@ -35,17 +36,17 @@ public class OpenDialog
         int result = chooser.showOpenDialog(null);
         
         //Attribut, welches das zu ladenen Problem speichert
-        Problem openProblem = new Problem();
+        Logic openLogic = new Logic();
         
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
-        {        	openProblem = new ObjectDeserialization().openProblem(chooser.getSelectedFile().toString());}
+        {        	openLogic = new ObjectDeserialization().openLogic(chooser.getSelectedFile().toString());}
         
         //Blendet den Dialog aus
         chooser.setVisible(false);
         
         //Gibt das geöffnete Problem zurück
-        return openProblem;
+        return openLogic;
     }
     
     public Image openImage (String home)

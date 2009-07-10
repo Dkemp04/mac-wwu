@@ -229,7 +229,7 @@ public class Graph extends JPanel
 	{
 		public void componentResized(ComponentEvent e)
 		{
-			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Polen.jpg");
+			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Deutschland.jpg");
 			if (f != null)
 			{
 				new SwingWorker<BufferedImage, Void>()

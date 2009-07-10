@@ -3,6 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Logik.Logic;
+import Logik.Methode;
 import Logik.Problem;
 
 /**
@@ -47,10 +49,10 @@ public class DesktopArea
 	 * @param width		Breite des ChildFrames
 	 * @return			Gibt das neu erzeugte ChildFrames zurück
 	 */
-	public ChildFrame addChildFrame (Container content, Problem newProblem, String title, int x, int y, int height, int width)
+	public ChildFrame addChildFrame (Container parent, Container content, Graph map, Logic newLogic, String title, int x, int y, int height, int width)
 	{	
 		//Erzeugung des neuen ChildFrames und Einstellung des Titels
-		ChildFrame child = new ChildFrame(content, newProblem, title, x, y, height, width);
+		ChildFrame child = new ChildFrame(parent, content, map, newLogic, title, x, y, height, width);
 		
 		child.setOpaque(false);
 		
@@ -100,6 +102,8 @@ public class DesktopArea
 	{
 		private static final long serialVersionUID = -8268041752214054122L;
 		
+		Logic logic;
+		Graph map;
 		private TabOrganisation tabs = new TabOrganisation(this);
 		
 		/**Konstruktor, die dafür sorgt, dass ChildFrames innerhalb des Desktop-Bereichs erzeugt und eingestellt werden
@@ -110,10 +114,14 @@ public class DesktopArea
 		 * @param height	Höhe des ChildFrames
 		 * @param width		Breite des ChildFrames
 		 */
-		public ChildFrame (Container content, Problem newProblem, String title, int x, int y,int width, int height)
+		public ChildFrame (Container parent, Container content, Graph map, Logic newLogic, String title, int x, int y,int width, int height)
 		{
 			//Allgemeine Einstellung des neuen ChildFrames
 			super(title, true, true, false, true);
+			this.map = map;
+			logic = newLogic;
+			logic.setCallback(this);
+			logic.start();
 			this.setResizable(false);
 			
 			tabs.addTab("Test 1", content);
@@ -140,5 +148,10 @@ public class DesktopArea
 		
 		private void addTab(String title, Container content)
 		{			tabs.addTab(title, content);}
+		
+		public void logicCallback (Methode m)
+		{
+			tabs.addTab("Nerv", new StaticGraph(this.getParent(), map, m.getHistory()));
+		}
 	}
 }
