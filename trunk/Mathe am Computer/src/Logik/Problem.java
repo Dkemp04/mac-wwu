@@ -1,7 +1,6 @@
 package Logik;
 import java.io.*;
 import java.util.*;
-import GUI.Graph;
 
 /**
  * @author s_pich02
@@ -12,13 +11,6 @@ public class Problem implements Serializable {
 	
 	private Point startingPoint = null;
 	private LinkedList<Point> points = new LinkedList<Point>();
-	private Graph representation;
-	
-	/**
-	 * Konstruktor, der die graphische Repräsentation des Problems initialisiert
-	 */
-	public Problem ()
-	{		representation = new Graph();}
 	
 	/**
 	 * Fügt den Startpunkt hinzu. Der Startpunkt darf nicht in der Punktliste sein
@@ -53,8 +45,4 @@ public class Problem implements Serializable {
 	public LinkedList<Point> getPoints(){
 		return points;
 	}
-	
-	public Graph getGraph ()
-	{
-		return this.representation;}
 }
