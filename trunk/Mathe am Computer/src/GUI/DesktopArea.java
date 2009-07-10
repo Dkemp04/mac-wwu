@@ -110,7 +110,7 @@ public class DesktopArea
 		 * @param height	Höhe des ChildFrames
 		 * @param width		Breite des ChildFrames
 		 */
-		public ChildFrame (Container content, Problem newProblem, String title, int x, int y, int height, int width)
+		public ChildFrame (Container content, Problem newProblem, String title, int x, int y,int width, int height)
 		{
 			//Allgemeine Einstellung des neuen ChildFrames
 			super(title, true, true, false, true);
@@ -132,7 +132,7 @@ public class DesktopArea
 			this.setLocation(x, y);
 			
 			//Einstellung der Grösse des ChildFrames
-			this.setSize(height, width);
+			this.setSize(width, height);
 			
 			//Einblenden des ChildFrames
 			this.setVisible(true);
