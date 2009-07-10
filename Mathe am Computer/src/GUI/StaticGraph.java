@@ -8,17 +8,17 @@ public class StaticGraph extends JComponent
 	private static final long serialVersionUID = -527399993614992557L;
 	
 	private GraphDisplay display;
+	private JLabel description;
 	
 	public StaticGraph(Container parent, Graph original)
 	{
 		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläches
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		description = new JLabel("<html>Beschreibung<br><html>");
+		this.setLayout(new GridLayout(1,2));
 		display = new GraphDisplay("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Polen.jpg", original);
 		this.add(display);
+		this.add(description);
 		parent.add(this);
-		
-	    //Einstellung des Frames und dessen Komponenten (Zeichenfläche und Koordinaten-Anzeige)
-	    this.setVisible(true);
 	}
 }

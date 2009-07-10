@@ -29,8 +29,8 @@ public class DesktopArea
 		desk.setSize(1280,1024);
 		
 		//Test-ChildFrames
-		addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
-		addChildFrame(new JPanel(), "Child 2", 230, 30, 200, 150);
+		//addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
+		//addChildFrame(new JPanel(), "Child 2", 230, 30, 200, 150);
 		
 		//Hinzufügen des Desktopbereichs zum Vater-Container
 		parent.add(desk);
@@ -111,9 +111,8 @@ public class DesktopArea
 		public ChildFrame (Container content, String title, int x, int y, int height, int width)
 		{
 			//Allgemeine Einstellung des neuen ChildFrames
-			super(title, true, true);
-			this.setMaximizable(true);
-			this.setIconifiable(true);
+			super(title, true, true, false, true);
+			this.setResizable(false);
 			
 			tabs.addTab("Test 1", content);
 			
