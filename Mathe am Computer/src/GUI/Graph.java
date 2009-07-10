@@ -24,6 +24,29 @@ public class Graph extends JPanel
 		super();
 	    canvas = new DrawingCanvas();
 	    
+	    final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Polen.jpg");
+		if (f != null)
+		{
+			new SwingWorker<BufferedImage, Void>()
+			{
+				protected BufferedImage doInBackground() throws IOException
+				{
+					return ImageIO.read(f);
+				}
+				protected void done()
+				{
+					try
+					{
+						canvas.setImage(get());
+					}
+					catch (Exception e)
+					{
+						System.err.println();
+					}
+				}
+			}.execute();
+		}
+	    
 	    //Einstellung des Frames und dessen Komponenten (Zeichenfläche und Koordinaten-Anzeige)
 	    this.setLayout(new BorderLayout());
 	    location = new JLabel("x,y: ");
@@ -70,8 +93,8 @@ public class Graph extends JPanel
     	double x1, y1, x2, y2;
     	LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
     	SingleEllipse selectedEllipse;
-    	BufferedImage background;
-    	Graphics g2D;
+    	transient BufferedImage background;
+    	//Graphics g2D;
     
 	    public DrawingCanvas()
 	    {
@@ -83,7 +106,7 @@ public class Graph extends JPanel
 	    
 	    public void paint(Graphics g)
 	    {
-	    	g2D = (Graphics2D) background.createGraphics();
+	    	Graphics g2D = (Graphics2D) background.createGraphics();
 	    	g2D.setColor(Color.black);
 	    	for(SingleEllipse singleEllipse : ellipses)
 	    		singleEllipse.draw((Graphics2D) g2D);
@@ -207,7 +230,7 @@ public class Graph extends JPanel
 	{
 		public void componentResized(ComponentEvent e)
 		{
-			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Deutschland.jpg");
+			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Polen.jpg");
 			if (f != null)
 			{
 				new SwingWorker<BufferedImage, Void>()

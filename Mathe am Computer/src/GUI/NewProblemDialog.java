@@ -19,9 +19,13 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	
 	//Erzeugung der Zeichenfläche
 	Problem newProblem;
-	JTabbedPane steps;
+	/*JTabbedPane*/ JPanel steps;
 	Container parent;
 	JTextField name;
+	JComboBox map_selection;
+	
+	JPanel test1;
+	JPanel test2;
 	
 	//Deklarierung der Buttons und des zugehörigen Panel im ersten Schritt der Problemerstellung
 	JPanel buttons1;
@@ -59,6 +63,11 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		this.parent = parent;
 		newProblem = new Problem();
 		this.add(newProblem.getGraph());
+		map_selection = new JComboBox();
+		
+		//
+		map_selection.addItem("Test1");
+		map_selection.addItem("Test2");
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
 		buttons1 = new JPanel();
@@ -173,13 +182,13 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		head.add(name);
 		head.add(new JLabel(""));
 		head.add(new JLabel(""));
+		head.add(new JLabel("Land"));
+		head.add(map_selection);
 		head.add(new JLabel(""));
 		head.add(new JLabel(""));
-		head.add(new JLabel(""));
-		
 		
 		//Einstellung des Rahmens und der inneren Komponenten
-		steps = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
+		steps = new JPanel();//new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		step1 = new JPanel();
 		
@@ -198,16 +207,22 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center2.add(newProblem.getGraph(), BorderLayout.CENTER);
 		center2.add(buttons2, BorderLayout.SOUTH);
 		
-		steps.addTab("Heuristik", new WhitespaceFrame().decorate(step1, center1));
-		steps.addTab("Koordinaten", new WhitespaceFrame().decorate(step2, center2));
-		steps.setEnabledAt(1, false);
-		setContentPane(steps);
+		//steps.addTab("Heuristik", new WhitespaceFrame().decorate(step1, center1));
+		//steps.addTab("Koordinaten", new WhitespaceFrame().decorate(step2, center2));
+		//steps.setEnabledAt(1, false);
+		//steps.add();
+		//steps.add(new WhitespaceFrame().decorate(step2, center2));
+		test1 = new JPanel();
+		test1.add(new WhitespaceFrame().decorate(step1, center1));
+		test2 = new JPanel();
+		test2.add(new WhitespaceFrame().decorate(step2, center2));
+		this.setContentPane(test1);
 		
 		
 		//Allgemeine Einstellung des Frames
 		this.setLocation(parent.getX(), parent.getY());
 		this.setSize(400,400);
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -243,9 +258,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Zurück"))
 		{
-			if (steps.getSelectedIndex() > 0)
+			this.setContentPane(test1);
+			/*if (steps.getSelectedIndex() > 0)
 				steps.setSelectedIndex(steps.getSelectedIndex() - 1);
-			if (steps.getTitleAt(steps.getSelectedIndex()) != "Koordinaten")
+			if (steps.getTitleAt(steps.getSelectedIndex()) != "Koordinaten")*/
 				this.setSize(400,400);
 		}
 		else if (cmd.equals("Abbrechen"))
@@ -254,17 +270,18 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Weiter"))
 		{
+			this.setContentPane(test2);
 			this.setSize(newProblem.getGraph().getHeight() + 100, newProblem.getGraph().getWidth());
-			if (steps.getSelectedIndex() < steps.getTabCount() - 1)
+			/*if (steps.getSelectedIndex() < steps.getTabCount() - 1)
 			{
 				steps.setSelectedIndex(steps.getSelectedIndex() + 1);
 				if (steps.getTitleAt(steps.getSelectedIndex()) == "Koordinaten")
 				{
-					steps.setEnabledAt(1, true);
+					steps.setEnabledAt(1, true);*/
 					this.setSize(newProblem.getGraph().getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, newProblem.getGraph().getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
-				}
+				//}
 				this.repaint();
-			}
+			//}
 		}
 		else if (cmd.equals("Fertig"))
 		{
@@ -290,9 +307,9 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					e.printStackTrace();
 				}
 				new ObjectSerialization().save(name.getText(), newProblem);
-				new ObjectSerialization().save(name.getText()+"GUI", newProblem.getGraph());
 				StaticGraph representation = new StaticGraph(parent, newProblem.getGraph());
-				((MainFrame) parent).getDesktop().addChildFrame(representation, "Test", representation.getX() + 10, representation.getY() + 10, 300, 300);
+				//((MainFrame) parent).getDesktop().addChildFrame(representation);
+				((MainFrame) parent).getDesktop().addChildFrame(representation, "Test", representation.getX() + 10, representation.getY() + 10, 500, 500);
 				this.dispose();
 			}
 		}

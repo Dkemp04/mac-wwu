@@ -19,11 +19,6 @@ public class TabOrganisation extends JTabbedPane
 		super(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
 		this.setSize(320, 240);
 		
-		//Test-Tabs
-		//this.addTab("Hinweise", new JLabel("Hinweis"));
-		//this.addTab("Warnungen", new JLabel("Warnung"));		
-		//this.addTab("Fehler", new JLabel("Fehler"));
-		
 		//Hinzufügen des JTabbedPanes auf den übergebenen Vater-Container
 		parent.add(this, BorderLayout.SOUTH);
 	}

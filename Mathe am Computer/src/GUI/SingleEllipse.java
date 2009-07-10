@@ -2,12 +2,15 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
+import java.io.*;
 
 /**Klasse, welche die graphische Repräsentation von Punkten bzw. Ellipsen des Problems darstellt
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
  */
-public class SingleEllipse
+public class SingleEllipse implements Serializable
 {
+	private static final long serialVersionUID = 6841955272148306794L;
+	
 	//Deklarierung der Attribute
 	private Ellipse2D singleEllipse;		//Graphische Repräsentation der Ellipse
 	private double x, y, w, h;				//X -und Y-Koordinaten und Höhe und Breite der Ellipse
