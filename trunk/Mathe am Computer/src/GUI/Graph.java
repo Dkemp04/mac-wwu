@@ -1,11 +1,9 @@
 package GUI;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -24,7 +22,7 @@ public class Graph extends JPanel
 		super();
 	    canvas = new DrawingCanvas();
 	    
-	    final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Polen.jpg");
+	    final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Deutschland.jpg");
 		if (f != null)
 		{
 			new SwingWorker<BufferedImage, Void>()

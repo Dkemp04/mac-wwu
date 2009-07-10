@@ -19,6 +19,9 @@ public class OpenDialog
 	 */
     public Logic openLogic (String home)
     {
+    	//Attribut, welches das zu ladenen Problem speichert
+        Logic openLogic = null;
+        
     	//Datei-Auswahl-Dialog mit übergebenen Startverzeichnis wird erstellt
         JFileChooser chooser = new JFileChooser(home);
         
@@ -34,9 +37,6 @@ public class OpenDialog
         //Blendet den Dialog ein und 
         int result = chooser.showOpenDialog(null);
         
-        //Attribut, welches das zu ladenen Problem speichert
-        Logic openLogic = new Logic();
-        
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
         {        	openLogic = new ObjectDeserialization().openLogic(chooser.getSelectedFile().toString());}
@@ -50,6 +50,9 @@ public class OpenDialog
     
     public Image openImage (String home)
     {
+        //Attribut, welches das zu ladenen Problem speichert
+        Image openImage = null;
+        
     	//Datei-Auswahl-Dialog mit übergebenen Startverzeichnis wird erstellt
         JFileChooser chooser = new JFileChooser(home);
         
@@ -64,9 +67,6 @@ public class OpenDialog
         
         //Blendet den Dialog ein und 
         int result = chooser.showOpenDialog(null);
-        
-        //Attribut, welches das zu ladenen Problem speichert
-        Image openImage = null;
         
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)

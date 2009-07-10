@@ -11,10 +11,9 @@ public class MainFrame extends JFrame
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse MainFrame
 	private static final long serialVersionUID = 995601029595640937L;
 
-	public static String WORKSPACE = "C:/";
-	public static Image selectedImage = null;
+	public static String WORKSPACE = "C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer";
 	
-	LinkedList<Image> maps = new LinkedList<Image>();
+	MapManager manager;
 	
 	
 	//Deklarierung der GUI-Elemente
@@ -28,8 +27,8 @@ public class MainFrame extends JFrame
 	{
 		//Aufruf des Konstruktors der Superklasse und Einstellung des Titels
 		super("Travelling Salesman");
-		maps.add(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/Deutschland.jpg"));
-		maps.add(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/Polen.jpg"));
+		
+		manager = new MapManager();
 		
 		//try -und catch-Block, der zur Einstellung des Windows-Look-and-Feels dient
 		try
@@ -59,12 +58,14 @@ public class MainFrame extends JFrame
 	public DesktopArea getDesktop ()
 	{		return desktop;}
 	
-	public LinkedList<Image> getMaps ()
-	{		return maps;}
-	
-	public void addMap (Image img)
+	public LinkedList<MapManager.Map> getMaps ()
 	{
-		maps.add(img);
+		return manager.getMaps();
+	}
+	
+	public void addMap (String name)
+	{
+		manager.addMap(name);
 	}
 	
 	/**Main-Mathode zum Start des Programmes zurückgibt
