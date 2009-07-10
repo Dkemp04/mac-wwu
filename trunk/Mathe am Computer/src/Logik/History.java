@@ -1,7 +1,5 @@
 package Logik;
 
-import java.awt.geom.Line2D;
-
 public class History {
 	private History nextItem;
 	private Point historyPoint, historyPrevPoint;

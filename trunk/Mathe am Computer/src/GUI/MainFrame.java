@@ -11,7 +11,11 @@ public class MainFrame extends JFrame
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse MainFrame
 	private static final long serialVersionUID = 995601029595640937L;
 
+	public static String WORKSPACE = "C:/";
+	public static Image selectedImage = null;
+	
 	LinkedList<Image> maps = new LinkedList<Image>();
+	
 	
 	//Deklarierung der GUI-Elemente
 	private DesktopArea desktop;		//Desktop-Bereich, in dem interne Fenster erzeugt werden können. Dieser Bereich dient zur Darstellung der Probleme, der Heuristiken und der Vergleiche der Heuristiken
@@ -24,6 +28,8 @@ public class MainFrame extends JFrame
 	{
 		//Aufruf des Konstruktors der Superklasse und Einstellung des Titels
 		super("Travelling Salesman");
+		maps.add(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/Deutschland.jpg"));
+		maps.add(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/Polen.jpg"));
 		
 		//try -und catch-Block, der zur Einstellung des Windows-Look-and-Feels dient
 		try
