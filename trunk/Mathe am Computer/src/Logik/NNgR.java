@@ -40,6 +40,8 @@ public class NNgR extends Methode{
 	
 	public NNgR(Problem problem){
 		super(problem);
-	}	
+	}
 	
+	public String getMethodName()
+	{		return "Nearest Neighbor";}
 }

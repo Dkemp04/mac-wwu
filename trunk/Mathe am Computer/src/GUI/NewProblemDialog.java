@@ -17,42 +17,42 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	private static final int BORDER_HEIGHT = 210;
 	
 	//Erzeugung der Zeichenfläche
-	Problem newProblem;
-	Graph map;
-	JPanel steps;
-	Container parent;
-	JTextField name;
-	JComboBox map_selection;
+	private Problem newProblem;
+	private Graph map;
+	private JPanel steps;
+	private Container parent;
+	private JTextField name;
+	private JComboBox map_selection;
 	
 	//Deklarierung der Buttons und des zugehörigen Panel im ersten Schritt der Problemerstellung
-	JPanel buttons1;
-	JButton cancel1;
-	JButton forward1;
+	private JPanel buttons1;
+	private JButton cancel1;
+	private JButton forward1;
 	
 	//Deklarierung der Buttons und des zugehörigen Panel im zweiten Schritt der Problemerstellung
 	JPanel buttons2;
-	JButton back2;
-	JButton cancel2;
-	JButton ready2;
+	private JButton back2;
+	private JButton cancel2;
+	private JButton ready2;
 	
 	//Deklarierung der Heuristik-Auswahl und -Beschreibung im ersten Schritt der Problemerstellung
-	JPanel heuristics;
-	JPanel heuristics_selection;
-	JTextArea description;
+	private JPanel heuristics;
+	private JPanel heuristics_selection;
+	private JTextArea description;
 	
-	JCheckBox bab;
-	JCheckBox nn;
-	JCheckBox mst;
-	JCheckBox sa;
-	JCheckBox sam;
-	JCheckBox ch;
-	JCheckBox koh;
+	private JCheckBox bab;
+	private JCheckBox nn;
+	private JCheckBox mst;
+	private JCheckBox sa;
+	private JCheckBox sam;
+	private JCheckBox ch;
+	private JCheckBox koh;
 	
 	//
-	JPanel head;
-	JPanel step1;
-	JPanel step2;
-	JPanel center1;
+	private JPanel head;
+	private JPanel step1;
+	private JPanel step2;
+	private JPanel center1;
 
 	public NewProblemDialog (Container parent)
 	{
@@ -67,8 +67,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		{
 			map_selection.addItem(image.toString());
 		}
-		
-		//
 		
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
@@ -288,7 +286,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						logic.addMethode(new MST(newProblem));
 					if(nn.isSelected())
 						logic.addMethode(new NearestNeighbor(newProblem));
-					((MainFrame) parent).getDesktop().addChildFrame(this.getParent(), representation, map, logic, "Test", representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
+					((MainFrame) parent).getDesktop().addChildFrame(this.getParent(), representation, map, logic, "Ausgangssituation", representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
 					this.dispose();
 				}
 			

@@ -151,7 +151,7 @@ public class DesktopArea
 		
 		public void logicCallback (Methode m)
 		{
-			tabs.addTab("Nerv", new StaticGraph(this.getParent(), map, m.getHistory()));
+			tabs.addTab(m.getMethodName(), new StaticGraph(this.getParent(), map, m.getHistory()));
 		}
 	}
 }

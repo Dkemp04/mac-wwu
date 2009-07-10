@@ -11,8 +11,6 @@ public class StaticGraph extends JComponent
 	
 	private GraphDisplay display;
 	private JLabel description;
-	private History history;
-	private History lastHistory;
 	
 	public StaticGraph(Container parent, Graph original)
 	{
@@ -30,10 +28,6 @@ public class StaticGraph extends JComponent
 	
 	public StaticGraph(Container parent, Graph original, History history)
 	{
-		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläches
-		this.history = history;
-		this.lastHistory = history;
-		
 		description = new JLabel("<html><b>Beschreibung</b><br>1. Schritt:<br>2. Schritt:<br>3. Schritt:</html>");
 		description.setHorizontalAlignment(JLabel.CENTER);
 		description.setVerticalAlignment(JLabel.TOP);

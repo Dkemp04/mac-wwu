@@ -52,6 +52,8 @@ public class Insert extends Methode{
 	
 	public Insert(Problem problem){
 		super(problem);
-	}	
+	}
 	
+	public String getMethodName()
+	{		return "Nearest Insert";}
 }

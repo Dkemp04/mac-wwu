@@ -55,6 +55,9 @@ public class MST extends Methode{
 //		return clusterList.getFirst().getMST();
 	}
 	
+	public String getMethodName()
+	{			return "Minimal Spanning Tree";}
+	
 	public MST(Problem problem){
 		super(problem);
 	}

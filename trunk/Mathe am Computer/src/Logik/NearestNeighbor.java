@@ -29,6 +29,8 @@ public class NearestNeighbor extends Methode{
 	
 	public NearestNeighbor(Problem problem){
 		super(problem);
-	}	
+	}
 	
+	public String getMethodName()
+	{		return "Nearest Neighbor";}
 }
