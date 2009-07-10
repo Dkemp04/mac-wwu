@@ -45,13 +45,23 @@ public class DesktopArea
 	 * @param width		Breite des ChildFrames
 	 * @return			Gibt das neu erzeugte ChildFrames zurück
 	 */
-	public void addChildFrame (Container content, String title, int x, int y, int height, int width)
+	public ChildFrame addChildFrame (Container content, String title, int x, int y, int height, int width)
 	{	
 		//Erzeugung des neuen ChildFrames und Einstellung des Titels
 		ChildFrame child = new ChildFrame(content, title, x, y, height, width);
 		
+		child.setOpaque(false);
+		
 		//Hinzufügen und Zurückgeben des ChildFrames
 		desk.add(child);
+		desk.setSelectedFrame(child);
+		return child;
+	}
+	public void addChildFrame (JInternalFrame child)
+	{
+		child.setOpaque(false);
+		desk.add(child);
+		desk.setSelectedFrame(child);
 	}
 	
 	public void addTabToChildFrame (ChildFrame child, String tab_title, Container content)
@@ -105,7 +115,9 @@ public class DesktopArea
 			this.setMaximizable(true);
 			this.setIconifiable(true);
 			
-			tabs.addTab(title, content);
+			tabs.addTab("Test 1", content);
+			
+			//tabs.addTab(title, content);
 			//
 			this.add(tabs);
 			
