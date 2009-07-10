@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 import Logik.Problem;
 import Logik.Point;
-import Persistenz.ObjectSerialization;
 
 /**
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
@@ -20,13 +19,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Erzeugung der Zeichenfläche
 	Problem newProblem;
 	Graph map;
-	/*JTabbedPane*/ JPanel steps;
+	JPanel steps;
 	Container parent;
 	JTextField name;
 	JComboBox map_selection;
-	
-	JPanel test1;
-	JPanel test2;
 	
 	//Deklarierung der Buttons und des zugehörigen Panel im ersten Schritt der Problemerstellung
 	JPanel buttons1;
@@ -66,10 +62,13 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		map = new Graph();
 		this.add(map);
 		map_selection = new JComboBox();
+		for (Image image: ((MainFrame) parent).getMaps())
+		{
+			map_selection.addItem(image.toString());
+		}
 		
 		//
-		map_selection.addItem("Test1");
-		map_selection.addItem("Test2");
+		
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
 		buttons1 = new JPanel();
@@ -190,7 +189,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		head.add(new JLabel(""));
 		
 		//Einstellung des Rahmens und der inneren Komponenten
-		steps = new JPanel();//new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		step1 = new JPanel();
 		
@@ -201,6 +199,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center1.add(heuristics, BorderLayout.CENTER);
 		center1.add(buttons1, BorderLayout.SOUTH);
 		
+		
 		step2 = new JPanel();
 		JPanel center2 = new JPanel();
 		map.setBorder(BorderFactory.createEtchedBorder());
@@ -209,22 +208,13 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center2.add(map, BorderLayout.CENTER);
 		center2.add(buttons2, BorderLayout.SOUTH);
 		
-		//steps.addTab("Heuristik", new WhitespaceFrame().decorate(step1, center1));
-		//steps.addTab("Koordinaten", new WhitespaceFrame().decorate(step2, center2));
-		//steps.setEnabledAt(1, false);
-		//steps.add();
-		//steps.add(new WhitespaceFrame().decorate(step2, center2));
-		test1 = new JPanel();
-		test1.add(new WhitespaceFrame().decorate(step1, center1));
-		test2 = new JPanel();
-		test2.add(new WhitespaceFrame().decorate(step2, center2));
-		this.setContentPane(test1);
-		
+		step1 = (JPanel) new WhitespaceFrame().decorate(center1);
+		step2 = (JPanel) new WhitespaceFrame().decorate(center2);
+		this.setContentPane(step1);
 		
 		//Allgemeine Einstellung des Frames
 		this.setLocation(parent.getX(), parent.getY());
-		this.setSize(400,400);
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -260,10 +250,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Zurück"))
 		{
-			this.setContentPane(test1);
-			/*if (steps.getSelectedIndex() > 0)
-				steps.setSelectedIndex(steps.getSelectedIndex() - 1);
-			if (steps.getTitleAt(steps.getSelectedIndex()) != "Koordinaten")*/
+			this.setContentPane(step1);
 				this.setSize(400,400);
 		}
 		else if (cmd.equals("Abbrechen"))
@@ -272,47 +259,47 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Weiter"))
 		{
-			this.setContentPane(test2);
+			this.setContentPane(step2);
 			this.setSize(map.getHeight() + 100, map.getWidth());
-			/*if (steps.getSelectedIndex() < steps.getTabCount() - 1)
-			{
-				steps.setSelectedIndex(steps.getSelectedIndex() + 1);
-				if (steps.getTitleAt(steps.getSelectedIndex()) == "Koordinaten")
-				{
-					steps.setEnabledAt(1, true);*/
-					this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
-				//}
-				this.repaint();
-			//}
+			this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
+			this.repaint();
 		}
 		else if (cmd.equals("Fertig"))
 		{
-			int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);
-			if (choice == JOptionPane.YES_OPTION)
+			if (map.getEllipseCount() <= 3)
 			{
-				try
+				JOptionPane.showMessageDialog(this, "Bitte erstellen Sie mindestens 3 Punkte.", "Zu wenig Punkte", JOptionPane.WARNING_MESSAGE);
+			}
+			else
+			{
+				int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);
+				if (choice == JOptionPane.YES_OPTION)
 				{
-					for (int i = 0; i < map.getEllipseCount(); i++)
+					try
 					{
-						if (i == 0)
+						for (int i = 0; i < map.getEllipseCount(); i++)
 						{
-							newProblem.AddStartingPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
-						}
-						else
-						{
-							newProblem.AddPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
+							if (i == 0)
+							{
+								newProblem.AddStartingPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
+							}
+							else
+							{
+								newProblem.AddPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
+							}
 						}
 					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+					StaticGraph representation = new StaticGraph(parent, map);
+					//((MainFrame) parent).getDesktop().addChildFrame(representation);
+					System.out.println(representation.getWidth());
+					((MainFrame) parent).getDesktop().addChildFrame(representation, newProblem, "Test", representation.getX() + 10, representation.getY() + 10, map.getHeight()*2, map.getWidth());
+					this.dispose();
 				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-				new ObjectSerialization().save(name.getText(), newProblem);
-				StaticGraph representation = new StaticGraph(parent, map);
-				//((MainFrame) parent).getDesktop().addChildFrame(representation);
-				((MainFrame) parent).getDesktop().addChildFrame(representation, "Test", representation.getX() + 10, representation.getY() + 10, 500, 500);
-				this.dispose();
+			
 			}
 		}
 	}	

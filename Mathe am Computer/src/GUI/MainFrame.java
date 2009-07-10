@@ -1,4 +1,6 @@
 package GUI;
+import java.awt.*;
+import java.util.*;
 import javax.swing.*;
 
 /**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
@@ -8,6 +10,8 @@ public class MainFrame extends JFrame
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse MainFrame
 	private static final long serialVersionUID = 995601029595640937L;
+
+	LinkedList<Image> maps = new LinkedList<Image>();
 	
 	//Deklarierung der GUI-Elemente
 	private DesktopArea desktop;		//Desktop-Bereich, in dem interne Fenster erzeugt werden können. Dieser Bereich dient zur Darstellung der Probleme, der Heuristiken und der Vergleiche der Heuristiken
@@ -48,6 +52,14 @@ public class MainFrame extends JFrame
 	 */
 	public DesktopArea getDesktop ()
 	{		return desktop;}
+	
+	public LinkedList<Image> getMaps ()
+	{		return maps;}
+	
+	public void addMap (Image img)
+	{
+		maps.add(img);
+	}
 	
 	/**Main-Mathode zum Start des Programmes zurückgibt
 	 */

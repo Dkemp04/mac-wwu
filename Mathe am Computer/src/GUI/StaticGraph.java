@@ -14,7 +14,9 @@ public class StaticGraph extends JComponent
 	{
 		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläches
 		
-		description = new JLabel("<html>Beschreibung<br><html>");
+		description = new JLabel("<html><b>Beschreibung</b><br>1. Schritt:<br>2. Schritt:<br>3. Schritt:</html>");
+		description.setHorizontalAlignment(JLabel.CENTER);
+		description.setVerticalAlignment(JLabel.TOP);
 		this.setLayout(new GridLayout(1,2));
 		display = new GraphDisplay("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Polen.jpg", original);
 		this.add(display);
