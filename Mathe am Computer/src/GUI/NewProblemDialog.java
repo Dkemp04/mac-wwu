@@ -266,7 +266,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Fertig"))
 		{
-			if (map.getEllipseCount() <= 3)
+			if (map.getEllipseCount() < 3)
 			{
 				JOptionPane.showMessageDialog(this, "Bitte erstellen Sie mindestens 3 Punkte.", "Zu wenig Punkte", JOptionPane.WARNING_MESSAGE);
 			}
@@ -294,9 +294,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						e.printStackTrace();
 					}
 					StaticGraph representation = new StaticGraph(parent, map);
-					//((MainFrame) parent).getDesktop().addChildFrame(representation);
-					System.out.println(representation.getWidth());
-					((MainFrame) parent).getDesktop().addChildFrame(representation, newProblem, "Test", representation.getX() + 10, representation.getY() + 10, map.getHeight()*2, map.getWidth());
+					((MainFrame) parent).getDesktop().addChildFrame(representation, newProblem, "Test", representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
 					this.dispose();
 				}
 			
