@@ -94,7 +94,6 @@ public class Graph extends JPanel
     	LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
     	SingleEllipse selectedEllipse;
     	transient BufferedImage background;
-    	//Graphics g2D;
     
 	    public DrawingCanvas()
 	    {

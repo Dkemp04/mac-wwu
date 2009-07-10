@@ -3,6 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import Logik.Problem;
+
 /**
  * Klasse, die für die Darstellung des JDesktopPanes sorgt und dessen Kinder
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
@@ -45,10 +47,10 @@ public class DesktopArea
 	 * @param width		Breite des ChildFrames
 	 * @return			Gibt das neu erzeugte ChildFrames zurück
 	 */
-	public ChildFrame addChildFrame (Container content, String title, int x, int y, int height, int width)
+	public ChildFrame addChildFrame (Container content, Problem newProblem, String title, int x, int y, int height, int width)
 	{	
 		//Erzeugung des neuen ChildFrames und Einstellung des Titels
-		ChildFrame child = new ChildFrame(content, title, x, y, height, width);
+		ChildFrame child = new ChildFrame(content, newProblem, title, x, y, height, width);
 		
 		child.setOpaque(false);
 		
@@ -108,7 +110,7 @@ public class DesktopArea
 		 * @param height	Höhe des ChildFrames
 		 * @param width		Breite des ChildFrames
 		 */
-		public ChildFrame (Container content, String title, int x, int y, int height, int width)
+		public ChildFrame (Container content, Problem newProblem, String title, int x, int y, int height, int width)
 		{
 			//Allgemeine Einstellung des neuen ChildFrames
 			super(title, true, true, false, true);

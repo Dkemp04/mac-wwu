@@ -12,6 +12,7 @@ public class Controlbar implements ActionListener
 {
 	//Vater-Container, in welchen diese Klasse angezeigt wird
 	private Container parent;
+	private static String WORKSPACE = "C:/";
 	
 	//Deklarierung der GUI-Elemente
 	private JMenuBar menubar;			//Menüleiste
@@ -20,6 +21,7 @@ public class Controlbar implements ActionListener
 	private JMenuItem open;				//Menüelement "Öffnen" zur Erstellung vorhandener Probleme
 	private JMenuItem save;				//Menüelement "Speichern" zur Speicherung geöffneter Probleme
 	private JMenuItem save_path;		//Menüelement "Speichern" zur Speicherung geöffneter Probleme unter bestimmten Pfad
+	private JMenuItem workspace;
 	private JMenuItem k_import;			//Menüelement "Speichern" zur Importierung von Karten
 	private JMenuItem exit;				//Menüelement "Speichern" zum Schließen des Programmes
 	private JMenu advanced;				//Menü "Erweitert"
@@ -44,6 +46,7 @@ public class Controlbar implements ActionListener
 		open = new JMenuItem("Öffnen");
 		save = new JMenuItem("Speichern");
 		save_path = new JMenuItem("Speichern unter...");
+		workspace = new JMenuItem("Setze Workspace");
 		k_import = new JMenuItem("Import...");
 		exit = new JMenuItem("Beenden");
 		advanced = new JMenu("Erweitert");
@@ -58,6 +61,7 @@ public class Controlbar implements ActionListener
 		open.addActionListener(this);
 		save.addActionListener(this);
 		save_path.addActionListener(this);
+		workspace.addActionListener(this);
 		k_import.addActionListener(this);
 		exit.addActionListener(this);
 		options.addActionListener(this);
@@ -69,6 +73,7 @@ public class Controlbar implements ActionListener
 		data.add(open);
 		data.add(save);
 		data.add(save_path);
+		data.add(workspace);
 		data.add(k_import);
 		data.add(exit);
 		advanced.add(options);
@@ -101,10 +106,15 @@ public class Controlbar implements ActionListener
 			OpenDialog open_dialog = new OpenDialog();
 			
 			//Neues Problem wird erzeugt aus dem Rückgabewert des Dialogs
-			Problem  openProblem = open_dialog.open ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
+			Problem  openProblem = open_dialog.openProblem("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/");
 			
 			//Graph zur Darstellung des Problems wird erzeugt
 			Graph map = new Graph();
+			
+			for(Logik.Point add : openProblem.getPoints()){
+				map.addEllipse(add.getX(), add.getY());
+			}
+			StaticGraph display = new StaticGraph(parent, map);
 			
 			//größte x-und y-Koordinaten aller Punkte im Graphen werden gesucht
 			int maxX = 0, maxY = 0;
@@ -120,14 +130,21 @@ public class Controlbar implements ActionListener
 			}
 			
 			//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
-			((MainFrame) parent).getDesktop().addChildFrame(map, "Test", 10, 10, maxX*2, maxY*2);
+			((MainFrame) parent).getDesktop().addChildFrame(display, openProblem, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
 		}
 		if (event.getActionCommand().equals("Speichern"))
 		{					}
 		if (event.getActionCommand().equals("Speichern unter..."))
 		{					}
+		if (event.getActionCommand().equals("Setze Workspace"))
+		{				
+			WORKSPACE = new WorkspaceDialog().openDirectory(WORKSPACE);
+		}
 		if (event.getActionCommand().equals("Import..."))
-		{					}
+		{					
+			Image newImage = new OpenDialog().openImage(WORKSPACE);
+			((MainFrame) parent).addMap(newImage);
+		}
 		if (event.getActionCommand().equals("Beenden"))
 		{
 			//Programm und JavaVirtualMachine wird beendet
@@ -146,7 +163,7 @@ public class Controlbar implements ActionListener
 		if (event.getActionCommand().equals("Java Doc"))
 		{
 			//Öffnet die Java Doc des Programmes im Browser mit allen im Programm enthaltenen Klassen
-			new OpenURL("C:/Users/Daniel%20Kemper/Desktop/Mathe%20am%20Computer/Workspace/Mathe%20am%20Computer/doc/index.html", OpenURL.LOCAL_FILE);
+			new OpenURL(WORKSPACE + "/doc/index.html", OpenURL.LOCAL_FILE);
 		}
 	}
 }
