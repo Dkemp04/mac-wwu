@@ -2,10 +2,13 @@ package GUI;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.*;
 import java.util.LinkedList;
 
-public class MapManager
+public class MapManager implements Serializable
 {
+	private static final long serialVersionUID = 3053489811089182476L;
+	
 	private LinkedList<Map> maps = new LinkedList<Map>();
 	
 	public MapManager()
