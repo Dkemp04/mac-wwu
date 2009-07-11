@@ -16,7 +16,6 @@ public class GraphDisplay extends JPanel
 	private History lastHistory;
 	
 	private LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
-	private Graphics2D g2D;
 	
 	public GraphDisplay(String picture, Graph original, History hist)
 	{
@@ -33,7 +32,6 @@ public class GraphDisplay extends JPanel
 	public void paint(Graphics g)
 	{
 		super.paint(g);
-		g2D = (Graphics2D) g;
 		g.drawImage(background, 0, 0, background.getWidth(this), background.getHeight(this), this);
     	for(SingleEllipse singleEllipse : ellipses)
     		singleEllipse.draw((Graphics2D) g);

@@ -42,6 +42,9 @@ public class MainFrame extends JFrame
 		controls = new Controlbar(this);
 		desktop = new DesktopArea(this);
 		
+		//Test
+		controls.toString();
+		
 		//Allgemeine Einstellung des Hauptfenster
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocation(150,150);
