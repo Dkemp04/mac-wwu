@@ -13,8 +13,8 @@ public class ChildFrame extends JInternalFrame
 {
 	private static final long serialVersionUID = -8268041752214054122L;
 	
-	Logic logic;
-	Graph map;
+	private Logic logic;
+	private Graph map;
 	private TabOrganisation tabs = new TabOrganisation(this);
 	
 	/**Konstruktor, die dafür sorgt, dass ChildFrames innerhalb des Desktop-Bereichs erzeugt und eingestellt werden
@@ -25,17 +25,18 @@ public class ChildFrame extends JInternalFrame
 	 * @param height	Höhe des ChildFrames
 	 * @param width		Breite des ChildFrames
 	 */
-	public ChildFrame (Container parent, Container content, Graph map, Logic newLogic, String title, int x, int y,int width, int height)
+	public ChildFrame (Container parent, Container content, Logic logic, String title, int x, int y,int width, int height)
 	{
 		//Allgemeine Einstellung des neuen ChildFrames
 		super(title, true, true, false, true);
-		this.map = map;
-		logic = newLogic;
-		logic.setCallback(this);
-		logic.start();
 		this.setResizable(false);
 		
-		tabs.addTab(title, content);
+		this.map = (Graph) content;
+		
+		this.logic = logic;
+		this.logic.setCallback(this);
+		this.logic.start();
+		
 		this.add(tabs);
 		
 		//Einstellung der Schließoperation
@@ -54,8 +55,8 @@ public class ChildFrame extends JInternalFrame
 		this.setVisible(true);
 	}
 	
-	//private void addTab(String title, Container content)
-	//{			tabs.addTab(title, content);}
+	public void addTabToChildFrame (String tab_title, Container content)
+	{		tabs.addTab(tab_title, content);}
 	
 	public void logicCallback (Methode m)
 	{

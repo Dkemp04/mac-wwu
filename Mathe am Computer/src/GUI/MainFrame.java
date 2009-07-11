@@ -1,5 +1,4 @@
 package GUI;
-import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -59,14 +58,10 @@ public class MainFrame extends JFrame
 	{		return desktop;}
 	
 	public LinkedList<MapManager.Map> getMaps ()
-	{
-		return manager.getMaps();
-	}
+	{		return manager.getMaps();}
 	
-	public void addMap (String name)
-	{
-		manager.addMap(name);
-	}
+	public MapManager getMapManager ()
+	{		return manager;}
 	
 	/**Main-Mathode zum Start des Programmes zurückgibt
 	 */

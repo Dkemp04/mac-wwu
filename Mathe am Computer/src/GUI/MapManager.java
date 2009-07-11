@@ -6,19 +6,17 @@ import java.util.LinkedList;
 
 public class MapManager
 {
-	LinkedList<Map> maps = new LinkedList<Map>();
+	private LinkedList<Map> maps = new LinkedList<Map>();
 	
 	public MapManager()
 	{
-		addMap("Deutschland");
-		addMap ("Polen");
-		//maps.add(new Map("Deutschland", Toolkit.getDefaultToolkit().getImage(MainFrame.WORKSPACE + "/Deutschland.jpg")));
-		//maps.add(new Map("Polen", Toolkit.getDefaultToolkit().getImage(MainFrame.WORKSPACE + "/Polen.jpg")));
+		addMap("Deutschland", "C:\\Users\\Daniel Kemper\\Desktop\\Mathe am Computer\\Workspace\\Mathe am Computer\\src\\GUI\\Deutschland.jpg");
+		addMap ("Polen", "C:\\Users\\Daniel Kemper\\Desktop\\Mathe am Computer\\Workspace\\Mathe am Computer\\src\\GUI\\Polen.jpg");
 	}
 	
-	public void addMap (String name)
+	public void addMap (String name, String path)
 	{
-		maps.add(new Map (name, Toolkit.getDefaultToolkit().getImage(MainFrame.WORKSPACE + "/images/" + name + ".jpg")));
+		maps.add(new Map(name, path));
 	}
 	
 	public LinkedList<Map> getMaps ()
@@ -31,16 +29,16 @@ public class MapManager
 		private String name;
 		private Image img;
 		
-		private Map (String name, Image img)
+		public Map (String name, String path)
 		{
 			this.name = name;
-			this.img = img;
+			this.img = Toolkit.getDefaultToolkit().getImage(path);
 		}
 		
 		public String getName ()
-		{			return name;}
+		{			return this.name;}
 		
 		public Image getImage ()
-		{			return img;}
+		{			return this.img;}
 	}
 }

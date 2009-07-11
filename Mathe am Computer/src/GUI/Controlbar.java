@@ -1,9 +1,9 @@
 package GUI;
 import java.awt.event.*;
 import java.awt.*;
-
 import javax.swing.*;
 import Logik.*;
+import Persistenz.*;
 
 /**
  * Menüleiste, welche im Hauptfenster eingeblendet wird und zur Navigation dient
@@ -132,7 +132,8 @@ public class Controlbar implements ActionListener
 				}
 				
 				//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
-				((MainFrame) parent).getDesktop().addChildFrame(parent, display, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
+				ChildFrame openChild = parent.getDesktop().addChildFrame(parent, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
+				openChild.addTabToChildFrame("Ausgangssituation", display);
 			}
 		}
 		if (event.getActionCommand().equals("Speichern"))
@@ -144,9 +145,14 @@ public class Controlbar implements ActionListener
 			MainFrame.WORKSPACE = new WorkspaceDialog().openDirectory(MainFrame.WORKSPACE);
 		}
 		if (event.getActionCommand().equals("Import..."))
-		{					
-			Image newImage = new OpenDialog().openImage(MainFrame.WORKSPACE);
-			((MainFrame) parent).addMap("Test");
+		{
+			String imagePath = null, imageName = null;
+			imagePath = new OpenDialog().openImage(MainFrame.WORKSPACE);
+			if (imagePath != null)
+				imageName = JOptionPane.showInputDialog(parent, "Bitte geben Sie das Land an, zu welchem die Karte zugeordnet werden soll.", "Bitte Land eingeben", JOptionPane.INFORMATION_MESSAGE);
+			if (imagePath != null || imageName != null)
+				parent.getMapManager().addMap(imageName, imagePath);
+			new ObjectSerialization().save("Maps", parent.getMapManager());
 		}
 		if (event.getActionCommand().equals("Beenden"))
 		{
