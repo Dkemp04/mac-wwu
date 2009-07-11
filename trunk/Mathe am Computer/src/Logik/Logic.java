@@ -43,17 +43,28 @@ public class Logic extends Thread{
 			methode.start();
 		while(!methodes.isEmpty())
 		{
-			if(!methodes.getFirst().isAlive()){
-				solutions.add(methodes.getFirst());
-				if(display != null)
-					display.logicCallback(methodes.getFirst());
-				methodes.remove();
-			}
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			for (int i = 0; i < methodes.size(); i++)
+			{
+				Methode m = methodes.get(i);
+				if (m != null)
+				{
+					if(!m.isAlive() && !m.isInterrupted())
+					{
+						solutions.add(m);
+						if(display != null)
+						{
+							display.logicCallback(m);
+							display.repaint();
+						}
+						methodes.remove(m);
+					}
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
