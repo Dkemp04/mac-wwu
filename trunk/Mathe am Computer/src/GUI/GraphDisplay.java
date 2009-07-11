@@ -14,13 +14,6 @@ public class GraphDisplay extends JPanel
 	History lastHistory;
 	private LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
 	
-	public GraphDisplay(String picture, Graph original)
-	{
-		ellipses = original.getEllipses();
-		background = Toolkit.getDefaultToolkit().getImage(picture);
-		setSize(background.getWidth(this), background.getHeight(this));
-	}
-	
 	public GraphDisplay(String picture, Graph original, History hist)
 	{
 		ellipses = original.getEllipses();
@@ -38,6 +31,7 @@ public class GraphDisplay extends JPanel
 		((Graphics2D)g).drawImage(background, 0, 0, background.getWidth(this), background.getHeight(this), this);
     	for(SingleEllipse singleEllipse : ellipses)
     		singleEllipse.draw((Graphics2D) g);
+    	
     	History hist = history;
     	if(history != null)
     	{

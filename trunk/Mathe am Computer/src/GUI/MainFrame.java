@@ -18,7 +18,6 @@ public class MainFrame extends JFrame
 	//Deklarierung der GUI-Elemente
 	private DesktopArea desktop;		//Desktop-Bereich, in dem interne Fenster erzeugt werden können. Dieser Bereich dient zur Darstellung der Probleme, der Heuristiken und der Vergleiche der Heuristiken
 	private Controlbar controls;		//Menü-Leiste zum Aufruf der wesentlichen Funktionen des Programmes
-	private TabOrganisation output;		//Verwaltung und Darstellung von Tabs zur Anzeige von Fehler, Warnungen und Hinweisen
 	
 	/**Konstruktor, der die Darstellung ein Einstellung aller GUI-Elemente übernimmt
 	 */
@@ -41,7 +40,6 @@ public class MainFrame extends JFrame
 		
 		//Initialisierung aller GUI-Elemente und Übergabe des Hauptfensters als Vater-Container
 		controls = new Controlbar(this);
-		output = new TabOrganisation(this);
 		desktop = new DesktopArea(this);
 		
 		//Allgemeine Einstellung des Hauptfenster

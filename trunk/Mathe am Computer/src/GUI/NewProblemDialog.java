@@ -278,7 +278,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					{
 						e.printStackTrace();
 					}
-					StaticGraph representation = new StaticGraph(parent, map);
+					StaticGraph representation = new StaticGraph(parent, map, null);
 					Logic logic = new Logic();
 					logic.setProblem(newProblem);
 					if(bab.isSelected())
@@ -287,11 +287,13 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						logic.addMethode(new MST(newProblem));
 					if(nn.isSelected())
 						logic.addMethode(new NearestNeighbor(newProblem));
+					
 					ChildFrame newChild = parent.getDesktop().addChildFrame(parent, map, logic, name.getText(), representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
 					newChild.addTabToChildFrame("Ausgangssituation", representation);
+					
 					this.dispose();
 				}
 			}
 		}
-	}	
+	}
 }
