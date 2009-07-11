@@ -27,19 +27,26 @@ public class MapManager implements Serializable
 		return maps;
 	}
 	
-	public class Map
+	public class Map implements Serializable
 	{
+		private static final long serialVersionUID = 1499513765199554978L;
+		
 		private String name;
+		private String path;
 		private Image img;
 		
 		public Map (String name, String path)
 		{
 			this.name = name;
+			this.path = path;
 			this.img = Toolkit.getDefaultToolkit().getImage(path);
 		}
 		
 		public String getName ()
 		{			return this.name;}
+		
+		public String getPath ()
+		{			return this.path;}
 		
 		public Image getImage ()
 		{			return this.img;}
