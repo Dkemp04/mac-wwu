@@ -1,5 +1,4 @@
 package GUI;
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Persistenz.ObjectDeserialization;
@@ -48,10 +47,10 @@ public class OpenDialog
         return openLogic;
     }
     
-    public Image openImage (String home)
+    public String openImage (String home)
     {
         //Attribut, welches das zu ladenen Problem speichert
-        Image openImage = null;
+    	String imagePath = null;
         
     	//Datei-Auswahl-Dialog mit übergebenen Startverzeichnis wird erstellt
         JFileChooser chooser = new JFileChooser(home);
@@ -70,12 +69,17 @@ public class OpenDialog
         
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
-        {        	openImage = new ObjectDeserialization().openImage(chooser.getSelectedFile().toString());}
+        {
+        	imagePath = chooser.getSelectedFile().toString();
+        	
+        	//Gibt das geöffnete Problem zurück
+            return imagePath;
+        }
         
         //Blendet den Dialog aus
         chooser.setVisible(false);
         
         //Gibt das geöffnete Problem zurück
-        return openImage;
+        return null;
     }
 }

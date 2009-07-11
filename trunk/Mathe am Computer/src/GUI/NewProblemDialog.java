@@ -13,7 +13,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse NewProblem
 	private static final long serialVersionUID = 1691310154690553788L;
 	
-	private static final int BORDER_WIDTH = 44;
+	private static final int BORDER_WIDTH = 40;
 	private static final int BORDER_HEIGHT = 210;
 	
 	//Erzeugung der Zeichenfläche
@@ -253,6 +253,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			}
 			else
 			{
+				if (name.getText() == "")
+				{
+					JOptionPane.showMessageDialog(this, "Namen eingeben", "Name fehlt", JOptionPane.WARNING_MESSAGE);
+				}
 				int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);
 				if (choice == JOptionPane.YES_OPTION)
 				{
@@ -283,7 +287,8 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						logic.addMethode(new MST(newProblem));
 					if(nn.isSelected())
 						logic.addMethode(new NearestNeighbor(newProblem));
-					parent.getDesktop().addChildFrame(parent, representation, map, logic, name.getText(), representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
+					ChildFrame newChild = parent.getDesktop().addChildFrame(parent, map, logic, name.getText(), representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
+					newChild.addTabToChildFrame("Ausgangssituation", representation);
 					this.dispose();
 				}
 			}

@@ -45,10 +45,10 @@ public class DesktopArea
 	 * @param width		Breite des ChildFrames
 	 * @return			Gibt das neu erzeugte ChildFrames zurück
 	 */
-	public ChildFrame addChildFrame (Container parent, Container content, Graph map, Logic newLogic, String title, int x, int y, int height, int width)
+	public ChildFrame addChildFrame (Container parent, Graph map, Logic newLogic, String title, int x, int y, int height, int width)
 	{	
 		//Erzeugung des neuen ChildFrames und Einstellung des Titels
-		ChildFrame child = new ChildFrame(parent, content, map, newLogic, title, x, y, height, width);
+		ChildFrame child = new ChildFrame(parent, map, newLogic, title, x, y, height, width);
 		
 		child.setOpaque(false);
 		
@@ -68,7 +68,4 @@ public class DesktopArea
 	{
 		return desk;
 	}
-	
-	//public void addTabToChildFrame (ChildFrame child, String tab_title, Container content)
-	//{		child.addTab(tab_title, content);}
 }
