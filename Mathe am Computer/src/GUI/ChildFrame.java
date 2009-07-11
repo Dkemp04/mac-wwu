@@ -56,7 +56,7 @@ public class ChildFrame extends JInternalFrame
 	}
 	
 	public void addTabToChildFrame (String tab_title, Container content)
-	{		tabs.addTab(tab_title, content);}
+	{	tabs.addTab(tab_title, content);}
 	
 	public void logicCallback (Methode m)
 	{

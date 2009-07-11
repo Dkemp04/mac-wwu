@@ -116,7 +116,7 @@ public class Controlbar implements ActionListener
 				for(Logik.Point add : openLogic.getProblem().getPoints()){
 					map.addEllipse(add.getX(), add.getY());
 				}
-				StaticGraph display = new StaticGraph(parent, map);
+				StaticGraph display = new StaticGraph(parent, map, null);
 				
 				//größte x-und y-Koordinaten aller Punkte im Graphen werden gesucht
 				int maxX = 0, maxY = 0;
