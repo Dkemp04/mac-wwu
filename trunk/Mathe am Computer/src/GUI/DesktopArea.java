@@ -18,7 +18,7 @@ public class DesktopArea
 	/**Konstruktor, welcher den Desktopbereich erzeugt und einstellt
 	 * @param parent Vater-Container, in welchem der Desktopbereich hinzugefügt werden soll
 	 */
-	public DesktopArea (MainFrame parent)
+	public DesktopArea (Container parent)
 	{
 		//Erzeugung des Desktopbereichs
 		desk = new JDesktopPane();
@@ -26,11 +26,7 @@ public class DesktopArea
 		//Einstellung des Desktop-Bereichs
 		desk.setBackground(Color.WHITE);
 		desk.setBorder(BorderFactory.createEtchedBorder());
-		desk.setSize(1280,1024);
-		
-		//Test-ChildFrames
-		//addChildFrame(new JPanel(), "Child 1", 30, 30, 200, 150);
-		//addChildFrame(new JPanel(), "Child 2", 230, 30, 200, 150);
+		desk.setSize(parent.getWidth(),parent.getHeight());
 		
 		//Hinzufügen des Desktopbereichs zum Vater-Container
 		parent.add(desk);
