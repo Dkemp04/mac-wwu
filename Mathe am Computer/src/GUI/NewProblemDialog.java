@@ -13,7 +13,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse NewProblem
 	private static final long serialVersionUID = 1691310154690553788L;
 	
-	//private static final int BORDER_WIDTH = 40;
+	private static final int BORDER_WIDTH = 40;
 	private static final int BORDER_HEIGHT = 210;
 	
 	//Erzeugung der Zeichenfläche
@@ -63,6 +63,9 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		map_selection = new JComboBox();
 		for (int i = 0; i < ((MainFrame) parent).getMaps().size() ; i++)
 			map_selection.addItem(((MainFrame) parent).getMaps().get(i).getName());
+		map_selection.addActionListener(this);
+		
+		map = new Graph(((MainFrame) parent).getMapManager().getMapPath((String) map_selection.getSelectedItem()));
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
 		buttons1 = new JPanel();
@@ -173,10 +176,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		head.add(name);
 		head.add(new JLabel("Karte"));
 		head.add(map_selection);
-		head.add(new JLabel("<html><b>Achtung:</b> </html>"));
 		head.add(new JLabel(""));
-		head.add(new JLabel("Die Tabs der verschiedenen Verfahren werden "));
-		head.add(new JLabel("erst bei Fertigstellung erscheinen."));
+		head.add(new JLabel(""));
+		head.add(new JLabel(""));
+		head.add(new JLabel(""));
 		
 		//Einstellung des Rahmens und der inneren Komponenten
 		
@@ -194,28 +197,28 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		//Allgemeine Einstellung des Frames
 		this.setLocation(parent.getX(), parent.getY());
-		//this.setResizable(false);
-		this.pack();
+		this.setSize(400,400);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent a)
 	{
-		//Auswertung des Objektes, von welchem der Befehl ausgegangen ist
-		String cmd = a.getActionCommand();
-		if (cmd.equals("Zurück"))
+		if (a.getSource().equals(map_selection))
+		{
+			map = new Graph(((MainFrame) parent).getMapManager().getMapPath((String) map_selection.getSelectedItem()));
+		}
+		if (a.getActionCommand().equals("Zurück"))
 		{
 			this.setContentPane(step1);
-				this.setSize(400,400);
+			this.setSize(400,400);
 		}
-		else if (cmd.equals("Abbrechen"))
+		else if (a.getActionCommand().equals("Abbrechen"))
 		{
 		    this.dispose();
 		}
-		else if (cmd.equals("Weiter"))
-		{
-			map = new Graph(((MainFrame) parent).getMapManager().getMapPath((String) map_selection.getSelectedItem()));
-			
+		else if (a.getActionCommand().equals("Weiter"))
+		{			
 			//Erzeugung und Einstellung der unteren Buttons für Schritt 2
 			buttons2 = new JPanel();
 			back2 = new JButton("Zurück");
@@ -233,18 +236,17 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			JPanel center2 = new JPanel();
 			map.setBorder(BorderFactory.createEtchedBorder());
 			center2.setLayout(new BorderLayout());
-			center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<br>Wenn Sie Punkte wieder löschen möchten, müssen Sie auf den zu löschenden Punkt mit der rechten Maustaste klicken.<html>"), BorderLayout.NORTH);
+			center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<br>Wenn Sie Punkte wieder löschen möchten, müssen Sie auf den zu löschenden Punkt mit der rechten Maustaste klicken.<br><b>Achtung:</b><br>Die Tabs der verschiedenen Verfahren werden erst bei Fertigstellung erscheinen.<html>"), BorderLayout.NORTH);
 			center2.add(map, BorderLayout.CENTER);
 			center2.add(buttons2, BorderLayout.SOUTH);
 			step2 = (JPanel) new WhitespaceFrame().decorate(center2);
 			
 			this.setContentPane(step2);
-			this.setSize(map.getWidth(), map.getHeight() + BORDER_HEIGHT);
-			//this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
-			this.pack();
+			this.setSize(map.getWidth(), map.getHeight());
+			this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
 			this.repaint();
 		}
-		else if (cmd.equals("Fertig"))
+		else if (a.getActionCommand().equals("Fertig"))
 		{
 			if (map.getEllipseCount() < 3)
 			{
