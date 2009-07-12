@@ -12,7 +12,7 @@ import Persistenz.*;
 public class Controlbar implements ActionListener
 {
 	//Vater-Container, in welchen diese Klasse angezeigt wird
-	private MainFrame parent;
+	private Container parent;
 	
 	//Deklarierung der GUI-Elemente
 	private JMenuBar menubar;			//Menüleiste
@@ -34,7 +34,7 @@ public class Controlbar implements ActionListener
 	 * Konstruktor zur Einstelllung und Darstellung der Elemente des Menüs
 	 * @param base Vater-Container der ControlBar
 	 */
-	public Controlbar (MainFrame parent)
+	public Controlbar (Container parent)
 	{
 		//Vater-Container wird hier in der Klasse für weitere Zwecke zwischengespeichert
 		this.parent = parent;
@@ -109,7 +109,7 @@ public class Controlbar implements ActionListener
 			Logic  openLogic = open_dialog.openLogic(MainFrame.WORKSPACE);
 			
 			//Graph zur Darstellung des Problems wird erzeugt
-			Graph map = new Graph();
+			Graph map = new Graph(MainFrame.WORKSPACE + "/images");
 			
 			if (openLogic != null)
 			{
@@ -132,12 +132,12 @@ public class Controlbar implements ActionListener
 				}
 				
 				//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
-				ChildFrame openChild = parent.getDesktop().addChildFrame(parent, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
+				ChildFrame openChild = ((MainFrame) parent).getDesktop().addChildFrame(parent, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
 				openChild.addTabToChildFrame("Ausgangssituation", display);
 			}
 		}
 		if (event.getActionCommand().equals("Speichern"))
-		{					parent.getDesktop().getDesktopPane().getSelectedFrame();}
+		{					((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();}
 		if (event.getActionCommand().equals("Speichern unter..."))
 		{					}
 		if (event.getActionCommand().equals("Setze Workspace"))
@@ -151,8 +151,8 @@ public class Controlbar implements ActionListener
 			if (imagePath != null)
 				imageName = JOptionPane.showInputDialog(parent, "Bitte geben Sie das Land an, zu welchem die Karte zugeordnet werden soll.", "Bitte Land eingeben", JOptionPane.INFORMATION_MESSAGE);
 			if (imagePath != null || imageName != null)
-				parent.getMapManager().addMap(imageName, imagePath);
-			new ObjectSerialization().save("Maps", parent.getMapManager());
+				((MainFrame) parent).getMapManager().addMap(imageName, imagePath);
+			new ObjectSerialization().save("Maps", ((MainFrame) parent).getMapManager());
 		}
 		if (event.getActionCommand().equals("Beenden"))
 		{

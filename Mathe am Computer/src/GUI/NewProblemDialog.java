@@ -19,7 +19,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Erzeugung der Zeichenfläche
 	private Problem newProblem;
 	private Graph map;
-	private MainFrame parent;
+	private Container parent;
 	private JTextField name;
 	private JComboBox map_selection;
 	
@@ -53,17 +53,16 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	private JPanel step2;
 	private JPanel center1;
 
-	public NewProblemDialog (MainFrame parent)
+	public NewProblemDialog (Container parent)
 	{
 		//Einstellung des Fensters (Vater-Fenster, Titel, Modal-Eigenschaft)
 		super((JFrame) parent, "Neues Problem", true);
 		this.parent = parent;
 		newProblem = new Problem();
-		map = new Graph();
-		this.add(map);
+		//this.add(map);
 		map_selection = new JComboBox();
-		for (int i = 0; i < parent.getMaps().size() ; i++)
-			map_selection.addItem(parent.getMaps().get(i).getName());
+		for (int i = 0; i < ((MainFrame) parent).getMaps().size() ; i++)
+			map_selection.addItem(((MainFrame) parent).getMaps().get(i).getName());
 		
 		//Erzeugung und Einstellung der unteren Buttons für Schritt 1
 		buttons1 = new JPanel();
@@ -74,21 +73,6 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		buttons1.add(cancel1);
 		buttons1.add(forward1);
-		
-		
-		//Erzeugung und Einstellung der unteren Buttons für Schritt 2
-		buttons2 = new JPanel();
-		back2 = new JButton("Zurück");
-		back2.addActionListener(this);
-		cancel2 = new JButton("Abbrechen");
-		cancel2.addActionListener(this);
-		ready2 = new JButton("Fertig");
-		ready2.addActionListener(this);
-		
-		buttons2.add(back2);
-		buttons2.add(cancel2);
-		buttons2.add(ready2);
-		
 		
 		//Erzeugung und Einstellung der Auswahl der Heuristik (und den einzelnen Checkboxes) und dessen Beschreibung
 		heuristics = new JPanel();
@@ -183,7 +167,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		head = new JPanel();	
 		head.setLayout(new GridLayout(4,4));
 		name = new JTextField();
-		name.setText("Name");
+		name.setText("");
 		
 		head.add(new JLabel("Name"));
 		head.add(name);
@@ -205,22 +189,12 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center1.add(heuristics, BorderLayout.CENTER);
 		center1.add(buttons1, BorderLayout.SOUTH);
 		
-		
-		step2 = new JPanel();
-		JPanel center2 = new JPanel();
-		map.setBorder(BorderFactory.createEtchedBorder());
-		center2.setLayout(new BorderLayout());
-		center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<br>Wenn Sie Punkte wieder löschen möchten, müssen Sie auf den zu löschenden Punkt mit der rechten Maustaste klicken.<html>"), BorderLayout.NORTH);
-		center2.add(map, BorderLayout.CENTER);
-		center2.add(buttons2, BorderLayout.SOUTH);
-		
 		step1 = (JPanel) new WhitespaceFrame().decorate(center1);
-		step2 = (JPanel) new WhitespaceFrame().decorate(center2);
 		this.setContentPane(step1);
 		
 		//Allgemeine Einstellung des Frames
 		this.setLocation(parent.getX(), parent.getY());
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -240,9 +214,34 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		}
 		else if (cmd.equals("Weiter"))
 		{
+			map = new Graph(((MainFrame) parent).getMapManager().getMapPath((String) map_selection.getSelectedItem()));
+			
+			//Erzeugung und Einstellung der unteren Buttons für Schritt 2
+			buttons2 = new JPanel();
+			back2 = new JButton("Zurück");
+			back2.addActionListener(this);
+			cancel2 = new JButton("Abbrechen");
+			cancel2.addActionListener(this);
+			ready2 = new JButton("Fertig");
+			ready2.addActionListener(this);
+			
+			buttons2.add(back2);
+			buttons2.add(cancel2);
+			buttons2.add(ready2);
+			
+			step2 = new JPanel();
+			JPanel center2 = new JPanel();
+			map.setBorder(BorderFactory.createEtchedBorder());
+			center2.setLayout(new BorderLayout());
+			center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<br>Wenn Sie Punkte wieder löschen möchten, müssen Sie auf den zu löschenden Punkt mit der rechten Maustaste klicken.<html>"), BorderLayout.NORTH);
+			center2.add(map, BorderLayout.CENTER);
+			center2.add(buttons2, BorderLayout.SOUTH);
+			step2 = (JPanel) new WhitespaceFrame().decorate(center2);
+			
 			this.setContentPane(step2);
-			this.setSize(map.getHeight() + 100, map.getWidth());
-			this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
+			this.setSize(map.getWidth(), map.getHeight() + BORDER_HEIGHT);
+			//this.setSize(map.getCanvas().getBackgroundImage().getWidth() + BORDER_WIDTH, map.getCanvas().getBackgroundImage().getHeight() + BORDER_HEIGHT);
+			this.pack();
 			this.repaint();
 		}
 		else if (cmd.equals("Fertig"))
@@ -251,12 +250,12 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			{
 				JOptionPane.showMessageDialog(this, "Bitte erstellen Sie mindestens 3 Punkte.", "Zu wenig Punkte", JOptionPane.WARNING_MESSAGE);
 			}
+			else if (name.getText().equals(""))
+			{
+				JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Namen für das Problem ein", "Name fehlt", JOptionPane.WARNING_MESSAGE);
+			}
 			else
 			{
-				if (name.getText() == "")
-				{
-					JOptionPane.showMessageDialog(this, "Namen eingeben", "Name fehlt", JOptionPane.WARNING_MESSAGE);
-				}
 				int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);
 				if (choice == JOptionPane.YES_OPTION)
 				{
@@ -288,7 +287,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					if(nn.isSelected())
 						logic.addMethode(new NearestNeighbor(newProblem));
 					
-					ChildFrame newChild = parent.getDesktop().addChildFrame(parent, map, logic, name.getText(), representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
+					ChildFrame newChild = ((MainFrame) parent).getDesktop().addChildFrame(parent, map, logic, name.getText(), representation.getX() + 10, representation.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
 					newChild.addTabToChildFrame("Ausgangssituation", representation);
 					
 					this.dispose();
