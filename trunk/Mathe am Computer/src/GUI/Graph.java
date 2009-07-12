@@ -15,14 +15,14 @@ public class Graph extends JPanel
 	private DrawingCanvas canvas;
 	private JLabel location;
 	private Cursor curCursor;
+	private String imagePath;
 	
-	public Graph()
+	public Graph(String imagePath)
 	{
 		//Aufruf des Superklassen-Konstrukters und Erzeugung der Zeichenfläche
 		super();
-	    canvas = new DrawingCanvas();
-	    
-	    final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Deutschland.jpg");
+		
+		final File f = new File (imagePath);
 		if (f != null)
 		{
 			new SwingWorker<BufferedImage, Void>()
@@ -44,6 +44,9 @@ public class Graph extends JPanel
 				}
 			}.execute();
 		}
+		
+		this.imagePath = imagePath;
+	    canvas = new DrawingCanvas();
 	    
 	    //Einstellung des Frames und dessen Komponenten (Zeichenfläche und Koordinaten-Anzeige)
 	    this.setLayout(new BorderLayout());
@@ -81,6 +84,11 @@ public class Graph extends JPanel
 	public DrawingCanvas getCanvas ()
 	{
 		return this.canvas;
+	}
+	
+	public String getImagePath ()
+	{
+		return this.imagePath;
 	}
 	
 	public class DrawingCanvas extends Canvas
@@ -227,7 +235,7 @@ public class Graph extends JPanel
 	{
 		public void componentResized(ComponentEvent e)
 		{
-			final File f = new File ("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Deutschland.jpg");
+			final File f = new File (imagePath);
 			if (f != null)
 			{
 				new SwingWorker<BufferedImage, Void>()

@@ -36,9 +36,10 @@ public class StaticGraph extends JComponent implements ActionListener
 		description.setHorizontalAlignment(JLabel.LEFT);
 		description.setVerticalAlignment(JLabel.TOP);
 		description.setBorder(BorderFactory.createEtchedBorder());
+		
 		this.setLayout(new GridLayout(1,2));
 		
-		display = new GraphDisplay("C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer/src/GUI/Deutschland.jpg", original, history);
+		display = new GraphDisplay(original.getImagePath(), original, history);
 
 		description.setSize(display.getHeight()-back.getHeight()-forward.getHeight(), display.getWidth() * 2);
 		right = new JPanel();
