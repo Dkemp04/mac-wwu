@@ -13,7 +13,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse NewProblem
 	private static final long serialVersionUID = 1691310154690553788L;
 	
-	private static final int BORDER_WIDTH = 40;
+	//private static final int BORDER_WIDTH = 40;
 	private static final int BORDER_HEIGHT = 210;
 	
 	//Erzeugung der Zeichenfläche
