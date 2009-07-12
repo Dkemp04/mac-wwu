@@ -171,12 +171,12 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		
 		head.add(new JLabel("Name"));
 		head.add(name);
-		head.add(new JLabel(""));
-		head.add(new JLabel(""));
 		head.add(new JLabel("Karte"));
 		head.add(map_selection);
+		head.add(new JLabel("<html><b>Achtung:</b> </html>"));
 		head.add(new JLabel(""));
-		head.add(new JLabel(""));
+		head.add(new JLabel("Die Tabs der verschiedenen Verfahren werden "));
+		head.add(new JLabel("erst bei Fertigstellung erscheinen."));
 		
 		//Einstellung des Rahmens und der inneren Komponenten
 		
