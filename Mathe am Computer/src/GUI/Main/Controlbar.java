@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+import GUI.Dialogs.AboutDialog;
 import GUI.Dialogs.NewProblemDialog;
 import GUI.Dialogs.OpenDialog;
 import GUI.Dialogs.OptionsDialog;
@@ -64,7 +65,7 @@ public class Controlbar implements ActionListener
 		advanced = new JMenu("Erweitert");
 		options = new JMenuItem("Optionen");
 		help = new JMenu("Hilfe");
-		about = new JMenuItem("About");
+		about = new JMenuItem("Über");
 		documentation = new JMenuItem("Dokumentation");
 		javadoc = new JMenuItem("Java Doc");
 		
@@ -119,7 +120,7 @@ public class Controlbar implements ActionListener
 			problem.setAlwaysOnTop(true);
 			problem.setModal(true);
 		}
-		if (event.getActionCommand().equals("Öffnen"))
+		else if (event.getActionCommand().equals("Öffnen"))
 		{
 			//Eingabe-Dialog zum Öffnen von gespeicherten Problemen wird augerufen
 			OpenDialog open_dialog = new OpenDialog();
@@ -155,22 +156,22 @@ public class Controlbar implements ActionListener
 				openChild.addTabToChildFrame("Ausgangssituation", display);
 			}
 		}
-		if (event.getActionCommand().equals("Speichern"))
+		else if (event.getActionCommand().equals("Speichern"))
 		{
 			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();
 			new ObjectSerialization().save(selectedChild.getTitle(), selectedChild.getLogic());
 		}
-		if (event.getActionCommand().equals("Speichern unter..."))
+		else if (event.getActionCommand().equals("Speichern unter..."))
 		{
 			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();
 			new SaveDialog().save(selectedChild.getLogic());
 			
 		}
-		if (event.getActionCommand().equals("Setze Workspace"))
+		else if (event.getActionCommand().equals("Setze Workspace"))
 		{				
 			MainFrame.WORKSPACE = new WorkspaceDialog().openDirectory(MainFrame.WORKSPACE);
 		}
-		if (event.getActionCommand().equals("Import..."))
+		else if (event.getActionCommand().equals("Import..."))
 		{
 			String imagePath = null, imageName = null;
 			imagePath = new OpenDialog().openImage(MainFrame.WORKSPACE);
@@ -180,22 +181,27 @@ public class Controlbar implements ActionListener
 				((MainFrame) parent).getMapManager().addMap(imageName, imagePath);
 			new ObjectSerialization().save("Maps", ((MainFrame) parent).getMapManager());
 		}
-		if (event.getActionCommand().equals("Beenden"))
+		else if (event.getActionCommand().equals("Beenden"))
 		{
 			//Programm und JavaVirtualMachine wird beendet
 			System.exit(0);
 		}
-		if (event.getActionCommand().equals("Optionen"))
+		else if (event.getActionCommand().equals("Optionen"))
 		{
 			//Neues Optionen-Fenster wird erzeugt und auf dem Bildschirm dargestellt
 			new OptionsDialog(parent);
 		}
-		if (event.getActionCommand().equals("Dokumentation"))
+		else if (event.getActionCommand().equals("Über"))
+		{
+			//
+			new AboutDialog(parent);
+		}
+		else if (event.getActionCommand().equals("Dokumentation"))
 		{
 			//Öffnet die Dokumentation im Browser, welche Installationanweisungen und die Ausarbeitung enthält
 			new OpenURL("www.google.de", OpenURL.WEB_FILE);
 		}
-		if (event.getActionCommand().equals("Java Doc"))
+		else if (event.getActionCommand().equals("Java Doc"))
 		{
 			//Öffnet die Java Doc des Programmes im Browser mit allen im Programm enthaltenen Klassen
 			new OpenURL(MainFrame.WORKSPACE + "/doc/index.html", OpenURL.LOCAL_FILE);
