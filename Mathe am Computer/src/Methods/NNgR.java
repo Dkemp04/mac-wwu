@@ -6,8 +6,10 @@ import Logic.Problem;
 
 // Nächster Nachbar (zum aktuellen Zweigende mit kürzestem Teilring)
 
-public class NNgR extends Method{
-	
+public class NNgR extends Method
+{
+	private static final long serialVersionUID = -4943281546173112151L;
+
 	/**
 	 * Nächster Nachbar mit geringster Rundreiselänge
 	 */
