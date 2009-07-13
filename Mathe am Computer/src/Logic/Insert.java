@@ -1,11 +1,13 @@
-package Logik;
+package Logic;
 
 import java.util.ArrayList;
+
+import Methods.Method;
 
 
 // Füge das Element ein, durch das der Teilring am wenigsten Länge zunimmt
 
-public class Insert extends Methode{
+public class Insert extends Method{
 	
 	/**
 	 * Nächster Nachbar mit geringster Rundreiselänge

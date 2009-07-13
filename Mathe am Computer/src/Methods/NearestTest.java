@@ -1,4 +1,7 @@
-package Logik;
+package Methods;
+
+import Logic.Point;
+import Logic.Problem;
 
 //import junit.framework.TestCase;
 

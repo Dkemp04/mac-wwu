@@ -1,7 +1,12 @@
-package Logik;
+package Methods;
 
 import java.util.*;
-public class MST extends Methode{
+
+import Logic.History;
+import Logic.Pair;
+import Logic.Point;
+import Logic.Problem;
+public class MST extends Method{
 	protected History historyMST = new History(null, null,"Erzeugung des Problems.");
 	/**
 	 * Erzeugt einen MST

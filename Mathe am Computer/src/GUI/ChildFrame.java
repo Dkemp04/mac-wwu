@@ -6,8 +6,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import Logik.Logic;
-import Logik.Methode;
+
+import Logic.Logic;
+import Methods.Method;
 
 public class ChildFrame extends JInternalFrame
 {
@@ -58,7 +59,7 @@ public class ChildFrame extends JInternalFrame
 	public void addTabToChildFrame (String tab_title, Container content)
 	{	tabs.addTab(tab_title, content);}
 	
-	public void logicCallback (Methode m)
+	public void logicCallback (Method m)
 	{
 		tabs.addTab(m.getMethodName(), new StaticGraph(this.getParent(), map, m.getHistory()));
 	}

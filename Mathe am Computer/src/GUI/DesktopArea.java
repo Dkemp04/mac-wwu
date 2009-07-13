@@ -1,7 +1,8 @@
 package GUI;
 import java.awt.*;
 import javax.swing.*;
-import Logik.*;
+
+import Logic.*;
 
 /**
  * Klasse, die für die Darstellung des JDesktopPanes sorgt und dessen Kinder

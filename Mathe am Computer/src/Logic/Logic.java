@@ -1,7 +1,8 @@
-package Logik;
+package Logic;
 
 import java.util.*;
 import GUI.*;
+import Methods.Method;
 
 /**
  * Klasse zur Kapselung der Geschäftslogik
@@ -11,11 +12,11 @@ import GUI.*;
 public class Logic extends Thread{
 	private ChildFrame display;
 	private Problem problem;
-	private LinkedList<Methode> methodes;
-	private LinkedList<Methode> solutions;
+	private LinkedList<Method> methodes;
+	private LinkedList<Method> solutions;
 	public Logic(){
-		methodes = new LinkedList<Methode>();
-		solutions = new LinkedList<Methode>();
+		methodes = new LinkedList<Method>();
+		solutions = new LinkedList<Method>();
 	}
 	
 	public void setProblem(Problem problem){
@@ -30,7 +31,7 @@ public class Logic extends Thread{
 	 * Fügt eine Methode zur Bearbeitung hinzu.
 	 * @param methode
 	 */
-	public void addMethode(Methode methode){
+	public void addMethode(Method methode){
 		if(!methodes.contains(methode))
 			methodes.add(methode);
 	}	
@@ -39,13 +40,13 @@ public class Logic extends Thread{
 	 * Löst das Problem mit allen eingetragenen Lösungsverfahren
 	 */
 	public void run(){
-		for(Methode methode : methodes)
+		for(Method methode : methodes)
 			methode.start();
 		while(!methodes.isEmpty())
 		{
 			for (int i = 0; i < methodes.size(); i++)
 			{
-				Methode m = methodes.get(i);
+				Method m = methodes.get(i);
 				if (m != null)
 				{
 					if(!m.isAlive() && !m.isInterrupted())

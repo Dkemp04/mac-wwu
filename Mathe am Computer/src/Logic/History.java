@@ -1,4 +1,4 @@
-package Logik;
+package Logic;
 
 public class History {
 	private History nextItem;

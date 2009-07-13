@@ -1,6 +1,10 @@
-package Logik;
+package Methods;
 
-public abstract class Methode extends Thread{
+import Logic.History;
+import Logic.Point;
+import Logic.Problem;
+
+public abstract class Method extends Thread{
 	protected double length;
 	protected Point[] problemElement;
 	protected Point[] solution;
@@ -10,7 +14,7 @@ public abstract class Methode extends Thread{
 	protected int positionEnd;
 	protected History history;
 	
-	public Methode(Problem problem){
+	public Method(Problem problem){
 		this.startingPoint = problem.getStartingPoint();
 		unused = problem.getPoints().size()-1;
 		positionEnd = unused;

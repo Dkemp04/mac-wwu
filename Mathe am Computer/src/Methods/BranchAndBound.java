@@ -1,6 +1,9 @@
-package Logik;
+package Methods;
 
-public class BranchAndBound extends Methode{
+import Logic.Point;
+import Logic.Problem;
+
+public class BranchAndBound extends Method{
 	
 	public BranchAndBound(Problem problem){
 		super(problem);

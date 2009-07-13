@@ -2,8 +2,12 @@ package GUI;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-import Logik.*;
-import Logik.Point;
+
+import Logic.*;
+import Logic.Point;
+import Methods.BranchAndBound;
+import Methods.MST;
+import Methods.NearestNeighbor;
 
 /**
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
