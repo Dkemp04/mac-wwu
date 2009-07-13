@@ -26,6 +26,7 @@ public class MainFrame extends JFrame
 	{
 		//Aufruf des Konstruktors der Superklasse und Einstellung des Titels
 		super("Traveller");
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/images/icon.gif"));
 		manager = new MapManager();
 		
 		//try -und catch-Block, der zur Einstellung des Windows-Look-and-Feels dient
