@@ -29,6 +29,7 @@ public class Controlbar implements ActionListener
 	private JMenu advanced;				//Menü "Erweitert"
 	private JMenuItem options;			//Menüelement "Optionen" zum Aufruf der Optionen
 	private JMenu help;					//Menü "Erweitert"
+	private JMenuItem about;	
 	private JMenuItem documentation;	//Menüelement "Dokumentation" zum Aufruf der Dokumentation bzw. Ausarbeitung zum Programm
 	private JMenuItem javadoc;			//Menüelement "Java Doc" zum Aufruf der Java Doc mit allen im Programm enthaltenen Klassen
 	
@@ -54,6 +55,7 @@ public class Controlbar implements ActionListener
 		advanced = new JMenu("Erweitert");
 		options = new JMenuItem("Optionen");
 		help = new JMenu("Hilfe");
+		about = new JMenuItem("About");
 		documentation = new JMenuItem("Dokumentation");
 		javadoc = new JMenuItem("Java Doc");
 		
@@ -67,18 +69,24 @@ public class Controlbar implements ActionListener
 		k_import.addActionListener(this);
 		exit.addActionListener(this);
 		options.addActionListener(this);
+		about.addActionListener(this);
 		documentation.addActionListener(this);
 		javadoc.addActionListener(this);
 		
 		//Hinzufügen der Untermenüs und Menüelemente zu der Menüleiste
 		data.add(newProblem);
 		data.add(open);
+		data.addSeparator();
 		data.add(save);
 		data.add(save_path);
+		data.addSeparator();
 		data.add(workspace);
 		data.add(k_import);
+		data.addSeparator();
 		data.add(exit);
 		advanced.add(options);
+		help.add(about);
+		help.addSeparator();
 		help.add(documentation);
 		help.add(javadoc);
 		menubar.add(data);
