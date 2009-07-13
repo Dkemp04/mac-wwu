@@ -4,7 +4,7 @@ import java.util.*;
 
 import javax.swing.JPanel;
 
-import Logik.History;
+import Logic.History;
 
 public class GraphDisplay extends JPanel
 {

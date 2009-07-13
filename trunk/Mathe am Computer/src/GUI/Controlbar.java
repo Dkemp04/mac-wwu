@@ -2,7 +2,8 @@ package GUI;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-import Logik.*;
+import Logic.*;
+import Logic.Point;
 import Persistenz.*;
 
 /**
@@ -113,7 +114,7 @@ public class Controlbar implements ActionListener
 			
 			if (openLogic != null)
 			{
-				for(Logik.Point add : openLogic.getProblem().getPoints()){
+				for(Point add : openLogic.getProblem().getPoints()){
 					map.addEllipse(add.getX(), add.getY());
 				}
 				StaticGraph display = new StaticGraph(parent, map, null);

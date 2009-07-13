@@ -1,6 +1,9 @@
-package Logik;
+package Methods;
 
-public class NearestNeighbor extends Methode{
+import Logic.Point;
+import Logic.Problem;
+
+public class NearestNeighbor extends Method{
 	
 	/**
 	 * Die Run-Methode des Lsungsverfahrens

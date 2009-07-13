@@ -3,7 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-import Logik.History;
+
+import Logic.History;
 
 public class StaticGraph extends JComponent implements ActionListener
 {

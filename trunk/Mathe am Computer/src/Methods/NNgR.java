@@ -1,9 +1,12 @@
-package Logik;
+package Methods;
+
+import Logic.Point;
+import Logic.Problem;
 
 
 // Nächster Nachbar (zum aktuellen Zweigende mit kürzestem Teilring)
 
-public class NNgR extends Methode{
+public class NNgR extends Method{
 	
 	/**
 	 * Nächster Nachbar mit geringster Rundreiselänge
