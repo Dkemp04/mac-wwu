@@ -2,7 +2,7 @@ package Logic;
 
 import java.io.*;
 import java.util.*;
-import GUI.*;
+import GUI.Main.ChildFrame;
 import Methods.Method;
 
 /**

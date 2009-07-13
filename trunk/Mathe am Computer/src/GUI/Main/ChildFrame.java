@@ -1,9 +1,12 @@
-package GUI;
+package GUI.Main;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+import GUI.Dialogs.SaveDialog;
+import GUI.MapDisplay.Graph;
+import GUI.MapDisplay.StaticGraph;
 import Logic.Logic;
 import Methods.*;
 

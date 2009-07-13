@@ -1,8 +1,17 @@
-package GUI;
+package GUI.Main;
 
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+
+import GUI.Dialogs.NewProblemDialog;
+import GUI.Dialogs.OpenDialog;
+import GUI.Dialogs.OptionsDialog;
+import GUI.Dialogs.SaveDialog;
+import GUI.Dialogs.WorkspaceDialog;
+import GUI.MapDisplay.Graph;
+import GUI.MapDisplay.StaticGraph;
+import GUI.Tools.OpenURL;
 import Logic.*;
 import Logic.Point;
 import Storage.*;
@@ -179,7 +188,7 @@ public class Controlbar implements ActionListener
 		if (event.getActionCommand().equals("Optionen"))
 		{
 			//Neues Optionen-Fenster wird erzeugt und auf dem Bildschirm dargestellt
-			new Options(parent);
+			new OptionsDialog(parent);
 		}
 		if (event.getActionCommand().equals("Dokumentation"))
 		{

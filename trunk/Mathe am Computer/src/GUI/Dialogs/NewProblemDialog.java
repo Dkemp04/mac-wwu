@@ -1,8 +1,13 @@
-package GUI;
+package GUI.Dialogs;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+import GUI.Main.ChildFrame;
+import GUI.Main.MainFrame;
+import GUI.MapDisplay.Graph;
+import GUI.MapDisplay.StaticGraph;
+import GUI.Tools.WhitespaceFrame;
 import Logic.*;
 import Logic.Point;
 import Methods.BranchAndBound;

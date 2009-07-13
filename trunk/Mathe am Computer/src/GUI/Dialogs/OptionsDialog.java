@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Dialogs;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,7 +7,7 @@ import javax.swing.*;
  * Optionen-Fenster, dass zur Einstellung des verschiedenen Look-and-Feels dient
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
  */
-public class Options extends JDialog  implements ActionListener
+public class OptionsDialog extends JDialog  implements ActionListener
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse Options
 	private static final long serialVersionUID = 473842935713197692L;
@@ -22,7 +22,7 @@ public class Options extends JDialog  implements ActionListener
 	 * Konstruktor zur Einstellung und Darstellung der GUI-Elemente
 	 * @param base Vater-Container der Options
 	 */
-	public Options (Container parent)
+	public OptionsDialog (Container parent)
 	{
 		//Konstruktor der Oberklasse wird augerufen, dem der Vater-Container und der Titel übergeben wird.
 		//Zusätzlich wird eingestellt, dass das Fenster modal ist, d.h. dass es bis zur Beendung fokussiert bleibt

@@ -1,4 +1,4 @@
-package GUI;
+package GUI.MapDisplay;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 
 public class Graph extends JPanel
 {

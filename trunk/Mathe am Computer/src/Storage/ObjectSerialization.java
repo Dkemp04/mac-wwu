@@ -1,7 +1,7 @@
 package Storage;
 import java.io.*;
 
-import GUI.MainFrame;
+import GUI.Main.MainFrame;
 
 /**
  * Klasse, die dafür sorgt Probleme auf der Festplatte zu speichern
