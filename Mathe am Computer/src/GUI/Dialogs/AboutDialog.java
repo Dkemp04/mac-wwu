@@ -29,7 +29,7 @@ public class AboutDialog extends JDialog
 		this.add(imagePane, BorderLayout.CENTER);
 		this.add(description, BorderLayout.SOUTH);
 		
-		this.setSize(img.getWidth(this), img.getHeight(this));
+		this.setSize(img.getWidth(imagePane), img.getHeight(imagePane));
 		this.setLocation(parent.getX() + 128, parent.getY() + 128);
 		//this.setResizable(false);
 		this.setVisible(true);
