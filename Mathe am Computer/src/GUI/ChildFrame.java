@@ -1,15 +1,13 @@
 package GUI;
 
-import java.awt.Container;
-import java.awt.Label;
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
 import Logic.Logic;
 import Methods.*;
 
-public class ChildFrame extends JInternalFrame
+public class ChildFrame extends JInternalFrame implements InternalFrameListener
 {
 	private static final long serialVersionUID = -8268041752214054122L;
 	
@@ -43,7 +41,7 @@ public class ChildFrame extends JInternalFrame
 		this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		
 		//Hinzufügen des passenden Listeners
-		this.addInternalFrameListener(new MyInternalFrameListener());
+		this.addInternalFrameListener(this);
 		
 		//Einstellung der Position des ChildFrames innerhalb des Desktopbereichs
 		this.setLocation(x, y);
@@ -63,30 +61,33 @@ public class ChildFrame extends JInternalFrame
 		tabs.addTab(m.getMethodName(), new StaticGraph(this.getParent(), map, m.getHistory()));
 	}
 	
-	/**Listener-Klasse, welcher auf Aktionen auf die ChildFrames reagiert
-	 * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+	public Logic getLogic ()
+	{		return this.logic;}
+	
+	/**Methode, die beim Schließen des ChildFrames ausgelöst wird
+	 * @param e Ereignis, welches bei Aktionen ihr zugeordneter Elemente ausgelöst wird
 	 */
-	private class MyInternalFrameListener extends InternalFrameAdapter
+	public void internalFrameClosing (InternalFrameEvent e)
 	{
-		/**Methode, die beim Schließen des ChildFrames ausgelöst wird
-		 * @param e Ereignis, welches bei Aktionen ihr zugeordneter Elemente ausgelöst wird
-		 */
-		public void internalFrameClosing (InternalFrameEvent e)
+		//Öffnet einen Dialog, ob das aktuelles Problem gespeichert werden soll und zwischenspeichert das Ergebnis des Dialogs
+		int result = JOptionPane.showConfirmDialog(null, new Label("Möchten Sie das Problem vor dem Beenden speichern ?"), "Speichern", JOptionPane.YES_NO_OPTION, 3);
+	
+		//Überprüfung, ob bei dem Dialog "Ja" ausgewählt wurde
+		if (result == JOptionPane.YES_OPTION)
 		{
-			//Öffnet einen Dialog, ob das aktuelles Problem gespeichert werden soll und zwischenspeichert das Ergebnis des Dialogs
-			int result = JOptionPane.showConfirmDialog(null, new Label("Möchten Sie das Problem vor dem Beenden speichern ?"), "Speichern", JOptionPane.YES_NO_OPTION, 3);
-			
-			//Überprüfung, ob bei dem Dialog "Ja" ausgewählt wurde
-			if (result == JOptionPane.YES_OPTION)
-			{
-				//Öffnen eines Speicher-Dialoges
-				new SaveDialog().save();
-			}
-			else
-			{
-				//Falls nicht gespeichert werden soll, wird das ChildFrame ausgeblendet
-				e.getInternalFrame().dispose();
-			}
+			//Öffnen eines Speicher-Dialoges
+			new SaveDialog().save(logic);
+		}
+		else
+		{
+			//Falls nicht gespeichert werden soll, wird das ChildFrame ausgeblendet
+			e.getInternalFrame().dispose();
 		}
 	}
+	public void internalFrameOpened (InternalFrameEvent e){}
+	public void internalFrameClosed(InternalFrameEvent e){}
+	public void internalFrameActivated (InternalFrameEvent e){}
+	public void internalFrameIconified (InternalFrameEvent e){}
+	public void internalFrameDeactivated (InternalFrameEvent e){}
+	public void internalFrameDeiconified (InternalFrameEvent e){}
 }

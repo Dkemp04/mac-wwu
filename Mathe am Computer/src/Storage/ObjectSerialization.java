@@ -1,6 +1,8 @@
 package Storage;
 import java.io.*;
 
+import GUI.MainFrame;
+
 /**
  * Klasse, die dafür sorgt Probleme auf der Festplatte zu speichern
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
@@ -17,7 +19,7 @@ public class ObjectSerialization
 		try
 		{
 			//Streams, die für das Schreiben der Datei benötigt werden
-			FileOutputStream fs = new FileOutputStream (name + ".tsp");
+			FileOutputStream fs = new FileOutputStream (MainFrame.WORKSPACE+ name + ".tsp");
 			ObjectOutputStream os = new ObjectOutputStream(fs);
 			
 			//Datei wird auf die Festplatte geschrieben

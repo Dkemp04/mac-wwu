@@ -1,5 +1,6 @@
 package Logic;
 
+import java.io.*;
 import java.util.*;
 import GUI.*;
 import Methods.Method;
@@ -9,8 +10,11 @@ import Methods.Method;
  * @author s_pich02
  *
  */
-public class Logic extends Thread{
-	private ChildFrame display;
+public class Logic extends Thread implements Serializable
+{
+	private static final long serialVersionUID = -3213427962110288382L;
+	
+	transient private ChildFrame display;
 	private Problem problem;
 	private LinkedList<Method> methodes;
 	private LinkedList<Method> solutions;

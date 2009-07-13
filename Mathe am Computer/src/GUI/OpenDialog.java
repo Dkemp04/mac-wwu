@@ -1,5 +1,6 @@
 package GUI;
 
+import java.io.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import Logic.*;
@@ -9,8 +10,10 @@ import Storage.*;
  * Dialog, der zum Öffnen von vorhandenen Problemen geöffnet wird
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
  */
-public class OpenDialog
+public class OpenDialog extends JFileChooser
 {
+	private static final long serialVersionUID = 3312127889351988698L;
+
 	/**
 	 * Methode, die den Dialog zum Öffnen von Dateien erstellt und initalisiert
 	 * Außerdem wird das geöffnete Problem (aus *.tsp-Dateien) geladen und zurückgegeben
@@ -19,6 +22,8 @@ public class OpenDialog
 	 */
     public Logic openLogic (String home)
     {
+    	this.setCurrentDirectory(new File(home));
+    	
     	//Attribut, welches das zu ladenen Problem speichert
         Logic openLogic = null;
         
