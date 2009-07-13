@@ -1,8 +1,9 @@
 package GUI;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import Storage.*;
 import Logic.*;
+import Storage.*;
 
 /**
  * Dialog, der zum Öffnen von vorhandenen Problemen geöffnet wird

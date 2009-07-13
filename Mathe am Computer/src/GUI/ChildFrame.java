@@ -6,9 +6,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-
 import Logic.Logic;
-import Methods.Method;
+import Methods.*;
 
 public class ChildFrame extends JInternalFrame
 {
