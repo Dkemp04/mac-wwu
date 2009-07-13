@@ -13,8 +13,8 @@ public class MapManager implements Serializable
 	
 	public MapManager()
 	{
-		addMap("Deutschland", "C:\\Users\\Daniel Kemper\\Desktop\\Mathe am Computer\\Workspace\\Mathe am Computer\\src\\GUI\\Deutschland.jpg");
-		addMap ("Polen", "C:\\Users\\Daniel Kemper\\Desktop\\Mathe am Computer\\Workspace\\Mathe am Computer\\src\\GUI\\Polen.jpg");
+		addMap("Deutschland", MainFrame.WORKSPACE + "/images/Deutschland.jpg");
+		addMap ("Polen", MainFrame.WORKSPACE + "/images/Polen.jpg");
 	}
 	
 	public void addMap (String name, String path)
