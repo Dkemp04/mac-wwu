@@ -1,10 +1,14 @@
 package Methods;
 
+import java.io.*;
 import Logic.History;
 import Logic.Point;
 import Logic.Problem;
 
-public abstract class Method extends Thread{
+public abstract class Method extends Thread implements Serializable
+{
+	private static final long serialVersionUID = 3398669066530137699L;
+	
 	protected double length;
 	protected Point[] problemElement;
 	protected Point[] solution;

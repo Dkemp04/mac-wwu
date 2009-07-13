@@ -147,9 +147,16 @@ public class Controlbar implements ActionListener
 			}
 		}
 		if (event.getActionCommand().equals("Speichern"))
-		{					((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();}
+		{
+			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();
+			new ObjectSerialization().save(selectedChild.getTitle(), selectedChild.getLogic());
+		}
 		if (event.getActionCommand().equals("Speichern unter..."))
-		{					}
+		{
+			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();
+			new SaveDialog().save(selectedChild.getLogic());
+			
+		}
 		if (event.getActionCommand().equals("Setze Workspace"))
 		{				
 			MainFrame.WORKSPACE = new WorkspaceDialog().openDirectory(MainFrame.WORKSPACE);
@@ -177,7 +184,7 @@ public class Controlbar implements ActionListener
 		if (event.getActionCommand().equals("Dokumentation"))
 		{
 			//Öffnet die Dokumentation im Browser, welche Installationanweisungen und die Ausarbeitung enthält
-			new OpenURL("www.google.de", OpenURL.LOCAL_FILE);
+			new OpenURL("www.google.de", OpenURL.WEB_FILE);
 		}
 		if (event.getActionCommand().equals("Java Doc"))
 		{

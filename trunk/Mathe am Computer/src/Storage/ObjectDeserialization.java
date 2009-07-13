@@ -2,6 +2,7 @@ package Storage;
 import java.awt.*;
 import java.io.*;
 
+import GUI.MainFrame;
 import Logic.Logic;
 
 /**
@@ -21,7 +22,7 @@ public class ObjectDeserialization
 		try
 		{
 			//Streams, die das Object von der Festplatte lesen
-			FileInputStream fs = new FileInputStream (name);
+			FileInputStream fs = new FileInputStream (MainFrame.WORKSPACE+ name);
 			ObjectInputStream is = new ObjectInputStream (fs);
 			
 			//Liest das Object von der Festplatte und wandelt es in ein Problem-Objekt um

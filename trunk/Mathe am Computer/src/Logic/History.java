@@ -1,6 +1,11 @@
 package Logic;
 
-public class History {
+import java.io.*;
+
+public class History implements Serializable
+{
+	private static final long serialVersionUID = -5920980291138882480L;
+	
 	private History nextItem;
 	private Point historyPoint, historyPrevPoint;
 	private String historyText;
