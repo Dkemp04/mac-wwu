@@ -3,8 +3,10 @@ package Methods;
 import Logic.Point;
 import Logic.Problem;
 
-public class NearestNeighbor extends Method{
-	
+public class NearestNeighbor extends Method
+{
+	private static final long serialVersionUID = 6012980783640788815L;
+
 	/**
 	 * Die Run-Methode des Lsungsverfahrens
 	 */

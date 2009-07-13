@@ -6,7 +6,10 @@ import Logic.History;
 import Logic.Pair;
 import Logic.Point;
 import Logic.Problem;
-public class MST extends Method{
+public class MST extends Method
+{
+	
+	private static final long serialVersionUID = -8892435704816573345L;
 	protected History historyMST = new History(null, null,"Erzeugung des Problems.");
 	/**
 	 * Erzeugt einen MST

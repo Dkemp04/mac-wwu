@@ -3,8 +3,10 @@ package Methods;
 import Logic.Point;
 import Logic.Problem;
 
-public class BranchAndBound extends Method{
-	
+public class BranchAndBound extends Method
+{
+	private static final long serialVersionUID = -8304703391224488672L;
+
 	public BranchAndBound(Problem problem){
 		super(problem);
 	}

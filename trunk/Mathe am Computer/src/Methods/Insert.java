@@ -1,14 +1,17 @@
-package Logic;
+package Methods;
 
 import java.util.ArrayList;
 
-import Methods.Method;
+import Logic.Point;
+import Logic.Problem;
 
 
 // Füge das Element ein, durch das der Teilring am wenigsten Länge zunimmt
 
-public class Insert extends Method{
-	
+public class Insert extends Method
+{
+	private static final long serialVersionUID = -7999385348898024575L;
+
 	/**
 	 * Nächster Nachbar mit geringster Rundreiselänge
 	 */
