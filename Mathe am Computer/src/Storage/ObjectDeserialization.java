@@ -2,7 +2,7 @@ package Storage;
 import java.awt.*;
 import java.io.*;
 
-import GUI.MainFrame;
+import GUI.Main.MainFrame;
 import Logic.Logic;
 
 /**

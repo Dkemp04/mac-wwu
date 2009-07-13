@@ -1,7 +1,8 @@
-package GUI;
+package GUI.Main;
 import java.awt.*;
 import javax.swing.*;
 
+import GUI.MapDisplay.Graph;
 import Logic.*;
 
 /**

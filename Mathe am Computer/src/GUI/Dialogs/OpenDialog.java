@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Dialogs;
 
 import java.io.*;
 import javax.swing.*;

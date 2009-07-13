@@ -1,9 +1,9 @@
-package GUI;
+package GUI.Dialogs;
 
 import java.awt.*;
 import javax.swing.*;
 
-public class Splash extends Thread
+public class SplashDialog extends Thread
 {
 	private static final long serialVersionUID = -1048382339479929593L;
 	
@@ -14,7 +14,7 @@ public class Splash extends Thread
 	private long millis;
 	private boolean running;
 	
-	public Splash (String file, int w, int h, long millis)
+	public SplashDialog (String file, int w, int h, long millis)
 	{
 		this.file = file;
 		this.w = w;

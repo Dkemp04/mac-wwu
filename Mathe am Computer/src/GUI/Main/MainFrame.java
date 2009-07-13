@@ -1,8 +1,11 @@
-package GUI;
+package GUI.Main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.*;
 import javax.swing.*;
+
+import GUI.Dialogs.SplashDialog;
+import GUI.Tools.MapManager;
 
 /**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
@@ -71,7 +74,7 @@ public class MainFrame extends JFrame
 	 */
 	public static void main(String[] args)
 	{
-		Splash test = new Splash(WORKSPACE + "/images/logo.jpg", 800, 600, 3000);
+		SplashDialog test = new SplashDialog(WORKSPACE + "/images/logo.jpg", 800, 600, 3000);
 		test.start();
 		while (test.isRunning()){}
 		new MainFrame();

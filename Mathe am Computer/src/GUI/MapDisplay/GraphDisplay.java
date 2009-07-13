@@ -1,4 +1,4 @@
-package GUI;
+package GUI.MapDisplay;
 import java.awt.*;
 import java.util.*;
 

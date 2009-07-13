@@ -1,9 +1,11 @@
-package GUI;
+package GUI.Tools;
 
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.*;
 import java.util.LinkedList;
+
+import GUI.Main.MainFrame;
 
 public class MapManager implements Serializable
 {
