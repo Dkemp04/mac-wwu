@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import Logic.*;
 import Logic.Point;
-import Persistenz.*;
+import Storage.*;
 
 /**
  * Menüleiste, welche im Hauptfenster eingeblendet wird und zur Navigation dient
