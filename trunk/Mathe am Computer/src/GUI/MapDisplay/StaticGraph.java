@@ -14,21 +14,40 @@ public class StaticGraph extends JComponent implements ActionListener
 	private LinkedList<String> steps = new LinkedList<String>();
 	
 	private GraphDisplay display;
+	private History cursor;
+	private History lastHistory;
 	
+	private JPanel buttons;
 	private JPanel right;
+	private JButton start;
 	private JButton back;
 	private JButton forward;
-	private JButton forwardToEnd;
+	private JButton end;
 	private JLabel description;
 	
 	public StaticGraph(Container parent, Graph original, History history)
 	{
+		start = new JButton("Start");
+		start.addActionListener(this);
 		back = new JButton("Schritt zurück");
 		back.addActionListener(this);
 		forward = new JButton("Schritt vor");
 		forward.addActionListener(this);
-		forwardToEnd = new JButton("Ende");
-		forwardToEnd.addActionListener(this);
+		end = new JButton("Ende");
+		end.addActionListener(this);
+		
+		lastHistory = history;
+		while(lastHistory != null)
+			lastHistory = lastHistory.getNext();
+		
+		this.cursor = history;
+		int j = 0;
+		while (cursor != null)
+		{
+			this.setStep(j, cursor.toString());
+			cursor = cursor.getNext();
+			j++;
+		}
 		
 		String stepDescription = "";
 		for (int i = 0; i < steps.size(); i++)
@@ -41,13 +60,18 @@ public class StaticGraph extends JComponent implements ActionListener
 		this.setLayout(new GridLayout(1,2));
 		
 		display = new GraphDisplay(original.getImagePath(), original, history);
-
-		description.setSize(display.getHeight()-back.getHeight()-forward.getHeight(), display.getWidth() * 2);
+		
+		buttons = new JPanel();
+		buttons.setLayout(new GridLayout(1,4));
+		buttons.add(start);
+		buttons.add(back);
+		buttons.add(forward);
+		buttons.add(end);
+		
+		//description.setSize(display.getHeight()-back.getHeight()-forward.getHeight(), display.getWidth() * 2);
 		right = new JPanel();
-		right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
-		right.add(back);
-		right.add(forward);
-		right.add(forwardToEnd);
+		//right.setLayout(new BoxLayout(right, BoxLayout.LINE_AXIS));
+		right.add(buttons);
 		right.add(description);
 		
 		this.add(display);
