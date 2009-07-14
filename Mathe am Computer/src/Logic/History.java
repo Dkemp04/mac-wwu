@@ -6,7 +6,7 @@ public class History implements Serializable
 {
 	private static final long serialVersionUID = -5920980291138882480L;
 	
-	private History nextItem;
+	private History prevItem, nextItem;
 	private Point historyPoint, historyPrevPoint;
 	private String historyText;
 	/**
@@ -64,11 +64,24 @@ public class History implements Serializable
 		return historyPoint;
 	}
 	
+	public void setPrevItem (History prevItem)
+	{
+		this.prevItem = prevItem;
+	}
+	
+	public History getPrev ()
+	{
+		return this.prevItem;
+	}
+	
 	/**
 	 * Gibt das nächste History-Item zurück
 	 * @return Gibt das nächste History-Item zurück
 	 */
-	public History getNext(){
+	public History getNext()
+	{
+		if (nextItem != null)
+			nextItem.setPrevItem(this);
 		return nextItem;
 	}
 }

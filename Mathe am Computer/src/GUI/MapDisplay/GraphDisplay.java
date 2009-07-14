@@ -12,6 +12,7 @@ public class GraphDisplay extends JPanel
 	
 	private Image background;
 	
+	private History firstHistory;
 	private History history;
 	private History lastHistory;
 	
@@ -23,8 +24,10 @@ public class GraphDisplay extends JPanel
 		background = Toolkit.getDefaultToolkit().getImage(picture);
 		setSize(background.getWidth(this), background.getHeight(this));
 		
+		firstHistory = hist;
 		history = hist;
 		lastHistory = hist;
+		
 		while(lastHistory != null)
 			lastHistory = lastHistory.getNext();
 	}
@@ -35,6 +38,76 @@ public class GraphDisplay extends JPanel
 		g.drawImage(background, 0, 0, background.getWidth(this), background.getHeight(this), this);
     	for(SingleEllipse singleEllipse : ellipses)
     		singleEllipse.draw((Graphics2D) g);
+    	
+    	History hist = firstHistory;
+    	if(hist != null)
+    	{
+			if( hist.getLineEnd() != null &&  hist.getLineStart() != null)
+				g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
+			while (hist != history)
+	    	{
+	    		hist = hist.getNext();
+	    		if( hist != null && hist.getLineEnd() != null &&  hist.getLineStart() != null)
+	    			g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
+	    	}
+			if (hist != null)
+				hist = hist.getNext();
+    	}
+	}
+	
+	public void stepForward(Graphics g)
+	{
+		if(history != null)
+    	{
+			if( history.getLineEnd() != null &&  history.getLineStart() != null)
+				g.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());
+    		if (history != null)
+	    	{
+	    		history = history.getNext();
+	    		if( history != null && history.getLineEnd() != null &&  history.getLineStart() != null)
+	    		{
+	    			g.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());	
+	    		}
+	    	}
+    	}
+	}
+	
+	public void stepToEnd (Graphics g)
+	{
+		if(history != null)
+    	{
+			if( history.getLineEnd() != null &&  history.getLineStart() != null)
+				g.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());
+			while (history != null)
+	    	{
+	    		history = history.getNext();
+	    		if( history != null && history.getLineEnd() != null &&  history.getLineStart() != null)
+	    		{
+	    			g.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());
+	    		}
+	    	}
+    	}
+	}
+	
+	public void stepBack (Graphics g)
+	{
+		//g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		if (history != null || history.getPrev() != null)
+			history = history.getPrev();
+		History hist = history;
+    	if(hist != null)
+    	{
+			if( hist.getLineEnd() != null &&  hist.getLineStart() != null)
+				g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
+			while (hist != history)
+	    	{
+	    		hist = hist.getNext();
+	    		if( hist != null && hist.getLineEnd() != null &&  hist.getLineStart() != null)
+	    			g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
+	    	}
+			if (hist != null)
+				hist = hist.getNext();
+    	}
 	}
 	
 	/*public void paintComponent(Graphics g)
@@ -45,12 +118,12 @@ public class GraphDisplay extends JPanel
     	for(SingleEllipse singleEllipse : ellipses)
     		singleEllipse.draw((Graphics2D) g);
     	
-    	History hist = history;
+    	History hist = firstHistory;
     	if(history != null)
     	{
 			if( hist.getLineEnd() != null &&  hist.getLineStart() != null)
 				g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
-	    	while(hist != lastHistory)
+	    	while(hist != history)
 	    	{
 	    		hist = hist.getNext();
 	    		if( hist != null && hist.getLineEnd() != null &&  hist.getLineStart() != null)
@@ -58,50 +131,4 @@ public class GraphDisplay extends JPanel
 	    	}
     	}
 	}*/
-	
-	public void stepBack (Graphics g)
-	{
-		/*if(history != null)
-    	{
-			if( history.getLineEnd() != null &&  history.getLineStart() != null)
-				g2D.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());
-			history = history.getNext();
-    		if(history != lastHistory)
-	    	{
-	    		if( history != null && history.getLineEnd() != null &&  history.getLineStart() != null)
-    			g2D.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());
-	    	}
-    	}*/
-	}
-	
-	public void stepForward(Graphics g)
-	{
-		if(history != null)
-    	{
-			if( history.getLineEnd() != null &&  history.getLineStart() != null)
-				g.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());
-			history = history.getNext();
-    		if(history != lastHistory)
-	    	{
-	    		if( history != null && history.getLineEnd() != null &&  history.getLineStart() != null)
-    			g.drawLine(Double.valueOf(history.getLineStart().getX()).intValue(), Double.valueOf(history.getLineStart().getY()).intValue(), Double.valueOf(history.getLineEnd().getX()).intValue(), Double.valueOf(history.getLineEnd().getY()).intValue());
-	    	}
-    	}
-	}
-	
-	public void stepToEnd (Graphics g)
-	{
-		History hist = history;
-    	if(history != null)
-    	{
-			if( hist.getLineEnd() != null &&  hist.getLineStart() != null)
-				g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
-	    	while(hist != lastHistory)
-	    	{
-	    		hist = hist.getNext();
-	    		if( hist != null && hist.getLineEnd() != null &&  hist.getLineStart() != null)
-	    			g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
-	    	}
-    	}
-	}
 }
