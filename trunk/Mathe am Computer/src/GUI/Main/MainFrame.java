@@ -1,8 +1,11 @@
 package GUI.Main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
 
 import GUI.Dialogs.SplashDialog;
 import GUI.Tools.MapManager;
@@ -10,7 +13,7 @@ import GUI.Tools.MapManager;
 /**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
  * @author d_kemp04, chrvogel, u_aksa01, s_pich02
  */
-public class MainFrame extends JFrame
+public class MainFrame extends JFrame implements WindowListener
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse MainFrame
 	private static final long serialVersionUID = 995601029595640937L;
@@ -50,7 +53,7 @@ public class MainFrame extends JFrame
 		controls.toString();
 		
 		//Allgemeine Einstellung des Hauptfenster
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(this);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		this.setLocation(((int) d.getWidth() - w) / 2, ((int) d.getHeight() - h) / 2);
@@ -80,4 +83,21 @@ public class MainFrame extends JFrame
 		new MainFrame();
 		
 	}
+
+	public void windowClosing (WindowEvent e)
+	{
+		if (getDesktop().getDesktopPane().getSelectedFrame() != null)
+		{
+			ChildFrame selectedChild = (ChildFrame) getDesktop().getDesktopPane().getSelectedFrame();
+			selectedChild.internalFrameClosing(new InternalFrameEvent(selectedChild, InternalFrameEvent.INTERNAL_FRAME_CLOSING));
+		}
+		else
+			System.exit(0);
+	}
+	public void windowDeactivated (WindowEvent e){}
+	public void windowDeiconified (WindowEvent e){}
+	public void windowOpened (WindowEvent e){}
+	public void windowIconified (WindowEvent e){}
+	public void windowClosed (WindowEvent e){}
+	public void windowActivated (WindowEvent e){}
 }

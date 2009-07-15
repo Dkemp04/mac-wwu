@@ -205,7 +205,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		this.setContentPane(step1);
 		
 		//Allgemeine Einstellung des Frames
-		this.setLocation(parent.getX(), parent.getY());
+		this.setLocation(parent.getX() + 50, parent.getY() + 50);
 		this.setSize(400,400);
 		this.setResizable(false);
 		this.setVisible(true);
