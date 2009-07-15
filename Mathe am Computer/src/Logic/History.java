@@ -36,7 +36,10 @@ public class History implements Serializable
 	 */
 	private void setLastItem(History newHistory){
 		if(nextItem == null)
+		{
 			nextItem = newHistory;
+			newHistory.setPrevItem(this);
+		}
 		else
 			nextItem.setLastItem(newHistory);
 	}
@@ -71,7 +74,9 @@ public class History implements Serializable
 	
 	public History getPrev ()
 	{
-		return this.prevItem;
+		if (prevItem != null)
+			return this.prevItem;
+		return null;
 	}
 	
 	/**
@@ -80,8 +85,6 @@ public class History implements Serializable
 	 */
 	public History getNext()
 	{
-		if (nextItem != null)
-			nextItem.setPrevItem(this);
 		return nextItem;
 	}
 }
