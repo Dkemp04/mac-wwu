@@ -3,10 +3,8 @@ package GUI.Main;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
-import GUI.Dialogs.SaveDialog;
-import GUI.MapDisplay.Graph;
-import GUI.MapDisplay.StaticGraph;
+import GUI.Dialogs.*;
+import GUI.MapDisplay.*;
 import Logic.Logic;
 import Methods.*;
 
@@ -30,7 +28,6 @@ public class ChildFrame extends JInternalFrame implements InternalFrameListener
 	{
 		//Allgemeine Einstellung des neuen ChildFrames
 		super(title, true, true, false, true);
-		this.setResizable(false);
 		
 		this.map = (Graph) content;
 		

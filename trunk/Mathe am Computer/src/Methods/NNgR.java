@@ -33,7 +33,7 @@ public class NNgR extends Method
 			}
 			currentLength += distance;
 			//Setzt den letzten Punkt um und fgt ihn ein
-			addHistory(lastPoint, problemElement[position], "Anfügen des Punkt "+problemElement[position]+" ergibt den geringsten Längenzuwachs der Rundreise ("+currentLength+").");
+			addHistory(lastPoint, problemElement[position], "Anfuegen des Punkt "+problemElement[position]+" ergibt den geringsten Laengenzuwachs der Rundreise ("+currentLength+").");
 			lastPoint = problemElement[position];		
 			addPointFront(position);
 		}
@@ -49,4 +49,7 @@ public class NNgR extends Method
 	
 	public String getMethodName()
 	{		return "Nearest Neighbor";}
+	
+	public String getMethodDescription()
+	{	return "";}
 }
