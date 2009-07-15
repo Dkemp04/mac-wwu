@@ -38,7 +38,7 @@ public class ChildFrame extends JInternalFrame implements InternalFrameListener
 		this.add(tabs);
 		
 		//Einstellung der Schließoperation
-		this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
 		
 		//Hinzufügen des passenden Listeners
 		this.addInternalFrameListener(this);
@@ -77,6 +77,11 @@ public class ChildFrame extends JInternalFrame implements InternalFrameListener
 		{
 			//Öffnen eines Speicher-Dialoges
 			new SaveDialog().save(logic);
+		}
+		else if (result == JOptionPane.NO_OPTION)
+		{
+			this.setVisible(true);
+			return;
 		}
 		else
 		{
