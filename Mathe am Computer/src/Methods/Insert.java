@@ -42,7 +42,7 @@ public class Insert extends Method
 				}
 			}
 			currentLength += distance;
-			addHistory(lastPoint, problemElement[position], "AnfÃ¼gen des Punkt "+problemElement[position]+" ergibt den geringsten Längenzuwachs der Rundreise ("+currentLength+").");
+			addHistory(lastPoint, problemElement[position], "Anfuegen des Punkt "+problemElement[position]+" ergibt den geringsten Laengenzuwachs der Rundreise ("+currentLength+").");
 			//Setzt den letzten Punkt um und fgt ihn ein
 			lastPoint = problemElement[position];		
 			tempSolution.add(position, problemElement[position]);
@@ -60,5 +60,8 @@ public class Insert extends Method
 	}
 	
 	public String getMethodName()
-	{		return "Nearest Insert";}
+	{	return "Nearest Insert";}
+
+	public String getMethodDescription()
+	{	return "Die Nearest-Insertion-Heuristik (NEARIN), ist eine Einfüge-Heuristik und damit ein heuristisches Eröffnungsverfahren aus der Graphentheorie. Es dient zur Approximation einer guten Lösung des Problem des Handlungsreisenden; Ziel ist es also, eine möglichst kurze Rundreise durch alle Knoten des Graphen zu finden.";}
 }

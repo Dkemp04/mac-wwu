@@ -26,7 +26,7 @@ public class NearestNeighbor extends Method
 				}
 			}
 			//Setzt den letzten Punkt um und fügt ihn ein	
-			addHistory(lastPoint, problemElement[position], "Der Punkt "+problemElement[position]+" hat die Distanz "+distance+" zum vorherigen Punkt, damit die geringste Distanz. Hiermit wird er als nchstes in die Route aufgenommen.");
+			addHistory(lastPoint, problemElement[position], "Der Punkt "+problemElement[position]+" hat die Distanz "+distance+" zum vorherigen Punkt, damit die geringste Distanz. Hiermit wird er als naechstes in die Route aufgenommen.");
 			lastPoint = problemElement[position];	
 			addPointFront(position);
 		}
@@ -38,4 +38,7 @@ public class NearestNeighbor extends Method
 	
 	public String getMethodName()
 	{		return "Nearest Neighbor";}
+	
+	public String getMethodDescription()
+	{	return "Die Nearest-Neighbor-Heuristik ist ein heuristisches Eröffnungsverfahren aus der Graphentheorie und wird zur Approximation einer Lösung des Problem des Handlungsreisenden verwendet.";}
 }

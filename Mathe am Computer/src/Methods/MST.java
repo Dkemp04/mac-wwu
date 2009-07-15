@@ -66,6 +66,9 @@ public class MST extends Method
 	public String getMethodName()
 	{			return "Minimal Spanning Tree";}
 	
+	public String getMethodDescription()
+	{	return "Die MST-Heuristik (MST steht für minimal spanning tree bzw. minimaler Spannbaum) dient dazu, das metrische Problem des Handlungsreisenden (TSP) zu approximieren.";}
+	
 	public MST(Problem problem){
 		super(problem);
 	}
@@ -123,7 +126,7 @@ public class MST extends Method
 			
 			bridgeEnd.addConnect(bridge);
 			bridge.addConnect(bridgeEnd);
-			historyMST.add(bridge.point, bridgeEnd.point, "Verbindet zwei Cluster über die Punkte "+bridge+" und "+bridgeEnd+". Diese haben die minimale Distanz. Diese beträgt "+bridge.distance(bridgeEnd)+".");
+			historyMST.add(bridge.point, bridgeEnd.point, "Verbindet zwei Cluster über die Punkte "+bridge+" und "+bridgeEnd+". Diese haben die minimale Distanz. Diese betraegt "+bridge.distance(bridgeEnd)+".");
 		}
 		
 		/**

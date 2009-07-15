@@ -265,6 +265,10 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			{
 				JOptionPane.showMessageDialog(this, "Bitte geben Sie einen Namen für das Problem ein", "Name fehlt", JOptionPane.WARNING_MESSAGE);
 			}
+			else if (!bab.isSelected() && !mst.isSelected() && !nn.isSelected() && !sa.isSelected() && !sam.isSelected() && !ch.isSelected() && !koh.isSelected())
+			{
+				JOptionPane.showMessageDialog(this, "Bitte wählen Sie mindestens eine Heuristik zur Lösung aus", "Fehlende Heuristik", JOptionPane.WARNING_MESSAGE);
+			}
 			else
 			{
 				int choice = JOptionPane.showConfirmDialog(this, "Sind sie sicher ?", "Daten korrekt", 0);

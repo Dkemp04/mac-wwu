@@ -19,9 +19,9 @@ public class BranchAndBound extends Method
 		for(int i=0; i< protoSolution.length;i++)
 		{
 			if(i==0)
-				addHistory(startingPoint, protoSolution[i], "Der Punkt "+protoSolution[i]+" wird nach dem Branch-And-Bound Algorithmus aufgenommen. Er ist garantiert Teil der kürzesten Route.");
+				addHistory(startingPoint, protoSolution[i], "Der Punkt "+protoSolution[i]+" wird nach dem Branch-And-Bound Algorithmus aufgenommen. Er ist garantiert Teil der kuerzesten Route.");
 			else
-				addHistory(protoSolution[i-1], protoSolution[i], "Der Punkt "+protoSolution[i]+" wird nach dem Branch-And-Bound Algorithmus aufgenommen. Er ist garantiert Teil der kürzesten Route.");
+				addHistory(protoSolution[i-1], protoSolution[i], "Der Punkt "+protoSolution[i]+" wird nach dem Branch-And-Bound Algorithmus aufgenommen. Er ist garantiert Teil der kuerzesten Route.");
 			addPoint(protoSolution[i]);
 		}
 	}
@@ -73,4 +73,7 @@ public class BranchAndBound extends Method
 	
 	public String getMethodName()
 	{		return "Branch-and-Bound";}
+	
+	public String getMethodDescription()
+	{		return "Branch-and-Bound (Verzweigung und Schranke) ist eine im Bereich Operations Research häufig verwendete mathematische Methode, deren Ziel darin besteht, für ein gegebenes ganzzahliges Optimierungsproblem eine beste Lösung zu finden. Branch-and-Bound führt auf einen Entscheidungsbaum, ist selbst aber kein spezielles Verfahren, sondern eine Behandlungsmethode, ein Meta-Verfahren. Für konkrete kombinatorische Optimierungsprobleme ergeben sich dementsprechend angepasste Branch-and-Bound-Algorithmen.";}
 }
