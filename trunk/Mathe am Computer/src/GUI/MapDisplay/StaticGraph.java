@@ -16,8 +16,6 @@ public class StaticGraph extends JComponent implements ActionListener
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse Graph
 	private static final long serialVersionUID = -527399993614992557L;
-
-	private LinkedList<String> steps = new LinkedList<String>();
 	
 	private GraphDisplay display;
 	private Graph original;
@@ -26,6 +24,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	private History cursor;
 	private History lastHistory;
 	private int stepNr;
+	
 	
 	private JPanel buttons;
 	private JPanel right;
@@ -41,9 +40,9 @@ public class StaticGraph extends JComponent implements ActionListener
 	{
 		start = new JButton("Start");
 		start.addActionListener(this);
-		back = new JButton("Schritt zurück");
+		back = new JButton("Zurück");
 		back.addActionListener(this);
-		forward = new JButton("Schritt vor");
+		forward = new JButton("Vor");
 		forward.addActionListener(this);
 		end = new JButton("Ende");
 		end.addActionListener(this);
@@ -55,33 +54,20 @@ public class StaticGraph extends JComponent implements ActionListener
 		this.firstHistory = history;
 		this.lastHistory = history;
 		
+		while(firstHistory != null)
+		{	firstHistory = firstHistory.getPrev();}
 		while(lastHistory != null)
-			lastHistory = lastHistory.getNext();
+		{	lastHistory = lastHistory.getNext();}
 		
-		int j = 0;
-		while (cursor != null)
-		{
-			this.setStep(j, cursor.toString());
-			cursor = cursor.getNext();
-			j++;
-		}
-		cursor = firstHistory;
-		
-		String stepDescription = "";
-		for (int i = 0; i < steps.size(); i++)
-			stepDescription += (i + 1) + ". Schritt: " + steps.get(i) + "\n";
-		
-		description = new JTextArea(/*stepDescription*/);
+		description = new JTextArea();
 		description.setBorder(BorderFactory.createTitledBorder("Beschreibung"));
 		description.setEnabled(false);
-		description.setForeground(Color.BLACK);
-		description.setSize(original.getWidth() - 20, original.getHeight());
 		description.setEditable(false);
 		description.setFont(new Font("Beschreibung", Font.BOLD, 10));
 		description.setDisabledTextColor(Color.black);
+		description.setSize(original.getWidth() - 20, original.getHeight());
 		description.setLineWrap(true);
 		description.setWrapStyleWord(true);
-		description.setAutoscrolls(true);
 		
 		scrollbar = new JScrollPane(description, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollbar.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
@@ -108,28 +94,26 @@ public class StaticGraph extends JComponent implements ActionListener
 		parent.add(this);
 	}
 	
-	public void setStep (int stepnr, String description)
-	{
-		steps.add(stepnr, description);
-	}
-	
 	public void actionPerformed (ActionEvent e)
 	{
 		if (e.getActionCommand().equals("Start"))
 		{
 			display.stepToStart(this.getGraphics());
+			
 			description.setText("");
 			stepNr = 1;
+			this.cursor = firstHistory;
 		}
 			
-		if (e.getActionCommand().equals("Schritt zurück"))
+		if (e.getActionCommand().equals("Zurück"))
 		{
 			display.stepBack(this.getGraphics());
+			
 			description.setText("");
 			stepNr = 1;
 			
 			History hist = firstHistory;
-			while (hist != cursor)
+			while (hist != cursor && cursor != null)
 			{
 				description.append(stepNr + ". Schritt: " + hist.toString() + "\n");
 				stepNr++;
@@ -137,9 +121,10 @@ public class StaticGraph extends JComponent implements ActionListener
 			}
 		}
 			
-		if (e.getActionCommand().equals("Schritt vor"))
+		if (e.getActionCommand().equals("Vor"))
 		{
 			display.stepForward(this.getGraphics());
+			
 			if (cursor != null)
 			{
 				description.append(stepNr + ". Schritt: " + cursor.toString() + "\n");
@@ -149,8 +134,11 @@ public class StaticGraph extends JComponent implements ActionListener
 		if (e.getActionCommand().equals("Ende"))
 		{
 			display.stepToEnd(this.getGraphics());
+
+			description.setText("");
+			stepNr = 1;
 			
-			History hist = cursor;
+			History hist = firstHistory;
 			while (hist != null)
 			{
 				description.append(stepNr + ". Schritt: " + hist.toString() + "\n");
@@ -216,7 +204,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	    	{
 				if( hist.getLineEnd() != null &&  hist.getLineStart() != null)
 					g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
-				while (hist != cursor)
+				while (hist != cursor.getNext())
 		    	{
 		    		hist = hist.getNext();
 		    		if( hist != null && hist.getLineEnd() != null &&  hist.getLineStart() != null)
@@ -234,8 +222,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	    	for(SingleEllipse singleEllipse : ellipses)
 	    		singleEllipse.draw((Graphics2D) g);
 	    	
-			if (cursor != null && cursor.getPrev() != null)
-				cursor = firstHistory;
+			cursor = firstHistory;
 		}
 		
 		public void stepForward(Graphics g)
@@ -247,7 +234,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	    		if (cursor != null)
 		    	{
 	    			cursor = cursor.getNext();
-		    		if( cursor != null && cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
+		    		if( cursor != lastHistory && cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
 		    		{
 		    			g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());	
 		    		}
@@ -257,16 +244,16 @@ public class StaticGraph extends JComponent implements ActionListener
 		
 		public void stepToEnd (Graphics g)
 		{
-			if(cursor != null)
+			if (cursor != null)
 	    	{
 				if( cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
 					g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());
-				while (cursor != null)
+	    		while (cursor != null)
 		    	{
-					cursor = cursor.getNext();
+	    			cursor = cursor.getNext();
 		    		if( cursor != null && cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
 		    		{
-		    			g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());
+		    			g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());	
 		    		}
 		    	}
 	    	}
