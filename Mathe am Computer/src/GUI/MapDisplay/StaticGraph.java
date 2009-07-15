@@ -19,11 +19,13 @@ public class StaticGraph extends JComponent implements ActionListener
 	
 	private JPanel buttons;
 	private JPanel right;
+	private JPanel p_description;
 	private JButton start;
 	private JButton back;
 	private JButton forward;
 	private JButton end;
-	private JLabel description;
+	private JTextArea description;
+	private JScrollPane scrollbar;
 	
 	public StaticGraph(Container parent, Graph original, History history)
 	{
@@ -51,11 +53,19 @@ public class StaticGraph extends JComponent implements ActionListener
 		
 		String stepDescription = "";
 		for (int i = 0; i < steps.size(); i++)
-			stepDescription += (i + 1) + ". Schritt: " + steps.get(i) + "<br>";
-		description = new JLabel("<html><b>Beschreibung</b><br>" + stepDescription + "</html>");
-		description.setHorizontalAlignment(JLabel.LEFT);
-		description.setVerticalAlignment(JLabel.TOP);
-		description.setBorder(BorderFactory.createEtchedBorder());
+			stepDescription += (i + 1) + ". Schritt: " + steps.get(i) + "\n";
+		description = new JTextArea(stepDescription);
+		description.setBorder(BorderFactory.createTitledBorder("Beschreibung"));
+		description.setEnabled(false);
+		description.setForeground(Color.BLACK);
+		//description.setSize(original.getWidth() - 10, original.getHeight());
+		description.setEditable(false);
+		description.setFont(new Font("Beschreibung", Font.BOLD, 10));
+		description.setDisabledTextColor(Color.black);
+		description.setLineWrap(true);
+		description.setWrapStyleWord(true);
+		description.setAutoscrolls(true);
+		scrollbar = new JScrollPane(description, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		this.setLayout(new GridLayout(1,2));
 		
@@ -68,11 +78,13 @@ public class StaticGraph extends JComponent implements ActionListener
 		buttons.add(forward);
 		buttons.add(end);
 		
-		//description.setSize(display.getHeight()-back.getHeight()-forward.getHeight(), display.getWidth() * 2);
+		p_description = new JPanel();
+		p_description.add(description);
+		p_description.add(scrollbar);
+		
 		right = new JPanel();
-		//right.setLayout(new BoxLayout(right, BoxLayout.LINE_AXIS));
 		right.add(buttons);
-		right.add(description);
+		right.add(p_description);
 		
 		this.add(display);
 		this.add(right);
