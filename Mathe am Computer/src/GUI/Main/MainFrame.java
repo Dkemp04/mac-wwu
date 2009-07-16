@@ -10,7 +10,7 @@ import GUI.Dialogs.SplashDialog;
 import GUI.Tools.MapManager;
 
 /**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class MainFrame extends JFrame implements WindowListener
 {

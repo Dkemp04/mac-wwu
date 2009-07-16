@@ -8,11 +8,10 @@ import GUI.MapDisplay.*;
 import GUI.Tools.*;
 import Logic.*;
 import Logic.Point;
-import Storage.*;
 
 /**
  * Menüleiste, welche im Hauptfenster eingeblendet wird und zur Navigation dient
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class Controlbar implements ActionListener
 {
@@ -76,6 +75,25 @@ public class Controlbar implements ActionListener
 		documentation.addActionListener(this);
 		javadoc.addActionListener(this);
 		
+		//
+		newProblem.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK));
+		open.setAccelerator(KeyStroke.getKeyStroke('O', InputEvent.CTRL_DOWN_MASK));
+		save.setAccelerator(KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK));
+		exit.setAccelerator(KeyStroke.getKeyStroke('E', InputEvent.CTRL_DOWN_MASK));
+		javadoc.setAccelerator(KeyStroke.getKeyStroke('J', InputEvent.CTRL_DOWN_MASK));
+		
+		//
+		newProblem.setMnemonic('N');
+		open.setMnemonic('Ö');
+		save.setMnemonic('S');
+		save_path.setMnemonic('U');
+		workspace.setMnemonic('W');
+		exit.setMnemonic('B');
+		options.setMnemonic('O');
+		about.setMnemonic('Ü');
+		documentation.setMnemonic('D');
+		javadoc.setMnemonic('J');
+		
 		//Hinzufügen der Untermenüs und Menüelemente zu der Menüleiste
 		data.add(newProblem);
 		data.add(open);
@@ -119,7 +137,7 @@ public class Controlbar implements ActionListener
 			DataDialog open_dialog = new DataDialog();
 			
 			//Neues Problem wird erzeugt aus dem Rückgabewert des Dialogs
-			Logic  openLogic = open_dialog.openLogic(MainFrame.WORKSPACE);
+			Logic  openLogic = open_dialog.openLogic(MainFrame.DEFAULT_ENDING);
 			
 			//Graph zur Darstellung des Problems wird erzeugt
 			Graph map = new Graph(MainFrame.WORKSPACE + "/images");
@@ -145,24 +163,28 @@ public class Controlbar implements ActionListener
 				}
 				
 				//Neues JInternalFrame innerhalb der Arbeitsfläche des Hauptfensters wird erzeugt (maxX*2 bzw. maxY*2 dient zur Zentrierung der Darstellung)
-				ChildFrame openChild = ((MainFrame) parent).getDesktop().addChildFrame(parent, map, openLogic, "Test", 10, 10, (maxY * 2) +10, maxX * 2);
+				ChildFrame openChild = ((MainFrame) parent).getDesktop().addChildFrame(parent, map, openLogic, openLogic.getName(), 10, 10, (maxY * 2) +10, maxX * 2);
 				openChild.addTabToChildFrame("Ausgangssituation", display);
 			}
 		}
 		else if (event.getActionCommand().equals("Speichern"))
 		{
 			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().toJDesktopPane().getSelectedFrame();
-			new ObjectSerialization().save(selectedChild.getTitle(), MainFrame.DEFAULT_ENDING, selectedChild.getLogic());
+			if (selectedChild != null)
+				new StorageOrganisation().save(selectedChild.getTitle(), MainFrame.DEFAULT_ENDING, selectedChild.getLogic());
 		}
 		else if (event.getActionCommand().equals("Speichern unter..."))
 		{
 			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().toJDesktopPane().getSelectedFrame();
-			new DataDialog().saveLogic(selectedChild.getLogic(), MainFrame.DEFAULT_ENDING);
+			if (selectedChild != null)
+				new DataDialog().saveLogic(selectedChild.getLogic(), MainFrame.DEFAULT_ENDING);
 			
 		}
 		else if (event.getActionCommand().equals("Setze Workspace"))
-		{				
-			MainFrame.WORKSPACE = new DataDialog().openDirectory(MainFrame.WORKSPACE);
+		{
+			String workspace = new DataDialog().openDirectory(MainFrame.WORKSPACE);
+			if (workspace != null)
+				MainFrame.WORKSPACE = workspace;
 		}
 		else if (event.getActionCommand().equals("Import..."))
 		{
@@ -172,7 +194,7 @@ public class Controlbar implements ActionListener
 				imageName = JOptionPane.showInputDialog(parent, "Bitte geben Sie das Land an, zu welchem die Karte zugeordnet werden soll.", "Bitte Land eingeben", JOptionPane.INFORMATION_MESSAGE);
 			if (imagePath != null || imageName != null)
 				((MainFrame) parent).getMapManager().addMap(imageName, imagePath);
-			new ObjectSerialization().save("Maps", MainFrame.MAP_ENDING, ((MainFrame) parent).getMapManager());
+			new StorageOrganisation().save("Maps", MainFrame.MAP_ENDING, ((MainFrame) parent).getMapManager());
 		}
 		else if (event.getActionCommand().equals("Beenden"))
 		{

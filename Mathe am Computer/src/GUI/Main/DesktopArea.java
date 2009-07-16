@@ -1,13 +1,13 @@
 package GUI.Main;
+
 import java.awt.*;
 import javax.swing.*;
-
-import GUI.MapDisplay.Graph;
+import GUI.MapDisplay.*;
 import Logic.*;
 
 /**
  * Klasse, die für die Darstellung des JDesktopPanes sorgt und dessen Kinder
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class DesktopArea extends JDesktopPane
 {
