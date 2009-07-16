@@ -1,17 +1,16 @@
 package GUI.MapDisplay;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.*;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import Logic.History;
 
+/**
+ * 
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class StaticGraph extends JComponent implements ActionListener
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse Graph
@@ -161,8 +160,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	
 	/**
 	 * 
-	 * @author Daniel Kemper
-	 *
+	 * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
 	 */
 	public class GraphDisplay extends JPanel
 	{
