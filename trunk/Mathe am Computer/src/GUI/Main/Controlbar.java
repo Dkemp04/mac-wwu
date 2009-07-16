@@ -3,16 +3,9 @@ package GUI.Main;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-
-import GUI.Dialogs.AboutDialog;
-import GUI.Dialogs.NewProblemDialog;
-import GUI.Dialogs.OpenDialog;
-import GUI.Dialogs.OptionsDialog;
-import GUI.Dialogs.SaveDialog;
-import GUI.Dialogs.WorkspaceDialog;
-import GUI.MapDisplay.Graph;
-import GUI.MapDisplay.StaticGraph;
-import GUI.Tools.OpenURL;
+import GUI.Dialogs.*;
+import GUI.MapDisplay.*;
+import GUI.Tools.*;
 import Logic.*;
 import Logic.Point;
 import Storage.*;
@@ -123,7 +116,7 @@ public class Controlbar implements ActionListener
 		else if (event.getActionCommand().equals("Öffnen"))
 		{
 			//Eingabe-Dialog zum Öffnen von gespeicherten Problemen wird augerufen
-			OpenDialog open_dialog = new OpenDialog();
+			DataDialog open_dialog = new DataDialog();
 			
 			//Neues Problem wird erzeugt aus dem Rückgabewert des Dialogs
 			Logic  openLogic = open_dialog.openLogic(MainFrame.WORKSPACE);
@@ -158,28 +151,28 @@ public class Controlbar implements ActionListener
 		}
 		else if (event.getActionCommand().equals("Speichern"))
 		{
-			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();
-			new ObjectSerialization().save(selectedChild.getTitle(), selectedChild.getLogic());
+			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().toJDesktopPane().getSelectedFrame();
+			new ObjectSerialization().save(selectedChild.getTitle(), MainFrame.DEFAULT_ENDING, selectedChild.getLogic());
 		}
 		else if (event.getActionCommand().equals("Speichern unter..."))
 		{
-			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().getDesktopPane().getSelectedFrame();
-			new SaveDialog().save(selectedChild.getLogic());
+			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().toJDesktopPane().getSelectedFrame();
+			new DataDialog().saveLogic(selectedChild.getLogic(), MainFrame.DEFAULT_ENDING);
 			
 		}
 		else if (event.getActionCommand().equals("Setze Workspace"))
 		{				
-			MainFrame.WORKSPACE = new WorkspaceDialog().openDirectory(MainFrame.WORKSPACE);
+			MainFrame.WORKSPACE = new DataDialog().openDirectory(MainFrame.WORKSPACE);
 		}
 		else if (event.getActionCommand().equals("Import..."))
 		{
 			String imagePath = null, imageName = null;
-			imagePath = new OpenDialog().openImage(MainFrame.WORKSPACE);
+			imagePath = new DataDialog().openImage(MainFrame.WORKSPACE);
 			if (imagePath != null)
 				imageName = JOptionPane.showInputDialog(parent, "Bitte geben Sie das Land an, zu welchem die Karte zugeordnet werden soll.", "Bitte Land eingeben", JOptionPane.INFORMATION_MESSAGE);
 			if (imagePath != null || imageName != null)
 				((MainFrame) parent).getMapManager().addMap(imageName, imagePath);
-			new ObjectSerialization().save("Maps", ((MainFrame) parent).getMapManager());
+			new ObjectSerialization().save("Maps", MainFrame.MAP_ENDING, ((MainFrame) parent).getMapManager());
 		}
 		else if (event.getActionCommand().equals("Beenden"))
 		{

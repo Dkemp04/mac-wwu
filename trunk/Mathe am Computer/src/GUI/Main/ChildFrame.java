@@ -24,12 +24,12 @@ public class ChildFrame extends JInternalFrame implements InternalFrameListener
 	 * @param height	Höhe des ChildFrames
 	 * @param width		Breite des ChildFrames
 	 */
-	public ChildFrame (Container parent, Container content, Logic logic, String title, int x, int y,int width, int height)
+	public ChildFrame (Container parent, Graph original, Logic logic, String title, int x, int y,int width, int height)
 	{
 		//Allgemeine Einstellung des neuen ChildFrames
-		super(title, true, true, false, true);
+		super(title, false, true, false, true);
 		
-		this.map = (Graph) content;
+		this.map = original;
 		
 		this.logic = logic;
 		this.logic.setCallback(this);
@@ -76,15 +76,13 @@ public class ChildFrame extends JInternalFrame implements InternalFrameListener
 		if (result == JOptionPane.YES_OPTION)
 		{
 			//Öffnen eines Speicher-Dialoges
-			new SaveDialog().save(logic);
-		}
-		else if (result == JOptionPane.NO_OPTION)
-		{
-			this.setVisible(true);
-			return;
+			new DataDialog().saveLogic(logic, MainFrame.DEFAULT_ENDING);
 		}
 		else
 		{
+			//
+			this.getDesktopPane().setSelectedFrame(this.getDesktopPane().selectFrame(true));
+			
 			//Falls nicht gespeichert werden soll, wird das ChildFrame ausgeblendet
 			e.getInternalFrame().dispose();
 		}
