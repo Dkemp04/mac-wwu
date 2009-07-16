@@ -16,7 +16,7 @@ public class StorageOrganisation
 	 * @param name Name, unter welcher das Objekt gespeichert werden soll
 	 * @param obj  Objekt, dass auf der Festplatte gespeichert werden soll
 	 */
-	public void save (String name, String ending, Object obj)
+	public static void save (String name, String ending, Object obj)
 	{
 		try
 		{
@@ -41,7 +41,7 @@ public class StorageOrganisation
 		}
 	}
 	
-	public Logic openLogic (String name, String ending)
+	public static Logic openLogic (String name, String ending)
 	{
 		//Attribut, welches zur Zwischenspeicherung der zu öffnenden Problems dient
 		Logic openLogic = null;
@@ -83,7 +83,7 @@ public class StorageOrganisation
 		return null;
 	}
 	
-	public Image openImage (String name)
+	public static Image openImage (String name)
 	{
 		//Attribut, welches zur Zwischenspeicherung der zu öffnenden Problems dient
 		Image openImage = null;

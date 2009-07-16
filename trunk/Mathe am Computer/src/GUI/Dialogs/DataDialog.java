@@ -57,7 +57,7 @@ public class DataDialog extends JFileChooser
         if (result == JFileChooser.APPROVE_OPTION)
         {
         	//
-        	openLogic = new StorageOrganisation().openLogic(this.getSelectedFile().toString(), ending);
+        	openLogic = StorageOrganisation.openLogic(this.getSelectedFile().toString(), ending);
         	
         	//Blendet den Dialog aus
             this.setVisible(false);
@@ -126,7 +126,7 @@ public class DataDialog extends JFileChooser
         if (result == JFileChooser.APPROVE_OPTION)
         {
         	//
-        	new StorageOrganisation().save(filename, ending, saveLogic);
+        	StorageOrganisation.save(filename, ending, saveLogic);
         	
             //Blendet den Dialog aus
         	this.setVisible(false);
