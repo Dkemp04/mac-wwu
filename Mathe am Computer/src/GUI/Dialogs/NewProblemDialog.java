@@ -197,7 +197,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center1.add(methods, BorderLayout.CENTER);
 		center1.add(buttons1, BorderLayout.SOUTH);
 		
-		step1 = (JPanel) new WhitespaceFrame().decorate(center1);
+		step1 = (JPanel) WhitespaceFrame.decorate(center1);
 		this.setContentPane(step1);
 		
 		//Allgemeine Einstellung des Frames
@@ -244,7 +244,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			center2.add(new JLabel("<html>Durch Klicken auf die Zeichenfläche können neue Punkte erzeugt werden.<br>Nach der Erzeugung ist es außerdem möglich die Punkte per Drag&Drop zu verschieben.<br>Wenn Sie Punkte wieder löschen möchten, müssen Sie auf den zu löschenden Punkt mit der rechten Maustaste klicken.<br><b>Achtung:</b><br>Die Tabs der verschiedenen Verfahren werden erst bei Fertigstellung erscheinen.<html>"), BorderLayout.NORTH);
 			center2.add(map, BorderLayout.CENTER);
 			center2.add(buttons2, BorderLayout.SOUTH);
-			step2 = (JPanel) new WhitespaceFrame().decorate(center2);
+			step2 = (JPanel) WhitespaceFrame.decorate(center2);
 			
 			this.setContentPane(step2);
 			this.setSize(map.getWidth(), map.getHeight());

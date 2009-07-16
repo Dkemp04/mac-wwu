@@ -16,7 +16,7 @@ public class WhitespaceFrame extends JPanel
 	 * @param child  Kind-Container, welches in die Mitte des Vater-Containers, umgeben von dem leeren Rahmen, eingefügt werden soll
 	 * @return Gibt das modifizierte Vater-Element zurück
 	 */
-	public Container decorate (Container center_child)
+	public static Container decorate (Container center_child)
 	{
 		//Stellt das BordrLayout für den Vater-Container ein
 		JPanel content = new JPanel();
