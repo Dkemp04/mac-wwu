@@ -7,8 +7,7 @@ import Methods.Method;
 
 /**
  * Klasse zur Kapselung der Geschäftslogik
- * @author s_pich02
- *
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class Logic extends Thread implements Serializable
 {

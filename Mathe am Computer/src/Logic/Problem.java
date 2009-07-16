@@ -3,8 +3,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * @author s_pich02
- *
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class Problem implements Serializable {
 	private static final long serialVersionUID = 3162051159131130553L;

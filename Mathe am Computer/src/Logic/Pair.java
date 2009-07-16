@@ -1,6 +1,11 @@
 package Logic;
 
-public class Pair {
+/**
+ * 
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
+public class Pair
+{
 	private Object first;
 	private Object second;
 	private Object third;
