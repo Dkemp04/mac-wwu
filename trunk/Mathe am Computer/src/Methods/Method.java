@@ -1,10 +1,11 @@
 package Methods;
 
 import java.io.*;
-import Logic.History;
-import Logic.Point;
-import Logic.Problem;
+import Logic.*;
 
+/*
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public abstract class Method extends Thread implements Serializable
 {
 	private static final long serialVersionUID = 3398669066530137699L;

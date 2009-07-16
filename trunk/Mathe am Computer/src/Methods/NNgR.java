@@ -1,11 +1,13 @@
 package Methods;
 
-import Logic.Point;
-import Logic.Problem;
+import Logic.*;
 
 
 // NÃ¤chster Nachbar (zum aktuellen Zweigende mit kÃ¼rzestem Teilring)
 
+/* Nächster Nachbar (zum aktuellen Zweigende mit kürzestem Teilring)
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class NNgR extends Method
 {
 	private static final long serialVersionUID = -4943281546173112151L;

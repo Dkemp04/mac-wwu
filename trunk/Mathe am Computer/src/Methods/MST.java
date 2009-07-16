@@ -1,11 +1,11 @@
 package Methods;
 
 import java.util.*;
+import Logic.*;
 
-import Logic.History;
-import Logic.Pair;
-import Logic.Point;
-import Logic.Problem;
+/*
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class MST extends Method
 {
 	
