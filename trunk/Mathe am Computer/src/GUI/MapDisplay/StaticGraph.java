@@ -36,20 +36,21 @@ public class StaticGraph extends JComponent implements ActionListener
 	private JTextArea description;
 	private JScrollPane scrollbar;
 	
+	public StaticGraph(Container parent, Graph original)
+	{
+		this.original = original;
+		this.setLayout(new GridLayout(1,2));
+		display = new GraphDisplay(original.getImagePath());
+		this.add (display);
+		parent.add(this);
+	}
+	
 	public StaticGraph(Container parent, Graph original, History history)
 	{
-		start = new JButton("Start");
-		start.addActionListener(this);
-		back = new JButton("Zurück");
-		back.addActionListener(this);
-		forward = new JButton("Vor");
-		forward.addActionListener(this);
-		end = new JButton("Ende");
-		end.addActionListener(this);
-		
 		this.original = original;
-		
+		this.display = new GraphDisplay(original.getImagePath());
 		this.stepNr = 1;
+		
 		this.cursor = history;
 		this.firstHistory = history;
 		this.lastHistory = history;
@@ -58,6 +59,7 @@ public class StaticGraph extends JComponent implements ActionListener
 		{	firstHistory = firstHistory.getPrev();}
 		while(lastHistory != null)
 		{	lastHistory = lastHistory.getNext();}
+		
 		
 		description = new JTextArea();
 		description.setBorder(BorderFactory.createTitledBorder("Beschreibung"));
@@ -71,11 +73,17 @@ public class StaticGraph extends JComponent implements ActionListener
 		
 		scrollbar = new JScrollPane(description, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollbar.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+		scrollbar.setViewportView(description);
 		
 		
-		this.setLayout(new GridLayout(1,2));
-		
-		display = new GraphDisplay(original.getImagePath());
+		start = new JButton("Start");
+		start.addActionListener(this);
+		back = new JButton("Zurück");
+		back.addActionListener(this);
+		forward = new JButton("Vor");
+		forward.addActionListener(this);
+		end = new JButton("Ende");
+		end.addActionListener(this);
 		
 		buttons = new JPanel();
 		buttons.setLayout(new GridLayout(1,4));
@@ -84,11 +92,13 @@ public class StaticGraph extends JComponent implements ActionListener
 		buttons.add(forward);
 		buttons.add(end);
 		
-		scrollbar.setViewportView(description);
+		
 		right = new JPanel(new BorderLayout());
 		right.add(buttons, BorderLayout.NORTH);
 		right.add(scrollbar, BorderLayout.CENTER);
 		
+		
+		this.setLayout(new GridLayout(1,2));
 		this.add(display);
 		this.add(right);
 		parent.add(this);
@@ -98,7 +108,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	{
 		if (e.getActionCommand().equals("Start"))
 		{
-			display.stepToStart(this.getGraphics());
+			display.stepToStart();
 			
 			description.setText("");
 			stepNr = 1;
@@ -107,7 +117,7 @@ public class StaticGraph extends JComponent implements ActionListener
 			
 		if (e.getActionCommand().equals("Zurück"))
 		{
-			display.stepBack(this.getGraphics());
+			display.stepBack();
 			
 			description.setText("");
 			stepNr = 1;
@@ -123,7 +133,7 @@ public class StaticGraph extends JComponent implements ActionListener
 			
 		if (e.getActionCommand().equals("Vor"))
 		{
-			display.stepForward(this.getGraphics());
+			display.stepForward();
 			
 			if (cursor != null)
 			{
@@ -131,9 +141,10 @@ public class StaticGraph extends JComponent implements ActionListener
 				stepNr++;
 			}
 		}
+		
 		if (e.getActionCommand().equals("Ende"))
 		{
-			display.stepToEnd(this.getGraphics());
+			display.stepToEnd();
 
 			description.setText("");
 			stepNr = 1;
@@ -159,17 +170,18 @@ public class StaticGraph extends JComponent implements ActionListener
 		
 		private Image background;
 		private LinkedList<SingleEllipse> ellipses = new LinkedList<SingleEllipse>();
+		private Graphics g;
 		
 		public GraphDisplay(String picture)
 		{
-			ellipses = original.getEllipses();
-			background = Toolkit.getDefaultToolkit().getImage(picture);
-			setSize(background.getWidth(this), background.getHeight(this));
+			this.g = this.getGraphics();
+			this.ellipses = original.getEllipses();
+			this.background = Toolkit.getDefaultToolkit().getImage(picture);
+			this.setSize(background.getWidth(this), background.getHeight(this));
 		}
 		
 		public void paint(Graphics g)
 		{
-			super.paint(g);
 			g.drawImage(background, 0, 0, background.getWidth(this), background.getHeight(this), this);
 	    	for(SingleEllipse singleEllipse : ellipses)
 	    		singleEllipse.draw((Graphics2D) g);
@@ -188,9 +200,10 @@ public class StaticGraph extends JComponent implements ActionListener
 				if (hist != null)
 					hist = hist.getNext();
 	    	}
+			this.g = this.getGraphics();
 		}
 		
-		public void stepBack (Graphics g)
+		public void stepBack ()
 		{
 			g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 			g.drawImage(background, 0, 0, background.getWidth(this), background.getHeight(this), this);
@@ -215,7 +228,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	    	}
 		}
 		
-		public void stepToStart (Graphics g)
+		public void stepToStart ()
 		{
 			g.clearRect(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 			g.drawImage(background, 0, 0, background.getWidth(this), background.getHeight(this), this);
@@ -225,7 +238,7 @@ public class StaticGraph extends JComponent implements ActionListener
 			cursor = firstHistory;
 		}
 		
-		public void stepForward(Graphics g)
+		public void stepForward()
 		{
 			if(cursor != null)
 	    	{
@@ -242,7 +255,7 @@ public class StaticGraph extends JComponent implements ActionListener
 	    	}
 		}
 		
-		public void stepToEnd (Graphics g)
+		public void stepToEnd ()
 		{
 			if (cursor != null)
 	    	{
