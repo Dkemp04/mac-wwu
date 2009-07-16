@@ -1,12 +1,15 @@
 package GUI.Tools;
 
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.*;
-import java.util.LinkedList;
+import java.util.*;
 
 import GUI.Main.MainFrame;
 
+/**
+ * 
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class MapManager implements Serializable
 {
 	private static final long serialVersionUID = 3053489811089182476L;

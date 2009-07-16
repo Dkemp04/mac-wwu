@@ -1,9 +1,10 @@
 package GUI.Tools;
-import java.io.IOException;
+
+import java.io.*;
 
 /**
  * Klasse, die dafür sorgt, dass eine übergebene URL im Browser geöffnet wird
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class OpenURL
 {
