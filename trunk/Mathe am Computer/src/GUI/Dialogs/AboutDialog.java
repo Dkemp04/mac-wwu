@@ -21,17 +21,17 @@ public class AboutDialog extends JDialog
 		super((JFrame) parent, "Über", true);
 		
 		imagePane = new JPanel();
-		description = new JLabel("Test");
+		description = new JLabel("TestdsadasdsafdgfdfdsfesfrefDScfe");
 		description.setForeground(Color.BLACK);
 		
 		img = Toolkit.getDefaultToolkit().getImage(MainFrame.WORKSPACE + "/images/banner.jpg");
 		
 		this.setLayout(new BorderLayout());
-		
 		this.add(imagePane, BorderLayout.CENTER);
 		this.add(description, BorderLayout.SOUTH);
 		
-		this.setSize(img.getWidth(imagePane), img.getHeight(imagePane));
+		this.pack();
+		//this.setSize(img.getWidth(imagePane), img.getHeight(imagePane));
 		this.setLocation(parent.getX() + 128, parent.getY() + 128);
 		//this.setResizable(false);
 		this.setVisible(true);
