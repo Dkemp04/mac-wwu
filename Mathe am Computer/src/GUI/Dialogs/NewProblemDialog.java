@@ -280,11 +280,11 @@ public class NewProblemDialog extends JDialog implements ActionListener
 						{
 							if (i == 0)
 							{
-								newProblem.AddStartingPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
+								newProblem.addStartingPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
 							}
 							else
 							{
-								newProblem.AddPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
+								newProblem.addPoint(new Point(map.getEllipses().get(i).getX(), map.getEllipses().get(i).getY()));
 							}
 						}
 					}

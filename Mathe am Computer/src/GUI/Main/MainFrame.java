@@ -1,11 +1,10 @@
 package GUI.Main;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+
+import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.*;
 
 import GUI.Dialogs.SplashDialog;
 import GUI.Tools.MapManager;
@@ -19,8 +18,15 @@ public class MainFrame extends JFrame implements WindowListener
 	private static final long serialVersionUID = 995601029595640937L;
 
 	public static String WORKSPACE = "C:/Users/Daniel Kemper/Desktop/Mathe am Computer/Workspace/Mathe am Computer";
+	public static final String DEFAULT_ENDING = "tsp";
+	public static final String JPG_ENDING = "jpg";
+	public static final String JPEG_ENDING = "jpeg";
+	public static final String GIF_ENDING = "gif";
+	public static final String PNG_ENDING = "png";
+	public static final String MAP_ENDING = "map";
 	public static final int w = 1024, h = 768;
-	MapManager manager;
+	
+	private MapManager manager;
 	
 	//Deklarierung der GUI-Elemente
 	private DesktopArea desktop;		//Desktop-Bereich, in dem interne Fenster erzeugt werden können. Dieser Bereich dient zur Darstellung der Probleme, der Heuristiken und der Vergleiche der Heuristiken
@@ -32,8 +38,6 @@ public class MainFrame extends JFrame implements WindowListener
 	{
 		//Aufruf des Konstruktors der Superklasse und Einstellung des Titels
 		super("Traveller");
-		this.setIconImage(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/images/icon.gif"));
-		manager = new MapManager();
 		
 		//try -und catch-Block, der zur Einstellung des Windows-Look-and-Feels dient
 		try
@@ -42,21 +46,18 @@ public class MainFrame extends JFrame implements WindowListener
 			SwingUtilities.updateComponentTreeUI(this);
 		}
 		//Abfangen von Exceptions, die bei der Umschaltung des Look-and-Feels auftreten können und Ausgabe von Fehlermeldungen
-		catch (Exception e) {
-			System.err.println(e.toString());}
+		catch (Exception e)
+		{	System.err.println(e.toString());}
 		
-		//Initialisierung aller GUI-Elemente und Übergabe des Hauptfensters als Vater-Container
+		//
 		controls = new Controlbar(this);
 		desktop = new DesktopArea(this);
-		
-		//Test
-		controls.toString();
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/images/icon.gif"));
+		manager = new MapManager();
 		
 		//Allgemeine Einstellung des Hauptfenster
 		this.addWindowListener(this);
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		this.setLocation(((int) d.getWidth() - w) / 2, ((int) d.getHeight() - h) / 2);
+		this.setLocation(((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2)- (w / 2) , ((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2) - (h / 2) );
 		this.setSize(w, h);
 	    this.setVisible(true);
 	}
@@ -73,26 +74,15 @@ public class MainFrame extends JFrame implements WindowListener
 	public MapManager getMapManager ()
 	{		return manager;}
 	
-	/**Main-Methode zum Start des Programmes zurückgibt
-	 */
-	public static void main(String[] args)
-	{
-		SplashDialog test = new SplashDialog(WORKSPACE + "/images/logo.jpg", 800, 600, 3000);
-		test.start();
-		while (test.isRunning()){}
-		new MainFrame();
-		
-	}
-
+	
 	public void windowClosing (WindowEvent e)
 	{
-		if (getDesktop().getDesktopPane().getSelectedFrame() != null)
+		while (getDesktop().toJDesktopPane().getAllFrames().length > 0)
 		{
-			ChildFrame selectedChild = (ChildFrame) getDesktop().getDesktopPane().getSelectedFrame();
+			ChildFrame selectedChild = (ChildFrame) getDesktop().toJDesktopPane().getSelectedFrame();
 			selectedChild.internalFrameClosing(new InternalFrameEvent(selectedChild, InternalFrameEvent.INTERNAL_FRAME_CLOSING));
 		}
-		else
-			System.exit(0);
+		System.exit(0);
 	}
 	public void windowDeactivated (WindowEvent e){}
 	public void windowDeiconified (WindowEvent e){}
@@ -100,4 +90,14 @@ public class MainFrame extends JFrame implements WindowListener
 	public void windowIconified (WindowEvent e){}
 	public void windowClosed (WindowEvent e){}
 	public void windowActivated (WindowEvent e){}
+	
+	/**Main-Methode zum Start des Programmes zurückgibt
+	 */
+	public static void main(String[] args)
+	{
+		SplashDialog splash = new SplashDialog(WORKSPACE + "/images/logo.jpg", 800, 600, 3000);
+		splash.start();
+		while (splash.isRunning()){}
+		new MainFrame();
+	}
 }
