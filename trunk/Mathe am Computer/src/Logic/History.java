@@ -2,6 +2,10 @@ package Logic;
 
 import java.io.*;
 
+/**
+ * 
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class History implements Serializable
 {
 	private static final long serialVersionUID = -5920980291138882480L;

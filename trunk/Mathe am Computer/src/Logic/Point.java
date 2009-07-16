@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 /**
  * Eine Datenhaltungsklasse für einen Punkt
- * @author s_pich02
- *
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class Point implements Serializable {
 
