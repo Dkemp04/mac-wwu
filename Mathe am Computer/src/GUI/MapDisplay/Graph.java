@@ -1,4 +1,5 @@
 package GUI.MapDisplay;
+
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -7,7 +8,10 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
+/**
+ * 
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class Graph extends JPanel
 {
 	//Deklarierung der serialVersionUID für die serialisierbare Klasse Graph
@@ -92,6 +96,10 @@ public class Graph extends JPanel
 		return this.imagePath;
 	}
 	
+	/**
+	 * 
+	 * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+	 */
 	public class DrawingCanvas extends Canvas
     {
     	//Deklarierung der serialVersionUID für die serialisierbare Klasse DrawingCanvas
