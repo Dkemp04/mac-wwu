@@ -1,9 +1,10 @@
 package GUI.Tools;
+
 import java.awt.*;
 import javax.swing.*;
 
 /**Klasse, die einen leeren Rahmen um einen Container setzt, um das Layout zu verbessern
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class WhitespaceFrame extends JPanel
 {
