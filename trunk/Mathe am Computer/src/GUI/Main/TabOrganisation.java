@@ -1,9 +1,10 @@
 package GUI.Main;
+
 import java.awt.*;
 import javax.swing.*;
 
 /**
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class TabOrganisation extends JTabbedPane
 {

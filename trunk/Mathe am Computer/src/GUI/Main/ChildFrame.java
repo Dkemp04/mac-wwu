@@ -8,6 +8,10 @@ import GUI.MapDisplay.*;
 import Logic.Logic;
 import Methods.*;
 
+/**
+ * 
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class ChildFrame extends JInternalFrame implements InternalFrameListener
 {
 	private static final long serialVersionUID = -8268041752214054122L;
