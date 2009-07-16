@@ -50,7 +50,7 @@ public class MainFrame extends JFrame implements WindowListener
 		{	System.err.println(e.toString());}
 		
 		//
-		controls = new Controlbar(this);
+		controls = new Controlbar(this);	controls.toString();
 		desktop = new DesktopArea(this);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/images/icon.gif"));
 		manager = new MapManager();
