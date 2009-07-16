@@ -1,13 +1,11 @@
 package Methods;
 
-import java.util.ArrayList;
+import java.util.*;
+import Logic.*;
 
-import Logic.Point;
-import Logic.Problem;
-
-
-// FÃ¼ge das Element ein, durch das der Teilring am wenigsten LÃ¤nge zunimmt
-
+/**Füge das Element ein, durch das der Teilring am wenigsten Länge zunimmt
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class Insert extends Method
 {
 	private static final long serialVersionUID = -7999385348898024575L;

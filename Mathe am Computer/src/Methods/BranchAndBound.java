@@ -1,8 +1,10 @@
 package Methods;
 
-import Logic.Point;
-import Logic.Problem;
+import Logic.*;
 
+/**
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class BranchAndBound extends Method
 {
 	private static final long serialVersionUID = -8304703391224488672L;
