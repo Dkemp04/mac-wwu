@@ -1,17 +1,15 @@
 package GUI.Dialogs;
 
 import java.io.*;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import GUI.Main.MainFrame;
+import GUI.Main.*;
+import GUI.Tools.*;
 import Logic.*;
-import Storage.*;
 
 /**
  * Dialog, der zum Öffnen von vorhandenen Problemen geöffnet wird
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class DataDialog extends JFileChooser
 {
@@ -50,20 +48,24 @@ public class DataDialog extends JFileChooser
     	this.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         
         //Setzt den Filter des Dialoges auf .tsp -und .dat - Dateien fest. Damit werden Dateien mit anderen Dateiendungen standardmäßig ausgeblendet
-        this.setFileFilter( new FileNameExtensionFilter("*." + ending, "ending") );
+        this.setFileFilter( new FileNameExtensionFilter("*." + ending, ending) );
         
         //Blendet den Dialog ein und 
         int result = this.showOpenDialog(null);
         
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
-        {        	openLogic = new ObjectSerialization().openLogic(this.getSelectedFile().toString(), ending);}
-        
-        //Blendet den Dialog aus
-        this.setVisible(false);
-        
-        //Gibt das geöffnete Problem zurück
-        return openLogic;
+        {
+        	//
+        	openLogic = new StorageOrganisation().openLogic(this.getSelectedFile().toString(), ending);
+        	
+        	//Blendet den Dialog aus
+            this.setVisible(false);
+        	
+        	//Gibt das geöffnete Problem zurück
+            return openLogic;
+        }
+        return null;
     }
     
     public String openImage (String ending)
@@ -81,7 +83,7 @@ public class DataDialog extends JFileChooser
     	this.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
     	
         //Setzt den Filter des Dialoges auf .tsp -und .dat - Dateien fest. Damit werden Dateien mit anderen Dateiendungen standardmäßig ausgeblendet
-    	this.setFileFilter( new FileNameExtensionFilter("*." + ending, "ending") );
+    	this.setFileFilter( new FileNameExtensionFilter("*." + ending, ending) );
         
         //Blendet den Dialog ein und 
         int result = this.showOpenDialog(null);
@@ -89,16 +91,15 @@ public class DataDialog extends JFileChooser
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
         {
+        	//
         	imagePath = this.getSelectedFile().toString();
+        	
+        	//Blendet den Dialog aus
+            this.setVisible(false);
         	
         	//Gibt das geöffnete Problem zurück
             return imagePath;
         }
-        
-        //Blendet den Dialog aus
-        this.setVisible(false);
-        
-        //Gibt das geöffnete Problem zurück
         return null;
     }
     
@@ -124,12 +125,16 @@ public class DataDialog extends JFileChooser
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
         {
-        	new ObjectSerialization().save(filename, ending, saveLogic);
+        	//
+        	new StorageOrganisation().save(filename, ending, saveLogic);
+        	
+            //Blendet den Dialog aus
+        	this.setVisible(false);
+        	
+        	//
+            return filename;
         }
-        
-        //Blendet den Dialog aus
-        this.setVisible(false);
-        return filename;
+        return null;
 	}
     
     public String openDirectory(String home)
@@ -151,12 +156,16 @@ public class DataDialog extends JFileChooser
         
         //Überprüfung, ob der Dialog mit "Öffnen" bestätigt wurde und Laden der Datei mit der Klasse "ObjectDeserialization"
         if (result == JFileChooser.APPROVE_OPTION)
-        {        	path = chooser.getSelectedFile().toString();}
-        
-        //Blendet den Dialog aus
-        chooser.setVisible(false);
-        
-        //
-        return path;
+        {
+        	//
+        	path = chooser.getSelectedFile().toString();
+        	
+        	//Blendet den Dialog aus
+            chooser.setVisible(false);
+            
+            //
+            return path;
+        }
+        return null;
     }
 }

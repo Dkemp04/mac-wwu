@@ -1,21 +1,17 @@
 package GUI.Dialogs;
+
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-
-import GUI.Main.ChildFrame;
-import GUI.Main.MainFrame;
-import GUI.MapDisplay.Graph;
-import GUI.MapDisplay.StaticGraph;
-import GUI.Tools.WhitespaceFrame;
+import GUI.Main.*;
+import GUI.MapDisplay.*;
+import GUI.Tools.*;
 import Logic.*;
 import Logic.Point;
-import Methods.BranchAndBound;
-import Methods.MST;
-import Methods.NearestNeighbor;
+import Methods.*;
 
 /**
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class NewProblemDialog extends JDialog implements ActionListener
 {
@@ -44,8 +40,8 @@ public class NewProblemDialog extends JDialog implements ActionListener
 	private JButton ready2;
 	
 	//Deklarierung der Heuristik-Auswahl und -Beschreibung im ersten Schritt der Problemerstellung
-	private JPanel heuristics;
-	private JPanel heuristics_selection;
+	private JPanel methods;
+	private JPanel methods_selection;
 	private JTextArea description;
 	
 	private JCheckBox bab;
@@ -87,11 +83,11 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		buttons1.add(forward1);
 		
 		//Erzeugung und Einstellung der Auswahl der Heuristik (und den einzelnen Checkboxes) und dessen Beschreibung
-		heuristics = new JPanel();
-		heuristics.setLayout(new GridLayout(1,2));
-		heuristics_selection = new JPanel();
-		heuristics_selection.setLayout(new BoxLayout(heuristics_selection, BoxLayout.Y_AXIS));
-		heuristics_selection.setBorder(BorderFactory.createTitledBorder("Verfahren"));
+		methods = new JPanel();
+		methods.setLayout(new GridLayout(1,2));
+		methods_selection = new JPanel();
+		methods_selection.setLayout(new BoxLayout(methods_selection, BoxLayout.Y_AXIS));
+		methods_selection.setBorder(BorderFactory.createTitledBorder("Verfahren"));
 		description = new JTextArea();
 		description.setEnabled(false);
 		description.setBorder(BorderFactory.createTitledBorder("Beschreibung"));
@@ -102,7 +98,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 
 		
 		bab = new JCheckBox("Branch-and-Bound");
-		heuristics_selection.add(bab);
+		methods_selection.add(bab);
 		bab.addMouseListener(new MouseAdapter(){
 			public void mouseEntered (MouseEvent e){
 				if (bab.contains(e.getX(), e.getY())){ 
@@ -112,7 +108,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		bab.addActionListener(this);
 		
 		mst = new JCheckBox("Minimal Spanning Tree");
-		heuristics_selection.add(mst);
+		methods_selection.add(mst);
 		mst.addMouseListener(new MouseAdapter(){
 			public void mouseEntered (MouseEvent e){
 				if (bab.contains(e.getX(), e.getY())){ 
@@ -122,7 +118,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		mst.addActionListener(this);
 		
 		nn = new JCheckBox("Nearest Neighbor");
-		heuristics_selection.add(nn);
+		methods_selection.add(nn);
 		nn.addMouseListener(new MouseAdapter(){
 			public void mouseEntered (MouseEvent e){
 				if (nn.contains(e.getX(), e.getY())){ 
@@ -132,7 +128,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		nn.addActionListener(this);
 		
 		sa = new JCheckBox("Simulated Annealing");
-		heuristics_selection.add(sa);
+		methods_selection.add(sa);
 		sa.addMouseListener(new MouseAdapter(){
 			public void mouseEntered (MouseEvent e){
 				if (bab.contains(e.getX(), e.getY())){ 
@@ -142,7 +138,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		sa.addActionListener(this);
 		
 		sam = new JCheckBox("Selbst­organisierende Karte");
-		heuristics_selection.add(sam);
+		methods_selection.add(sam);
 		sam.addMouseListener(new MouseAdapter(){
 			public void mouseEntered (MouseEvent e){
 				if (bab.contains(e.getX(), e.getY())){ 
@@ -152,7 +148,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		sam.addActionListener(this);
 		
 		ch = new JCheckBox("Christofides-Heuristik");
-		heuristics_selection.add(ch);
+		methods_selection.add(ch);
 		ch.addMouseListener(new MouseAdapter(){
 			public void mouseEntered (MouseEvent e){
 				if (bab.contains(e.getX(), e.getY())){ 
@@ -162,7 +158,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		ch.addActionListener(this);
 		
 		koh = new JCheckBox("K-Opt-Heuristik");
-		heuristics_selection.add(koh);
+		methods_selection.add(koh);
 		koh.addMouseListener(new MouseAdapter(){
 			public void mouseEntered (MouseEvent e){
 				if (bab.contains(e.getX(), e.getY())){ 
@@ -171,8 +167,8 @@ public class NewProblemDialog extends JDialog implements ActionListener
 				description.setText("");}});
 		koh.addActionListener(this);
 		
-		heuristics.add(heuristics_selection);
-		heuristics.add(description);
+		methods.add(methods_selection);
+		methods.add(description);
 		
 		
 		//Erzeugung des oberen Bereichs zur Eingabe des Namens und der Anzahl an Knoten
@@ -198,7 +194,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 		center1.setLayout(new BorderLayout());
 		
 		center1.add(head, BorderLayout.NORTH);
-		center1.add(heuristics, BorderLayout.CENTER);
+		center1.add(methods, BorderLayout.CENTER);
 		center1.add(buttons1, BorderLayout.SOUTH);
 		
 		step1 = (JPanel) new WhitespaceFrame().decorate(center1);
@@ -267,7 +263,7 @@ public class NewProblemDialog extends JDialog implements ActionListener
 			}
 			else if (!bab.isSelected() && !mst.isSelected() && !nn.isSelected() && !sa.isSelected() && !sam.isSelected() && !ch.isSelected() && !koh.isSelected())
 			{
-				JOptionPane.showMessageDialog(this, "Bitte wählen Sie mindestens eine Heuristik zur Lösung aus", "Fehlende Heuristik", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Bitte wählen Sie mindestens eine Methode zur Lösung aus.", "Fehlende Methode", JOptionPane.WARNING_MESSAGE);
 			}
 			else
 			{

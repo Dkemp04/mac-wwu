@@ -3,6 +3,10 @@ package GUI.Dialogs;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * 
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
+ */
 public class SplashDialog extends Thread
 {
 	private static final long serialVersionUID = -1048382339479929593L;

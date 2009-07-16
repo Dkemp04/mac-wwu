@@ -1,11 +1,12 @@
 package GUI.Dialogs;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 /**
  * Optionen-Fenster, dass zur Einstellung des verschiedenen Look-and-Feels dient
- * @author d_kemp04, chrvogel, u_aksa01, s_pich02
+ * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
 public class OptionsDialog extends JDialog  implements ActionListener
 {
