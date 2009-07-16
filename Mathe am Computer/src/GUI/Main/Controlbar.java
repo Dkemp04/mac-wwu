@@ -127,24 +127,20 @@ public class Controlbar implements ActionListener
 		if (event.getActionCommand().equals("Neu"))
 		{
 			//Eingabe-Dialog zur Erzeugung eines neuen Problems wird aufgerufen und eingestellt
-			NewProblemDialog problem = new NewProblemDialog(parent);
-			problem.setAlwaysOnTop(true);
-			problem.setModal(true);
+			new NewProblemDialog(parent);
 		}
 		else if (event.getActionCommand().equals("Öffnen"))
-		{
-			//Eingabe-Dialog zum Öffnen von gespeicherten Problemen wird augerufen
-			DataDialog open_dialog = new DataDialog();
-			
+		{			
 			//Neues Problem wird erzeugt aus dem Rückgabewert des Dialogs
-			Logic  openLogic = open_dialog.openLogic(MainFrame.DEFAULT_ENDING);
+			Logic  openLogic = new DataDialog().openLogic(MainFrame.DEFAULT_ENDING);
 			
 			//Graph zur Darstellung des Problems wird erzeugt
 			Graph map = new Graph(MainFrame.WORKSPACE + "/images");
 			
 			if (openLogic != null)
 			{
-				for(Point add : openLogic.getProblem().getPoints()){
+				for(Point add : openLogic.getProblem().getPoints())
+				{
 					map.addEllipse(add.getX(), add.getY());
 				}
 				StaticGraph display = new StaticGraph(parent, map);
@@ -171,7 +167,7 @@ public class Controlbar implements ActionListener
 		{
 			ChildFrame selectedChild = (ChildFrame) ((MainFrame) parent).getDesktop().toJDesktopPane().getSelectedFrame();
 			if (selectedChild != null)
-				new StorageOrganisation().save(selectedChild.getTitle(), MainFrame.DEFAULT_ENDING, selectedChild.getLogic());
+				StorageOrganisation.save(selectedChild.getTitle(), MainFrame.DEFAULT_ENDING, selectedChild.getLogic());
 		}
 		else if (event.getActionCommand().equals("Speichern unter..."))
 		{
@@ -194,7 +190,7 @@ public class Controlbar implements ActionListener
 				imageName = JOptionPane.showInputDialog(parent, "Bitte geben Sie das Land an, zu welchem die Karte zugeordnet werden soll.", "Bitte Land eingeben", JOptionPane.INFORMATION_MESSAGE);
 			if (imagePath != null || imageName != null)
 				((MainFrame) parent).getMapManager().addMap(imageName, imagePath);
-			new StorageOrganisation().save("Maps", MainFrame.MAP_ENDING, ((MainFrame) parent).getMapManager());
+			StorageOrganisation.save("Maps", MainFrame.MAP_ENDING, ((MainFrame) parent).getMapManager());
 		}
 		else if (event.getActionCommand().equals("Beenden"))
 		{
