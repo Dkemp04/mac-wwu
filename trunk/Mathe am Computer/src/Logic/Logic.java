@@ -30,6 +30,9 @@ public class Logic extends Thread implements Serializable
 		this.display=display;
 	}
 	
+	public LinkedList<Method> getMethods ()
+	{	return methodes;}
+	
 	/**
 	 * Fügt eine Methode zur Bearbeitung hinzu.
 	 * @param methode
