@@ -52,7 +52,7 @@ public class MainFrame extends JFrame implements WindowListener
 		new Controlbar(this);
 		
 		desktop = new DesktopArea(this);
-		new Summary(this);
+		//new Summary(this);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/images/icon.gif"));
 		manager = new MapManager();
 		
