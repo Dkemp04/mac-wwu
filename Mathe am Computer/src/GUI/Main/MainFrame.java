@@ -5,9 +5,9 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
-import GUI.Dialogs.SplashDialog;
-import GUI.Tools.MapManager;
+import GUI.Dialogs.*;
+import GUI.MapDisplay.*;
+import GUI.Tools.*;
 
 /**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
  * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
@@ -28,9 +28,8 @@ public class MainFrame extends JFrame implements WindowListener
 	
 	private MapManager manager;
 	
-	//Deklarierung der GUI-Elemente
+	//Deklarierung der GUI-Elemente	
 	private DesktopArea desktop;		//Desktop-Bereich, in dem interne Fenster erzeugt werden können. Dieser Bereich dient zur Darstellung der Probleme, der Heuristiken und der Vergleiche der Heuristiken
-	private Controlbar controls;		//Menü-Leiste zum Aufruf der wesentlichen Funktionen des Programmes
 	
 	/**Konstruktor, der die Darstellung ein Einstellung aller GUI-Elemente übernimmt
 	 */
@@ -49,9 +48,11 @@ public class MainFrame extends JFrame implements WindowListener
 		catch (Exception e)
 		{	System.err.println(e.toString());}
 		
-		//
-		controls = new Controlbar(this);	controls.toString();
+		//Menü-Leiste zum Aufruf der wesentlichen Funktionen des Programmes
+		new Controlbar(this);
+		
 		desktop = new DesktopArea(this);
+		new Summary(this);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(WORKSPACE + "/images/icon.gif"));
 		manager = new MapManager();
 		
