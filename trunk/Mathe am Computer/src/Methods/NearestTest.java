@@ -2,13 +2,13 @@ package Methods;
 
 import Logic.Point;
 import Logic.Problem;
-
-//import junit.framework.TestCase;
+import junit.framework.TestCase;
 
 /*
  * @author Steffen Pichler, Christian Vogel, Veysel Aksak, Daniel Kemper
  */
-public class NearestTest /*extends TestCase*/ {
+public class NearestTest extends TestCase
+{
 	public void testNearest(){
 		Problem problem = new Problem();
 		try{

@@ -6,7 +6,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import GUI.Dialogs.*;
-import GUI.MapDisplay.*;
 import GUI.Tools.*;
 
 /**Hauptklasse, die zur Erzeugung aller GUI-Elemente des Hauptfensters zuständig ist
