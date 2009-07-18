@@ -300,13 +300,13 @@ public class NewProblemDialog extends JDialog implements ActionListener
 					
 					ChildFrame newChild = ((MainFrame) parent).getDesktop().addChildFrame(parent, map, logic, name.getText(), display.getX() + 10, display.getY() + 10, (map.getWidth()*2) + 10, map.getHeight() + 20);
 					newChild.addTabToChildFrame("Ausgangssituation", display);
-					Summary summary = new Summary(parent);
-					//summary.addFigure("Durchlaufzeit", "30");
+					/*Summary summary = new Summary(parent);
+					summary.addFigure("Durchlaufzeit", "30");
 					String[] methods = new String[logic.getMethods().size()];
 					for (int i = 0; i < logic.getMethods().size(); i++)
 						methods[i] = logic.getMethods().get(i).getMethodName();
 					summary.setMethods(methods);
-					newChild.addTabToChildFrame("Vergleich", summary);
+					newChild.addTabToChildFrame("Vergleich", summary);*/
 					this.dispose();
 				}
 			}

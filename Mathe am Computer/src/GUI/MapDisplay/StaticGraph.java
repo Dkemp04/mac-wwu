@@ -54,11 +54,8 @@ public class StaticGraph extends JComponent implements ActionListener
 		this.firstHistory = history;
 		this.lastHistory = history;
 		
-		while(firstHistory != null)
-		{	firstHistory = firstHistory.getPrev();}
 		while(lastHistory != null)
 		{	lastHistory = lastHistory.getNext();}
-		
 		
 		description = new JTextArea();
 		description.setBorder(BorderFactory.createTitledBorder("Beschreibung"));
@@ -121,8 +118,9 @@ public class StaticGraph extends JComponent implements ActionListener
 			description.setText("");
 			stepNr = 1;
 			
+			cursor = cursor.getPrev();
 			History hist = firstHistory;
-			while (hist != cursor && cursor != null)
+			while (hist != cursor.getNext() && hist != null)
 			{
 				description.append(stepNr + ". Schritt: " + hist.toString() + "\n");
 				stepNr++;
@@ -149,7 +147,7 @@ public class StaticGraph extends JComponent implements ActionListener
 			stepNr = 1;
 			
 			History hist = firstHistory;
-			while (hist != null)
+			while (hist != lastHistory)
 			{
 				description.append(stepNr + ". Schritt: " + hist.toString() + "\n");
 				stepNr++;
@@ -210,20 +208,14 @@ public class StaticGraph extends JComponent implements ActionListener
 	    	
 			if (cursor != null && cursor.getPrev() != null)
 				cursor = cursor.getPrev();
+			
 			History hist = firstHistory;
-	    	if(hist != null)
-	    	{
-				if( hist.getLineEnd() != null &&  hist.getLineStart() != null)
-					g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
-				while (hist != cursor.getNext())
-		    	{
-		    		hist = hist.getNext();
-		    		if( hist != null && hist.getLineEnd() != null &&  hist.getLineStart() != null)
-		    			g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
-		    	}
-				if (hist != null)
-					hist = hist.getNext();
-	    	}
+			while (hist != cursor)
+		    {
+		    	hist = hist.getNext();
+		    	if( hist != null && hist.getLineEnd() != null &&  hist.getLineStart() != null)
+		    		g.drawLine(Double.valueOf(hist.getLineStart().getX()).intValue(), Double.valueOf(hist.getLineStart().getY()).intValue(), Double.valueOf(hist.getLineEnd().getX()).intValue(), Double.valueOf(hist.getLineEnd().getY()).intValue());
+		    }
 		}
 		
 		public void stepToStart ()
@@ -240,34 +232,24 @@ public class StaticGraph extends JComponent implements ActionListener
 		{
 			if(cursor != null)
 	    	{
-				if( cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
-					g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());
-	    		if (cursor != null)
+	    		cursor = cursor.getNext();
+		    	if( cursor != lastHistory && cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
 		    	{
-	    			cursor = cursor.getNext();
-		    		if( cursor != lastHistory && cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
-		    		{
-		    			g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());	
-		    		}
+		    		g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());	
 		    	}
 	    	}
 		}
 		
 		public void stepToEnd ()
 		{
-			if (cursor != null)
-	    	{
-				if( cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
-					g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());
-	    		while (cursor != null)
+			while (cursor != null)
+		    {
+	    		cursor = cursor.getNext();
+		    	if( cursor != null && cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
 		    	{
-	    			cursor = cursor.getNext();
-		    		if( cursor != null && cursor.getLineEnd() != null &&  cursor.getLineStart() != null)
-		    		{
-		    			g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());	
-		    		}
+		    		g.drawLine(Double.valueOf(cursor.getLineStart().getX()).intValue(), Double.valueOf(cursor.getLineStart().getY()).intValue(), Double.valueOf(cursor.getLineEnd().getX()).intValue(), Double.valueOf(cursor.getLineEnd().getY()).intValue());	
 		    	}
-	    	}
+		    }
 		}
 	}
 }
