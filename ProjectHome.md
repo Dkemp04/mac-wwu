@@ -1,0 +1,2 @@
+MAC steht für Mathe am Computer und ist ein Programmierprojekt, welches zur Vorlesung Operations Resarch der Westfälischen Wilhelms-Universität im Studiengang Wirtschaftsinformatik ist. Hierbei werden verschiedene Thematiken der Vorlesung in Programme implementiert und vorgestellt.
+Die Gruppe entwickelt hierzu eine Software, die das Travelling Salesman-Problem auf verschiedene Arten und Methoden löst.
